@@ -1,6 +1,6 @@
 /* vim: set sw=2 sts=2 ts=2 et: */
 
-(async function pullWork() {
+(async function pullAll() {
   const TODOIST_TOKEN = window.TODOIST_TOKEN;
   const PROJECT_ID = window.TODOIST_WORK_PROJECT_ID ;
   const FILTER = encodeURIComponent('(!#Work & !#Inbox & !#Quick Capture & !#Routine) & 2days');
