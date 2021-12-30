@@ -3,7 +3,7 @@
 (async function pullAll() {
   const TODOIST_TOKEN = window.TODOIST_TOKEN;
   const PROJECT_ID = window.TODOIST_WORK_PROJECT_ID ;
-  const FILTER = encodeURIComponent('(!#Work & !#Inbox & !#Quick Capture & !#Routine) & 2days');
+  const FILTER = encodeURIComponent('(!#Work & !#Inbox & !#Quick Capture & !#Routine) & @roam & 2days');
 
   const getTodoistProjects = async () => {
     const url = `https://api.todoist.com/rest/v1/projects`;
