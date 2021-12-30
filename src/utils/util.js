@@ -26,7 +26,7 @@ window.getTodoistId = (url) => {
 }
 
 window.createTodoistTaskString = ({ task, project }) => {
-  let taskString = `{{[[TODO]]}} ${task.content} [🔗](${task.url})`;
+  let taskString = `${task.content} [🔗](${task.url})`;
 
   // priority
   let priority = "";
@@ -39,12 +39,7 @@ window.createTodoistTaskString = ({ task, project }) => {
   } else if (task.priority == "1") {
     priority = "p4";
   }
-  taskString = `${taskString} #priority/${priority}`;
-
-  // due date
-  if (task.due) {
-  taskString = `${taskString} [[${window.convertToRoamDate(task.due.date)}]]`;
-  }
+  taskString = `#priority/${priority} ${taskString}`;
 
   // add id
   const taskId = window.getTodoistId(task.url);
@@ -52,9 +47,14 @@ window.createTodoistTaskString = ({ task, project }) => {
     taskString = `${taskString} #Todoist/${taskId}`;
   }
 
-  // project tag
-  taskString = `${taskString} #[[${project.name}]] #${TODOIST_TAG_NAME} `;
+  // due date
+  if (task.due) {
+    taskString = `${taskString} [[${window.convertToRoamDate(task.due.date)}]]`;
+  }
 
-  return taskString;
+  // project tag
+  taskString = `${taskString} #[[${project.name}]] #${TODOIST_TAG_NAME}`;
+
+  return `{{[[TODO]]}} ${taskString} `;
 }
 
