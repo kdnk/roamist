@@ -53,8 +53,6 @@
     if (task.description){
       await roam42.common.createBlock(currentBlockUid, 1, `desc:: ${task.description}`);
     }
-    await roam42.common.createBlock(currentBlockUid, 1, `note::`);
-
 
     // add subtask
     const subtasks = subTaskList.filter(subtask => subtask.parent_id === task.id);
