@@ -1,0 +1,63 @@
+/* vim: set sw=2 sts=2 ts=2 et: */
+
+(async function pullWork() {
+  const TODOIST_TOKEN = window.TODOIST_TOKEN;
+  const PROJECT_NAME = "Work";
+  const PROJECT_ID = window.TODOIST_WORK_PROJECT_ID ;
+  const FILTER = encodeURIComponent('2days');
+
+  const getTodoistTasks = async () => {
+    const url = `https://api.todoist.com/rest/v1/tasks?project_id=${PROJECT_ID}&filter=${FILTER}`;
+    const bearer = 'Bearer ' + TODOIST_TOKEN;
+    const tasks = await fetch(url, {
+      headers: {
+        Authorization: bearer,
+      }
+    }).then(res => res.json());
+    return tasks;
+  }
+
+  const tasks = await getTodoistTasks();
+  const taskList = tasks.filter(task => !task.parent_id);
+  taskList.sort((a, b) => {
+    return b.priority - a.priority;
+  });
+  const subTaskList = tasks.filter(task => task.parent_id);
+
+  const cursorBlockUid = roam42.common.currentActiveBlockUID();
+  let currentBlockUid = cursorBlockUid;
+  for ([taskIndex, task] of taskList.entries()) {
+    currentBlockUid = await roam42.common.createSiblingBlock(currentBlockUid, window.createTodoistTaskString(task), true);
+
+    // add description
+    if (task.description){
+      await roam42.common.createBlock(currentBlockUid, 1, `desc:: ${task.description}`);
+    }
+    await roam42.common.createBlock(currentBlockUid, 1, `note::`);
+
+
+    // add subtask
+    const subtasks = subTaskList.filter(subtask => subtask.parent_id === task.id);
+    let currentSubBlockUid;
+    for ([subtaskIndex, subtask] of subtasks.entries()) {
+      if (subtaskIndex === 0) {
+        currentSubBlockUid = await roam42.common.createBlock(currentBlockUid, 1, window.createTodoistTaskString(subtask));
+      } else {
+        currentSubBlockUid = await roam42.common.createSiblingBlock(currentSubBlockUid, window.createTodoistTaskString(subtask), true);
+      }
+
+      // add description
+      if (subtask.description) {
+        await roam42.common.createBlock(currentSubBlockUid, 2, `desc:: ${subtask.description}`);
+      }
+      await roam42.common.createBlock(currentSubBlockUid, 2, `note::`);
+
+    }
+    if (taskIndex === 0) {
+      await roam42.common.deleteBlock(cursorBlockUid);
+    }
+  }
+
+  return '';
+})();
+
