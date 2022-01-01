@@ -1,8 +1,9 @@
 /* vim: set sw=2 sts=2 ts=2 et: */
 
-window.TODOIST_TAG_NAME = "42Todoist";
+window.roamTodoistIntegration = {};
+window.roamTodoistIntegration.TODOIST_TAG_NAME = "42Todoist";
 
-window.convertToRoamDate = (dateString) => {
+window.roamTodoistIntegration.convertToRoamDate = (dateString) => {
   const parsedDate = dateString.split('-');
   const year = parsedDate[0];
   const month = Number(parsedDate[1]);
@@ -15,7 +16,7 @@ window.convertToRoamDate = (dateString) => {
   return `${monthName} ${day}${suffix}, ${year}`;
 }
 
-window.getTodoistId = (url) => {
+window.roamTodoistIntegration.getTodoistId = (url) => {
   try {
     const todoistId = url.match(/\d{10}/)[0];
     return todoistId;
@@ -25,7 +26,7 @@ window.getTodoistId = (url) => {
   }
 }
 
-window.createTodoistTaskString = ({ task, project }) => {
+window.roamTodoistIntegration.createTodoistTaskString = ({ task, project }) => {
   let taskString = `${task.content} [🔗](${task.url})`;
 
   // priority
@@ -42,18 +43,18 @@ window.createTodoistTaskString = ({ task, project }) => {
   taskString = `#priority/${priority} ${taskString}`;
 
   // add id
-  const taskId = window.getTodoistId(task.url);
+  const taskId = window.roamTodoistIntegration.getTodoistId(task.url);
   if (taskId) {
     taskString = `${taskString} #Todoist/${taskId}`;
   }
 
   // due date
   if (task.due) {
-    taskString = `${taskString} [[${window.convertToRoamDate(task.due.date)}]]`;
+    taskString = `${taskString} [[${window.roamTodoistIntegration.convertToRoamDate(task.due.date)}]]`;
   }
 
   // project tag
-  taskString = `${taskString} #[[${project.name}]] #${TODOIST_TAG_NAME}`;
+  taskString = `${taskString} #[[${project.name}]] #${window.roamTodoistIntegration.TODOIST_TAG_NAME}`;
 
   return `{{[[TODO]]}} ${taskString} `;
 }

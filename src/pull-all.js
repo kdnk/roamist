@@ -3,7 +3,7 @@
 (async function pullAll() {
   const TODOIST_TOKEN = window.TODOIST_TOKEN;
   const PROJECT_ID = window.TODOIST_WORK_PROJECT_ID ;
-  const FILTER = encodeURIComponent('(!#Work & !#Inbox & !#Quick Capture & !#Routine) & @roam & 2days');
+  const FILTER = encodeURIComponent('(!#🔨Work & !#Inbox & !#Quick Capture & !#♻Routine) & @roam & 2days');
 
   const getTodoistProjects = async () => {
     const url = `https://api.todoist.com/rest/v1/projects`;
@@ -47,7 +47,7 @@
   let currentBlockUid = cursorBlockUid;
   for ([taskIndex, task] of taskList.entries()) {
     const project = getTodoistProject(projects, task.project_id);
-    currentBlockUid = await roam42.common.createSiblingBlock(currentBlockUid, window.createTodoistTaskString({ task, project }), true);
+    currentBlockUid = await roam42.common.createSiblingBlock(currentBlockUid, window.roamTodoistIntegration.createTodoistTaskString({ task, project }), true);
 
     // add description
     if (task.description){
@@ -59,9 +59,9 @@
     let currentSubBlockUid;
     for ([subtaskIndex, subtask] of subtasks.entries()) {
       if (subtaskIndex === 0) {
-        currentSubBlockUid = await roam42.common.createBlock(currentBlockUid, 1, window.createTodoistTaskString({ task: subtask, project }));
+        currentSubBlockUid = await roam42.common.createBlock(currentBlockUid, 1, window.roamTodoistIntegration.createTodoistTaskString({ task: subtask, project }));
       } else {
-        currentSubBlockUid = await roam42.common.createSiblingBlock(currentSubBlockUid, window.createTodoistTaskString({ task: subtask, project }), true);
+        currentSubBlockUid = await roam42.common.createSiblingBlock(currentSubBlockUid, window.roamTodoistIntegration.createTodoistTaskString({ task: subtask, project }), true);
       }
 
       // add description

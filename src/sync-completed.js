@@ -24,7 +24,7 @@
   }
 
   const getTodoBlocksWithTodoistId = async () => {
-    const roamTodoBlocks = await getTodoBlocksReferringToThisPage(window.TODOIST_TAG_NAME);
+    const roamTodoBlocks = await getTodoBlocksReferringToThisPage(window.roamTodoistIntegration.TODOIST_TAG_NAME);
     return roamTodoBlocks.map(item => {
       const block = item[0];
       const { string } = block;

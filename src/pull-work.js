@@ -2,7 +2,6 @@
 
 (async function pullWork() {
   const TODOIST_TOKEN = window.TODOIST_TOKEN;
-  const PROJECT_NAME = "Work";
   const PROJECT_ID = window.TODOIST_WORK_PROJECT_ID ;
   const FILTER = encodeURIComponent('2days');
 
@@ -27,7 +26,7 @@
   const cursorBlockUid = roam42.common.currentActiveBlockUID();
   let currentBlockUid = cursorBlockUid;
   for ([taskIndex, task] of taskList.entries()) {
-    currentBlockUid = await roam42.common.createSiblingBlock(currentBlockUid, window.createTodoistTaskString(task), true);
+    currentBlockUid = await roam42.common.createSiblingBlock(currentBlockUid, window.roamTodoistIntegration.createTodoistTaskString(task), true);
 
     // add description
     if (task.description){
@@ -41,9 +40,9 @@
     let currentSubBlockUid;
     for ([subtaskIndex, subtask] of subtasks.entries()) {
       if (subtaskIndex === 0) {
-        currentSubBlockUid = await roam42.common.createBlock(currentBlockUid, 1, window.createTodoistTaskString(subtask));
+        currentSubBlockUid = await roam42.common.createBlock(currentBlockUid, 1, window.roamTodoistIntegration.createTodoistTaskString(subtask));
       } else {
-        currentSubBlockUid = await roam42.common.createSiblingBlock(currentSubBlockUid, window.createTodoistTaskString(subtask), true);
+        currentSubBlockUid = await roam42.common.createSiblingBlock(currentSubBlockUid, window.roamTodoistIntegration.createTodoistTaskString(subtask), true);
       }
 
       // add description
