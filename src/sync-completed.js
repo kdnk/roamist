@@ -1,6 +1,10 @@
 /* vim: set sw=2 sts=2 ts=2 et: */
 
-(async function syncComplete() {
+// (async function (options) {
+//   await window.roamTodoistIntegration.syncCompleted({ isButton: true });
+// })();
+
+window.roamTodoistIntegration.syncCompleted = async ({isButton}) => {
   const getActiveTodoistIds = async () => {
     const url = "https://api.todoist.com/rest/v1/tasks";
     const bearer = 'Bearer ' + window.TODOIST_TOKEN;
@@ -52,7 +56,14 @@
     await roam42.common.updateBlock(block.uid, newContent);
   }
 
+  if (isButton) {
+    const cursorBlockUid = roam42.common.currentActiveBlockUID();
+    if (cursorBlockUid) {
+      await roam42.common.deleteBlock(cursorBlockUid);
+    }
+  }
+
   return '';
-})();
+};
 
 

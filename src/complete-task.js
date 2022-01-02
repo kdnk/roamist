@@ -1,6 +1,10 @@
 /* vim: set sw=2 sts=2 ts=2 et: */
 
-(async function completeTask() {
+// (async function () {
+//   await window.roamTodoistIntegration.completeTask();
+// })();
+
+window.roamTodoistIntegration.completeTask = async () => {
   const TODOIST_TOKEN = window.TODOIST_TOKEN;
 
   const blockUid = roam42.common.currentActiveBlockUID();
@@ -23,5 +27,5 @@
   await roam42.common.updateBlock(blockUid, newContent);
 
   return '';
-})();
+};
 

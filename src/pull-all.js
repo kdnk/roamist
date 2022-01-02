@@ -1,6 +1,10 @@
 /* vim: set sw=2 sts=2 ts=2 et: */
 
-(async function pullAll() {
+// (async function () {
+//   await window.roamTodoistIntegration.pullAll();
+// })();
+
+window.roamTodoistIntegration.pullAll = async () => {
   const TODOIST_TOKEN = window.TODOIST_TOKEN;
   const PROJECT_ID = window.TODOIST_WORK_PROJECT_ID ;
   const FILTER = encodeURIComponent('(!#🔨Work & !#Inbox & !#Quick Capture & !#♻Routine) & @roam & 2days');
@@ -75,5 +79,5 @@
   }
 
   return '';
-})();
+};
 
