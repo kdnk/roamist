@@ -4,7 +4,7 @@
 //   await window.roamTodoistIntegration.syncCompleted({ isButton: true });
 // })();
 
-window.roamTodoistIntegration.syncCompleted = async ({isButton}) => {
+window.roamTodoistIntegration.syncCompleted = async () => {
   const getActiveTodoistIds = async () => {
     const url = "https://api.todoist.com/rest/v1/tasks";
     const bearer = 'Bearer ' + window.TODOIST_TOKEN;
@@ -54,13 +54,6 @@ window.roamTodoistIntegration.syncCompleted = async ({isButton}) => {
   for (block of completedBlocks) {
     const newContent = block.string.replace("{{[[TODO]]}}", "{{[[DONE]]}}")
     await roam42.common.updateBlock(block.uid, newContent);
-  }
-
-  if (isButton) {
-    const cursorBlockUid = roam42.common.currentActiveBlockUID();
-    if (cursorBlockUid) {
-      await roam42.common.deleteBlock(cursorBlockUid);
-    }
   }
 
   return '';

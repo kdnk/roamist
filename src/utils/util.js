@@ -74,4 +74,20 @@ window.roamTodoistIntegration.getAllTodoistBlocksFromPageTitle = async (pageTitl
   return results;
 }
 
+window.roamTodoistIntegration.dedupTaskList = async (taskList) => {
+  const currentPageUid = await roam42.common.currentPageUID();
+  console.log(`[util.js:79] currentPageUid: `, currentPageUid);
+  const currentpageTitle = await roam42.common.getBlockInfoByUID(currentPageUid);
+  const existingBlocks = await window.roamTodoistIntegration.getAllTodoistBlocksFromPageTitle(currentpageTitle[0][0].title);
+  const existingTodoistIds = existingBlocks.map((item) => {
+    const block = item[0];
+    todoistId = window.roamTodoistIntegration.getTodoistId(block.string);
+    return todoistId;
+  });
+  const newTaskList = taskList.filter(task => {
+    const taskId = window.roamTodoistIntegration.getTodoistId(task.url);
+    return !existingTodoistIds.includes(taskId);
+  });
+  return newTaskList;
+}
 

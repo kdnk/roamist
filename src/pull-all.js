@@ -4,7 +4,7 @@
 //   await window.roamTodoistIntegration.pullAll();
 // })();
 
-window.roamTodoistIntegration.pullAll = async () => {
+window.roamTodoistIntegration.pullAll = async ({ onlyDiff }) => {
   const TODOIST_TOKEN = window.TODOIST_TOKEN;
   const PROJECT_ID = window.TODOIST_WORK_PROJECT_ID ;
   const FILTER = encodeURIComponent('(!#🔨Work & !#Inbox & !#Quick Capture & !#♻Routine) & @roam & 2days');
@@ -38,10 +38,12 @@ window.roamTodoistIntegration.pullAll = async () => {
     return tasks;
   }
 
-
   const projects = await getTodoistProjects();
   const tasks = await getTodoistTasks();
-  const taskList = tasks.filter(task => !task.parent_id);
+  let taskList = tasks.filter(task => !task.parent_id);
+  if (onlyDiff) {
+    taskList = await window.roamTodoistIntegration.dedupTaskList(taskList);
+  }
   taskList.sort((a, b) => {
     return b.priority - a.priority;
   });
