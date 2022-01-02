@@ -13,9 +13,8 @@ window.roamTodoistIntegration.completeTask = async () => {
   const text = block?.string;
   const res = text.match(/\d{10}/);
   const url = "https://api.todoist.com/rest/v1/tasks/"+res+"/close";
-  console.log("url: ", url);
-  const bearer = 'Bearer ' + TODOIST_TOKEN;
 
+  const bearer = 'Bearer ' + TODOIST_TOKEN;
   await fetch(url, {
       method: 'POST',
       headers: {
