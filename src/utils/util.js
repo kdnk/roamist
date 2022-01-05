@@ -91,3 +91,23 @@ window.roamTodoistIntegration.dedupTaskList = async (taskList) => {
   return newTaskList;
 }
 
+window.roamTodoistIntegration.getTodoistProjects = async () => {
+  const url = `https://api.todoist.com/rest/v1/projects`;
+  const bearer = 'Bearer ' + TODOIST_TOKEN;
+  const projects = await fetch(url, {
+    headers: {
+      Authorization: bearer,
+    }
+  }).then(res => res.json());
+  return projects;
+}
+
+window.roamTodoistIntegration.getTodoistProject = (projects, projectId) => {
+  const project = projects.find(p => {
+    return p.id === projectId;
+  })
+  return project;
+}
+
+
+

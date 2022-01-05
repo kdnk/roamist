@@ -20,6 +20,7 @@ window.roamTodoistIntegration.pullWork = async ({ onlyDiff }) => {
     return tasks;
   }
 
+  const projects = await window.roamTodoistIntegration.getTodoistProjects();
   const tasks = await getTodoistTasks();
   let taskList = tasks.filter(task => !task.parent_id);
   if (onlyDiff) {
@@ -33,13 +34,14 @@ window.roamTodoistIntegration.pullWork = async ({ onlyDiff }) => {
   const cursorBlockUid = roam42.common.currentActiveBlockUID();
   let currentBlockUid = cursorBlockUid;
   for ([taskIndex, task] of taskList.entries()) {
-    currentBlockUid = await roam42.common.createSiblingBlock(currentBlockUid, window.roamTodoistIntegration.createTodoistTaskString(task), true);
+    const project = window.roamTodoistIntegration.getTodoistProject(projects, task.project_id);
+    currentBlockUid = await roam42.common.createSiblingBlock(currentBlockUid, window.roamTodoistIntegration.createTodoistTaskString({ task, project }), true);
 
     // add description
     if (task.description){
       await roam42.common.createBlock(currentBlockUid, 1, `desc:: ${task.description}`);
     }
-    await roam42.common.createBlock(currentBlockUid, 1, `note::`);
+    // await roam42.common.createBlock(currentBlockUid, 1, `note::`);
 
 
     // add subtask
@@ -47,16 +49,16 @@ window.roamTodoistIntegration.pullWork = async ({ onlyDiff }) => {
     let currentSubBlockUid;
     for ([subtaskIndex, subtask] of subtasks.entries()) {
       if (subtaskIndex === 0) {
-        currentSubBlockUid = await roam42.common.createBlock(currentBlockUid, 1, window.roamTodoistIntegration.createTodoistTaskString(subtask));
+        currentSubBlockUid = await roam42.common.createBlock(currentBlockUid, 1, window.roamTodoistIntegration.createTodoistTaskString({ task: subtask, project }));
       } else {
-        currentSubBlockUid = await roam42.common.createSiblingBlock(currentSubBlockUid, window.roamTodoistIntegration.createTodoistTaskString(subtask), true);
+        currentSubBlockUid = await roam42.common.createSiblingBlock(currentSubBlockUid, window.roamTodoistIntegration.createTodoistTaskString({ task: subtask, project }), true);
       }
 
       // add description
       if (subtask.description) {
         await roam42.common.createBlock(currentSubBlockUid, 2, `desc:: ${subtask.description}`);
       }
-      await roam42.common.createBlock(currentSubBlockUid, 2, `note::`);
+      // await roam42.common.createBlock(currentSubBlockUid, 2, `note::`);
 
     }
     if (taskIndex === 0) {

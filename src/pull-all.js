@@ -9,17 +9,6 @@ window.roamTodoistIntegration.pullAll = async ({ onlyDiff }) => {
   const PROJECT_ID = window.TODOIST_WORK_PROJECT_ID ;
   const FILTER = encodeURIComponent('(!#🔨Work & !#Inbox & !#Quick Capture & !#♻Routine) & @roam & 2days');
 
-  const getTodoistProjects = async () => {
-    const url = `https://api.todoist.com/rest/v1/projects`;
-    const bearer = 'Bearer ' + TODOIST_TOKEN;
-    const projects = await fetch(url, {
-      headers: {
-        Authorization: bearer,
-      }
-    }).then(res => res.json());
-    return projects;
-  }
-
   const getTodoistProject = (projects, projectId) => {
     const project = projects.find(p => {
       return p.id === projectId;
@@ -38,7 +27,7 @@ window.roamTodoistIntegration.pullAll = async ({ onlyDiff }) => {
     return tasks;
   }
 
-  const projects = await getTodoistProjects();
+  const projects = await window.roamTodoistIntegration.getTodoistProjects();
   const tasks = await getTodoistTasks();
   let taskList = tasks.filter(task => !task.parent_id);
   if (onlyDiff) {
@@ -52,7 +41,7 @@ window.roamTodoistIntegration.pullAll = async ({ onlyDiff }) => {
   const cursorBlockUid = roam42.common.currentActiveBlockUID();
   let currentBlockUid = cursorBlockUid;
   for ([taskIndex, task] of taskList.entries()) {
-    const project = getTodoistProject(projects, task.project_id);
+    const project = window.roamTodoistIntegration.getTodoistProject(projects, task.project_id);
     currentBlockUid = await roam42.common.createSiblingBlock(currentBlockUid, window.roamTodoistIntegration.createTodoistTaskString({ task, project }), true);
 
     // add description
