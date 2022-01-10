@@ -3,6 +3,16 @@
 window.roamTodoistIntegration = {};
 window.roamTodoistIntegration.TODOIST_TAG_NAME = "42Todoist";
 
+window.roamTodoistIntegration.settings = {
+  projectNames: {
+    WORK: '🔨Work',
+    PERSONAL: '🦒Personal',
+    ROUTINE: '🧘Routine',
+    QUICK_CAPTURE: 'Quick Capture',
+  }
+};
+
+
 window.roamTodoistIntegration.convertToRoamDate = (dateString) => {
   const parsedDate = dateString.split('-');
   const year = parsedDate[0];
