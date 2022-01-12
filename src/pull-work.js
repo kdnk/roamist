@@ -7,7 +7,7 @@
 window.roamTodoistIntegration.pullWork = async ({ onlyDiff }) => {
   const TODOIST_TOKEN = window.TODOIST_TOKEN;
   const PROJECT_ID = window.TODOIST_WORK_PROJECT_ID ;
-  const FILTER = encodeURIComponent('2days & !@waiting');
+  const FILTER = encodeURIComponent('today & !@waiting');
 
   const getTodoistTasks = async () => {
     const url = `https://api.todoist.com/rest/v1/tasks?project_id=${PROJECT_ID}&filter=${FILTER}`;

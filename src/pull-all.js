@@ -8,7 +8,7 @@ window.roamTodoistIntegration.pullAll = async ({ onlyDiff }) => {
   const TODOIST_TOKEN = window.TODOIST_TOKEN;
   const PROJECT_ID = window.TODOIST_WORK_PROJECT_ID ;
   const { projectNames } = window.roamTodoistIntegration.settings;
-  const FILTER = encodeURIComponent(`(!#${projectNames.WORK} & !#Inbox & !#${projectNames.QUICK_CAPTURE} & !#${projectNames.ROUTINE} & !#${projectNames.PERSONAL}) & 2days`);
+  const FILTER = encodeURIComponent(`(!#${projectNames.WORK} & !#Inbox & !#${projectNames.QUICK_CAPTURE} & !#${projectNames.ROUTINE} & !#${projectNames.PERSONAL}) & today`);
 
   const getTodoistProject = (projects, projectId) => {
     const project = projects.find(p => {
