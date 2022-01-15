@@ -34,7 +34,36 @@ window.roamTodoistIntegration.getTodoistId = (url) => {
 }
 
 window.roamTodoistIntegration.createTodoistTaskString = ({ task, project }) => {
-  let taskString = `${task.content} [🔗](${task.url})`;
+  function getParsedContent(content) {
+    const matchedLink = content.match(/\[(.*)\]\((.*)\)/);
+    if (!matchedLink) {
+      return content;
+    } else { // isUrl
+      const [_, title, urlString] = matchedLink;
+
+      const url = new URL(urlString);
+      const matchedTags = [...title.matchAll(/\[(.[^\]\[]*)\]/g)]
+      if (matchedTags.length > 0) { // have [] pattens
+        let newTitle = title;
+        let tagString = '';
+        matchedTags.forEach(([origin, content]) => {
+          newTitle = newTitle.replace(origin, '');
+          tagString = `${tagString} #[[${content}]]`
+        })
+        if (!urlString.includes('bts')) {
+          return `[${newTitle}](${urlString}) ${tagString}`;
+        }
+        return `[${newTitle}](${url.origin}${url.pathname}) ${tagString}`;
+      } else {
+        if (!urlString.includes('bts')) {
+          return `[${title}](${urlString})`;
+        }
+        return `[${title}](${url.origin}${url.pathname})`;
+      }
+    }
+  }
+
+  let taskString = `${getParsedContent(task.content)} [🔗](${task.url})`;
 
   // priority
   let priority = "";
