@@ -1,7 +1,7 @@
 /* vim: set sw=2 sts=2 ts=2 et: */
 
 // (async function (options) {
-//   await window.RTI.syncCompleted({ isButton: true });
+//   await window.RTI.syncCompleted();
 // })();
 
 window.RTI.syncCompleted = async () => {
