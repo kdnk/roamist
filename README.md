@@ -31,14 +31,15 @@ if (!existing) {
 }
 ```
 
-> :warning: All tasks pulled from Todoist should have a specific tag you set via `window.RTI.TODOIST_TAG_NAME`.
-This tag is essential because this integration uses the tag to recognize which tags come from Todoist.
-This integration will use this tag to sync tasks between Roam Research and Todoist as well.
-I recommend you don’t change it once you set this tag.
+> :warning: All tasks pulled from Todoist should have a specific tag you set via `window.RTI.TODOIST_TAG_NAME`.  
+> This tag is essential because this integration uses the tag to recognize which tags come from Todoist.  
+> This integration will use this tag to sync tasks between Roam Research and Todoist as well.  
+> I recommend you don’t change it once you set this tag.  
 
 ## Add workflows for SmartBlocks
 
-> :warning: **You should already have the page named `roam/js/smartblocks` if you followed `Setup` section. If not, make sure you set up SmartBlocks correctly first.**
+> :warning: **You should already have the page named `roam/js/smartblocks` if you followed `Setup` section.  
+> If not, make sure you set up SmartBlocks correctly first.**
 
 
 - Paste some [workflows](https://github.com/kdnk/roam-todoist-integration#workflows) what you like under workflows block on `[[roam/js/smartblocks]]`.
@@ -52,6 +53,11 @@ I recommend you don’t change it once you set this tag.
 
 
 ## workflows
+
+> :warning: This integration recognizes the Todoist id using a tag like `Todoist/1234567890`.  
+> You must NOT remove this tag.  
+> If you do, this integration won't work as intended.
+
 
 
 ### complete task
@@ -68,7 +74,9 @@ I recommend you don’t change it once you set this tag.
 ```
 
 ### sync completed
-- I assume we use this workflow in `[[42Todoist]]` page or the page you set via `window.RTI.TODOIST_TAG_NAME`. 
+> :warning: I assume we use this workflow in `[[42Todoist]]` page or the page you set via `window.RTI.TODOIST_TAG_NAME`. 
+
+- This workflow will sync complete status from Todoist to Roam Research.
 - I recommend you use this workflow as a button in `[[42Todoist]]` as follows.
   - `{{Sync todoist completed:42SmartBlock:todoist - sync completed:button=true,42RemoveButton=false}}`
   - ![screenshot](https://user-images.githubusercontent.com/15260226/150343120-6a0da186-8501-43b4-b488-54a2cca1aff0.png)
