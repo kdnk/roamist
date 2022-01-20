@@ -41,12 +41,12 @@ I recommend you don’t change it once you set this tag.
 > :warning: **You should already have the page named `roam/js/smartblocks` if you followed `Setup` section. If not, make sure you set up SmartBlocks correctly first.**
 
 
-- Paste some workflows what you like under workflows block on `[[roam/js/smartblocks]]`.
+- Paste some [workflows](https://github.com/kdnk/roam-todoist-integration#workflows) what you like under workflows block on `[[roam/js/smartblocks]]`.
   - After finishing setup, your `[[roam/js/smartblocks]]` page should look like this.
 
 ![screenshot](https://user-images.githubusercontent.com/15260226/150338952-f702b064-8e43-4570-90b0-8f633f6dc9ac.png)
 
-- Then, you can use these workflows typing your SmartBlocks trigger (I use `jj` for it).
+- Then, you can use these [workflows](https://github.com/kdnk/roam-todoist-integration#workflows) typing your SmartBlocks trigger (I use `jj` for it).
 
 ![CleanShot 2022-01-20 at 21 47 05](https://user-images.githubusercontent.com/15260226/150341510-a15a0025-2646-43aa-ba03-81fe5af13579.png)
 
