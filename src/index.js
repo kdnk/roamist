@@ -12,8 +12,7 @@ const ID = "roam-todoist-integration";
 
 const features = [
   "utils/util",
-  "pull-work",
-  "pull-all",
+  "pull-tasks",
   "complete-task",
   "sync-completed",
 ];
