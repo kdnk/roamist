@@ -30,6 +30,11 @@ if (!existing) {
 }
 ```
 
+> :warning: All tasks pulled from Todoist should have a specific tag you set via `window.RTI.TODOIST_TAG_NAME`.
+This tag is essential because this integration uses the tag to recognize which tags come from Todoist.
+This integration will use this tag to sync tasks between Roam Research and Todoist.
+I recommend you don’t change it once you set this tag.
+
 ## Add workflows for SmartBlocks
 
 > :warning: **You should already have the page named `roam/js/smartblocks` if you followed `Setup` section. If not, make sure you set up SmartBlocks correctly first.**
