@@ -3,7 +3,7 @@ const ID = "roam-todoist-integration";
 // const existing = document.getElementById(ID);
 // if (!existing) {
 //   const script = document.createElement("script");
-//   script.src = "kdnk.github.io/roam-todoist-integration/src/index.js";
+//   script.src = "https://kdnk.github.io/roam-todoist-integration/src/index.js";
 //   script.id = ID;
 //   script.async = true;
 //   script.type = "text/javascript";
@@ -23,7 +23,7 @@ features.forEach((feature) => {
   const existing = document.getElementById(FEATURE_ID);
   if (!existing) {
     const script = document.createElement("script");
-    script.src = `kdnk.github.io/roam-todoist-integration/src/${feature}.js`;
+    script.src = `https://kdnk.github.io/roam-todoist-integration/src/${feature}.js`;
     script.id = `${ID}-${feature}`;
     script.async = true;
     script.type = "text/javascript";
