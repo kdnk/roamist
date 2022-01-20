@@ -12,19 +12,18 @@ window.roamTodoistIntegration.completeTask = async () => {
   const block = blockInfo[0][0];
   const text = block?.string;
   const res = text.match(/\d{10}/);
-  const url = "https://api.todoist.com/rest/v1/tasks/"+res+"/close";
+  const url = "https://api.todoist.com/rest/v1/tasks/" + res + "/close";
 
-  const bearer = 'Bearer ' + TODOIST_TOKEN;
+  const bearer = "Bearer " + TODOIST_TOKEN;
   await fetch(url, {
-      method: 'POST',
-      headers: {
-          Authorization: bearer,
-      }
+    method: "POST",
+    headers: {
+      Authorization: bearer,
+    },
   });
 
-  const newContent = block.string.replace("{{[[TODO]]}}", "{{[[DONE]]}}")
+  const newContent = block.string.replace("{{[[TODO]]}}", "{{[[DONE]]}}");
   await roam42.common.updateBlock(blockUid, newContent);
 
-  return '';
+  return "";
 };
-
