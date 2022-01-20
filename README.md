@@ -58,8 +58,6 @@ if (!existing) {
 > You must NOT remove this tag.  
 > If you do, this integration won't work as intended.
 
-
-
 ### complete task
 - This workflow will complete a task under your cursor.
   - Roam Research: `{{[[TODO]]}}` will turn into `{{[[DONE]]}}`
@@ -76,7 +74,8 @@ if (!existing) {
 ### sync completed
 > :warning: I assume we use this workflow in `[[42Todoist]]` page or the page you set via `window.RTI.TODOIST_TAG_NAME`. 
 
-- This workflow will sync complete status from Todoist to Roam Research.
+- This workflow will sync completion status from Todoist to Roam Research.
+- If there are blocks which are already completed in Todoist, `{{[[TODO]]}}` part in Roam Research will be changed to `{{[[DONE]]}}` automatically just pressing this button.
 - I recommend you use this workflow as a button in `[[42Todoist]]` as follows.
   - `{{Sync todoist completed:42SmartBlock:todoist - sync completed:button=true,42RemoveButton=false}}`
   - ![screenshot](https://user-images.githubusercontent.com/15260226/150343120-6a0da186-8501-43b4-b488-54a2cca1aff0.png)
