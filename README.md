@@ -33,7 +33,6 @@ if (!existing) {
 
 > :warning: **All tasks pulled from Todoist should have a specific tag you set via `window.RTI.TODOIST_TAG_NAME`.**  
 > **This tag is essential because this integration uses the tag to recognize which blocks come from Todoist.**  
-> **This integration will use this tag to sync tasks between Roam Research and Todoist as well.**  
 > **I recommend you don’t change it once you set this tag.**  
 > **See also [workflows section](https://github.com/kdnk/roam-todoist-integration/blob/main/README.md#workflows) for more details**. 
 
