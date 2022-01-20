@@ -94,7 +94,7 @@ if (!existing) {
 - #SmartBlock todoist - pull daily today
     - <%JAVASCRIPTASYNC:```javascript
 (async function () {
-  await window.RTI.pullAll({ todoistFilter: "(!#🔨Work & !#Inbox & !#Quick Capture & !#🧘Routine & !#🦒Personal) & today", onlyDiff: false });
+  await window.RTI.pullTasks({ todoistFilter: "(!#🔨Work & !#Inbox & !#Quick Capture & !#🧘Routine & !#🦒Personal) & today", onlyDiff: false });
 })();
 ```%>
 ```
