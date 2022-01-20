@@ -60,17 +60,21 @@ if (!existing) {
 > **You must NOT remove this tag.**  
 > **If you do, this integration won't work as intended.**  
 
-
-
-### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> complete task
-- This workflow will complete a task under your cursor.
-  - Roam Research: `{{[[TODO]]}}` will turn into `{{[[DONE]]}}`
-
+### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> pull tasks
+- This workflow will pull tasks with the [Todoist's Filters](https://todoist.com/help/articles/introduction-to-filters).
+- Block will look like this.
+  - ![screenshot](https://user-images.githubusercontent.com/15260226/150348701-c2dba704-103a-4194-944e-4d51a6ed468b.png)
+- This command should work in any pages.
+- arguments
+  - `todoistFilter`
+    - You can pass your filter here.
+  - `onlyDiff`
+    - If you pass `true`, this workflow pulls only tasks which don't exist in the current page.
 ```
-- #SmartBlock todoist - complete task
+- #SmartBlock todoist - pull daily today
     - <%JAVASCRIPTASYNC:```javascript
 (async function () {
-  await window.RTI.completeTask();
+  await window.RTI.pullTasks({ todoistFilter: "(!#🔨Work & !#Inbox & !#Quick Capture & !#🧘Routine & !#🦒Personal) & today", onlyDiff: false });
 })();
 ```%>
 ```
@@ -93,24 +97,20 @@ if (!existing) {
 ```%><%NOBLOCKOUTPUT%>
 ```
 
-### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> pull tasks
-- This workflow will pull tasks with the [Todoist's Filters](https://todoist.com/help/articles/introduction-to-filters).
-- Block will look like this.
-  - ![screenshot](https://user-images.githubusercontent.com/15260226/150348701-c2dba704-103a-4194-944e-4d51a6ed468b.png)
-- This command should work in any pages.
-- arguments
-  - `todoistFilter`
-    - You can pass your filter here.
-  - `onlyDiff`
-    - If you pass `true`, this workflow pulls only tasks which don't exist in the current page.
+### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> complete task
+- This workflow will complete a task under your cursor.
+  - Roam Research: `{{[[TODO]]}}` will turn into `{{[[DONE]]}}`
+
 ```
-- #SmartBlock todoist - pull daily today
+- #SmartBlock todoist - complete task
     - <%JAVASCRIPTASYNC:```javascript
 (async function () {
-  await window.RTI.pullTasks({ todoistFilter: "(!#🔨Work & !#Inbox & !#Quick Capture & !#🧘Routine & !#🦒Personal) & today", onlyDiff: false });
+  await window.RTI.completeTask();
 })();
 ```%>
 ```
+
+
 
 
 
