@@ -4,9 +4,8 @@
 //   await window.RTI.pullWork();
 // })();
 
-window.RTI.pullWork = async ({ onlyDiff }) => {
-  const { projectNames } = window.RTI.settings;
-  const FILTER = encodeURIComponent(`${projectNames.WORK} & today & !@waiting`);
+window.RTI.pullTasks = async ({ todoistFilter, onlyDiff }) => {
+  const FILTER = encodeURIComponent(todoistFilter);
 
   const getTodoistTasks = async () => {
     const url = `https://api.todoist.com/rest/v1/tasks?filter=${FILTER}`;
@@ -33,10 +32,7 @@ window.RTI.pullWork = async ({ onlyDiff }) => {
   const cursorBlockUid = roam42.common.currentActiveBlockUID();
   let currentBlockUid = cursorBlockUid;
   for ([taskIndex, task] of taskList.entries()) {
-    const project = window.RTI.getTodoistProject(
-      projects,
-      task.project_id
-    );
+    const project = window.RTI.getTodoistProject(projects, task.project_id);
     currentBlockUid = await roam42.common.createSiblingBlock(
       currentBlockUid,
       window.RTI.createTodoistTaskString({ task, project }),

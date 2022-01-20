@@ -3,17 +3,6 @@
 window.RTI = {};
 window.RTI.TODOIST_TAG_NAME = "42Todoist";
 
-const projectNames = {
-  WORK: "🔨Work",
-  PERSONAL: "🦒Personal",
-  ROUTINE: "🧘Routine",
-  QUICK_CAPTURE: "Quick Capture",
-};
-
-window.RTI.settings = {
-  projectNames,
-};
-
 window.RTI.convertToRoamDate = (dateString) => {
   const [year, month, day] = dateString.split("-").map((v) => Number(v));
   const months = [
@@ -116,9 +105,7 @@ window.RTI.createTodoistTaskString = ({ task, project }) => {
   return `{{[[TODO]]}} ${taskString} `;
 };
 
-window.RTI.getAllTodoistBlocksFromPageTitle = async (
-  pageTitle
-) => {
+window.RTI.getAllTodoistBlocksFromPageTitle = async (pageTitle) => {
   const rule =
     "[[(ancestor ?b ?a)[?a :block/children ?b]][(ancestor ?b ?a)[?parent :block/children ?b ](ancestor ?parent ?a) ]]";
 
@@ -140,10 +127,9 @@ window.RTI.dedupTaskList = async (taskList) => {
   const currentpageTitle = await roam42.common.getBlockInfoByUID(
     currentPageUid
   );
-  const existingBlocks =
-    await window.RTI.getAllTodoistBlocksFromPageTitle(
-      currentpageTitle[0][0].title
-    );
+  const existingBlocks = await window.RTI.getAllTodoistBlocksFromPageTitle(
+    currentpageTitle[0][0].title
+  );
   const existingTodoistIds = existingBlocks.map((item) => {
     const block = item[0];
     todoistId = window.RTI.getTodoistId(block.string);
