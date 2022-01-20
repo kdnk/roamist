@@ -167,11 +167,7 @@ window.roamTodoistIntegration.getTodoistProjects = async () => {
 
 window.roamTodoistIntegration.getTodoistProject = (projects, projectId) => {
   const project = projects.find((p) => {
-
     return p.id === projectId;
-
   });
-
   return project;
-
 };
