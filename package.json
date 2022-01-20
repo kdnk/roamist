@@ -1,0 +1,22 @@
+{
+  "name": "roam-todoist-integration",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kdnk/roam-todoist-integration.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kdnk/roam-todoist-integration/issues"
+  },
+  "homepage": "https://github.com/kdnk/roam-todoist-integration#readme",
+  "devDependencies": {
+    "prettier": "^2.5.1"
+  }
+}
