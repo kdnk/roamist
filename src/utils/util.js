@@ -39,7 +39,9 @@ window.roamTodoistIntegration.createTodoistTaskString = ({ task, project }) => {
     if (!matchedLink) {
       return content;
     } else { // isUrl
-      const [_, title, urlString] = matchedLink;
+      const [matchedString, title, urlString] = matchedLink;
+      const getDiff = (diffMe, diffBy) => diffMe.split(diffBy).join('');
+      const diff = getDiff(content, matchedString);
 
       const url = new URL(urlString);
       const matchedTags = [...title.matchAll(/\[(.[^\]\[]*)\]/g)]
@@ -51,14 +53,14 @@ window.roamTodoistIntegration.createTodoistTaskString = ({ task, project }) => {
           tagString = `${tagString} #[[${content}]]`
         })
         if (!urlString.includes('bts')) {
-          return `[${newTitle}](${urlString}) ${tagString}`;
+          return `${diff}[${newTitle}](${urlString}) ${tagString}`;
         }
-        return `[${newTitle}](${url.origin}${url.pathname}) ${tagString}`;
+        return `${diff}[${newTitle}](${url.origin}${url.pathname}) ${tagString}`;
       } else {
         if (!urlString.includes('bts')) {
-          return `[${title}](${urlString})`;
+          return `${diff}[${title}](${urlString})`;
         }
-        return `[${title}](${url.origin}${url.pathname})`;
+        return `${diff}[${title}](${url.origin}${url.pathname})`;
       }
     }
   }
