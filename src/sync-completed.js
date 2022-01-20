@@ -1,10 +1,10 @@
 /* vim: set sw=2 sts=2 ts=2 et: */
 
 // (async function (options) {
-//   await window.roamTodoistIntegration.syncCompleted({ isButton: true });
+//   await window.RTI.syncCompleted({ isButton: true });
 // })();
 
-window.roamTodoistIntegration.syncCompleted = async () => {
+window.RTI.syncCompleted = async () => {
   const getActiveTodoistIds = async () => {
     const url = "https://api.todoist.com/rest/v1/tasks";
     const bearer = "Bearer " + window.TODOIST_TOKEN;
@@ -29,7 +29,7 @@ window.roamTodoistIntegration.syncCompleted = async () => {
 
   const getTodoBlocksWithTodoistId = async () => {
     const roamTodoBlocks = await getTodoBlocksReferringToThisPage(
-      window.roamTodoistIntegration.TODOIST_TAG_NAME
+      window.RTI.TODOIST_TAG_NAME
     );
     return roamTodoBlocks.map((item) => {
       const block = item[0];

@@ -1,11 +1,11 @@
 /* vim: set sw=2 sts=2 ts=2 et: */
 
 // (async function () {
-//   await window.roamTodoistIntegration.pullAll();
+//   await window.RTI.pullAll();
 // })();
 
-window.roamTodoistIntegration.pullAll = async ({ onlyDiff }) => {
-  const { projectNames } = window.roamTodoistIntegration.settings;
+window.RTI.pullAll = async ({ onlyDiff }) => {
+  const { projectNames } = window.RTI.settings;
   const FILTER = encodeURIComponent(
     `(!#${projectNames.WORK} & !#Inbox & !#${projectNames.QUICK_CAPTURE} & !#${projectNames.ROUTINE} & !#${projectNames.PERSONAL}) & today`
   );
@@ -21,11 +21,11 @@ window.roamTodoistIntegration.pullAll = async ({ onlyDiff }) => {
     return tasks;
   };
 
-  const projects = await window.roamTodoistIntegration.getTodoistProjects();
+  const projects = await window.RTI.getTodoistProjects();
   const tasks = await getTodoistTasks();
   let taskList = tasks.filter((task) => !task.parent_id);
   if (onlyDiff) {
-    taskList = await window.roamTodoistIntegration.dedupTaskList(taskList);
+    taskList = await window.RTI.dedupTaskList(taskList);
   }
   taskList.sort((a, b) => {
     return b.priority - a.priority;
@@ -35,13 +35,13 @@ window.roamTodoistIntegration.pullAll = async ({ onlyDiff }) => {
   const cursorBlockUid = roam42.common.currentActiveBlockUID();
   let currentBlockUid = cursorBlockUid;
   for ([taskIndex, task] of taskList.entries()) {
-    const project = window.roamTodoistIntegration.getTodoistProject(
+    const project = window.RTI.getTodoistProject(
       projects,
       task.project_id
     );
     currentBlockUid = await roam42.common.createSiblingBlock(
       currentBlockUid,
-      window.roamTodoistIntegration.createTodoistTaskString({ task, project }),
+      window.RTI.createTodoistTaskString({ task, project }),
       true
     );
 
@@ -64,7 +64,7 @@ window.roamTodoistIntegration.pullAll = async ({ onlyDiff }) => {
         currentSubBlockUid = await roam42.common.createBlock(
           currentBlockUid,
           1,
-          window.roamTodoistIntegration.createTodoistTaskString({
+          window.RTI.createTodoistTaskString({
             task: subtask,
             project,
           })
@@ -72,7 +72,7 @@ window.roamTodoistIntegration.pullAll = async ({ onlyDiff }) => {
       } else {
         currentSubBlockUid = await roam42.common.createSiblingBlock(
           currentSubBlockUid,
-          window.roamTodoistIntegration.createTodoistTaskString({
+          window.RTI.createTodoistTaskString({
             task: subtask,
             project,
           }),

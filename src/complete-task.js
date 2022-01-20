@@ -1,10 +1,10 @@
 /* vim: set sw=2 sts=2 ts=2 et: */
 
 // (async function () {
-//   await window.roamTodoistIntegration.completeTask();
+//   await window.RTI.completeTask();
 // })();
 
-window.roamTodoistIntegration.completeTask = async () => {
+window.RTI.completeTask = async () => {
   const TODOIST_TOKEN = window.TODOIST_TOKEN;
 
   const blockUid = roam42.common.currentActiveBlockUID();
