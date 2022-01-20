@@ -31,14 +31,14 @@ if (!existing) {
 }
 ```
 
-> :warning: All tasks pulled from Todoist should have a specific tag you set via `window.RTI.TODOIST_TAG_NAME`.  
-> This tag is essential because this integration uses the tag to recognize which tags come from Todoist.  
-> This integration will use this tag to sync tasks between Roam Research and Todoist as well.  
-> I recommend you don’t change it once you set this tag.  
+> :warning: All tasks pulled from Todoist should have a specific tag you set via `window.RTI.TODOIST_TAG_NAME`.
+> This tag is essential because this integration uses the tag to recognize which tags come from Todoist.
+> This integration will use this tag to sync tasks between Roam Research and Todoist as well.
+> I recommend you don’t change it once you set this tag.
 
 ## Add workflows for SmartBlocks
 
-> :warning: **You should already have the page named `roam/js/smartblocks` if you followed `Setup` section.  
+> :warning: **You should already have the page named `roam/js/smartblocks` if you followed `Setup` section.
 > If not, make sure you set up SmartBlocks correctly first.**
 
 
@@ -54,8 +54,8 @@ if (!existing) {
 
 ## workflows
 
-> :warning: This integration recognizes the Todoist id using a tag like `Todoist/1234567890`.  
-> You must NOT remove this tag.  
+> :warning: This integration recognizes the Todoist id using a tag like `Todoist/1234567890`.
+> You must NOT remove this tag.
 > If you do, this integration won't work as intended.
 
 ### complete task
@@ -72,7 +72,7 @@ if (!existing) {
 ```
 
 ### sync completed
-> :warning: I assume we use this workflow in `[[42Todoist]]` page or the page you set via `window.RTI.TODOIST_TAG_NAME`. 
+> :warning: I assume we use this workflow in `[[42Todoist]]` page or the page you set via `window.RTI.TODOIST_TAG_NAME`.
 
 - This workflow will sync completion status from Todoist to Roam Research.
 - If there are blocks which are already completed in Todoist, `{{[[TODO]]}}` part in Roam Research will be changed to `{{[[DONE]]}}` automatically just pressing this button.
@@ -90,6 +90,14 @@ if (!existing) {
 ```
 
 ### pull tasks
+- This workflow will pull tasks with the [Todoist's Filters](https://todoist.com/help/articles/introduction-to-filters).
+- Block will look like this.
+- This command should work in any pages.
+- arguments
+  - `todoistFilter`
+    - You can pass your filter here.
+  - `onlyDiff`
+    - If you pass `true`, this workflow pulls only tasks which don't exist in the current page.
 ```
 - #SmartBlock todoist - pull daily today
     - <%JAVASCRIPTASYNC:```javascript
