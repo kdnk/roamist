@@ -25,7 +25,6 @@ features.forEach((feature) => {
     const script = document.createElement("script");
     script.src = `https://kdnk.github.io/roam-todoist-integration/src/${feature}.js`;
     script.id = `${ID}-${feature}`;
-    script.async = true;
     script.type = "text/javascript";
     document.getElementsByTagName("head")[0].appendChild(script);
   }
