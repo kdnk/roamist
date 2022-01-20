@@ -1,6 +1,6 @@
 /* vim: set sw=2 sts=2 ts=2 et: */
 
-window.RTI = {};
+window.RTI = window.RTI || {};
 window.RTI.TODOIST_TAG_NAME = window.RTI.TODOIST_TAG_NAME || "42Todoist";
 
 // ref. https://github.com/dvargas92495/SmartBlocks/issues/187#issuecomment-766252353
