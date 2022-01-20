@@ -49,7 +49,8 @@ if (!existing) {
 
 - Then, you can use these [workflows](https://github.com/kdnk/roam-todoist-integration#workflows) typing your SmartBlocks trigger (I use `jj` for it).
 
-![CleanShot 2022-01-20 at 21 47 05](https://user-images.githubusercontent.com/15260226/150341510-a15a0025-2646-43aa-ba03-81fe5af13579.png)
+
+![screenshot](https://user-images.githubusercontent.com/15260226/150348953-ceb7f670-450f-4673-8b01-0e1eac29fda6.png)
 
 
 ## workflows
@@ -92,6 +93,7 @@ if (!existing) {
 ### pull tasks
 - This workflow will pull tasks with the [Todoist's Filters](https://todoist.com/help/articles/introduction-to-filters).
 - Block will look like this.
+![screenshot](https://user-images.githubusercontent.com/15260226/150348701-c2dba704-103a-4194-944e-4d51a6ed468b.png)
 - This command should work in any pages.
 - arguments
   - `todoistFilter`
