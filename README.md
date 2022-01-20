@@ -37,6 +37,10 @@ if (!existing) {
 
 - Paste some commands what you like under workflows block on [[roam/js/smartblocks]].
 
+![screenshot](https://user-images.githubusercontent.com/15260226/150338952-f702b064-8e43-4570-90b0-8f633f6dc9ac.png)
+
+
+
 ### commands
 
 
