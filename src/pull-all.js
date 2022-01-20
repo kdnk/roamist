@@ -5,23 +5,14 @@
 // })();
 
 window.roamTodoistIntegration.pullAll = async ({ onlyDiff }) => {
-  const TODOIST_TOKEN = window.TODOIST_TOKEN;
-  const PROJECT_ID = window.TODOIST_WORK_PROJECT_ID;
   const { projectNames } = window.roamTodoistIntegration.settings;
   const FILTER = encodeURIComponent(
     `(!#${projectNames.WORK} & !#Inbox & !#${projectNames.QUICK_CAPTURE} & !#${projectNames.ROUTINE} & !#${projectNames.PERSONAL}) & today`
   );
 
-  const getTodoistProject = (projects, projectId) => {
-    const project = projects.find((p) => {
-      return p.id === projectId;
-    });
-    return project;
-  };
-
   const getTodoistTasks = async () => {
     const url = `https://api.todoist.com/rest/v1/tasks?filter=${FILTER}`;
-    const bearer = "Bearer " + TODOIST_TOKEN;
+    const bearer = "Bearer " + window.TODOIST_TOKEN;
     const tasks = await fetch(url, {
       headers: {
         Authorization: bearer,

@@ -5,13 +5,12 @@
 // })();
 
 window.roamTodoistIntegration.pullWork = async ({ onlyDiff }) => {
-  const TODOIST_TOKEN = window.TODOIST_TOKEN;
-  const PROJECT_ID = window.TODOIST_WORK_PROJECT_ID;
-  const FILTER = encodeURIComponent("today & !@waiting");
+  const { projectNames } = window.roamTodoistIntegration.settings;
+  const FILTER = encodeURIComponent(`${projectNames.WORK} & today & !@waiting`);
 
   const getTodoistTasks = async () => {
-    const url = `https://api.todoist.com/rest/v1/tasks?project_id=${PROJECT_ID}&filter=${FILTER}`;
-    const bearer = "Bearer " + TODOIST_TOKEN;
+    const url = `https://api.todoist.com/rest/v1/tasks?filter=${FILTER}`;
+    const bearer = "Bearer " + window.TODOIST_TOKEN;
     const tasks = await fetch(url, {
       headers: {
         Authorization: bearer,
@@ -52,7 +51,6 @@ window.roamTodoistIntegration.pullWork = async ({ onlyDiff }) => {
         `desc:: ${task.description}`
       );
     }
-    // await roam42.common.createBlock(currentBlockUid, 1, `note::`);
 
     // add subtask
     const subtasks = subTaskList.filter(
@@ -88,7 +86,6 @@ window.roamTodoistIntegration.pullWork = async ({ onlyDiff }) => {
           `desc:: ${subtask.description}`
         );
       }
-      // await roam42.common.createBlock(currentSubBlockUid, 2, `note::`);
     }
     if (taskIndex === 0) {
       await roam42.common.deleteBlock(cursorBlockUid);
