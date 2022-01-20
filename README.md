@@ -41,6 +41,7 @@ I recommend you don’t change it once you set this tag.
 
 
 - Paste some workflows what you like under workflows block on [[roam/js/smartblocks]].
+  - After finishing setup, your [[roam/js/smartblocks]] page should look like this.
 
 ![screenshot](https://user-images.githubusercontent.com/15260226/150338952-f702b064-8e43-4570-90b0-8f633f6dc9ac.png)
 
