@@ -31,10 +31,10 @@ if (!existing) {
 }
 ```
 
-> :warning: All tasks pulled from Todoist should have a specific tag you set via `window.RTI.TODOIST_TAG_NAME`.
-> This tag is essential because this integration uses the tag to recognize which tags come from Todoist.
-> This integration will use this tag to sync tasks between Roam Research and Todoist as well.
-> I recommend you don’t change it once you set this tag.
+> :warning: **All tasks pulled from Todoist should have a specific tag you set via `window.RTI.TODOIST_TAG_NAME`.**  
+> **This tag is essential because this integration uses the tag to recognize which tags come from Todoist.**  
+> **This integration will use this tag to sync tasks between Roam Research and Todoist as well.**  
+> **I recommend you don’t change it once you set this tag.**  
 
 ## Add workflows for SmartBlocks
 
@@ -55,9 +55,9 @@ if (!existing) {
 
 ## workflows
 
-> :warning: This integration recognizes the Todoist id using a tag like `Todoist/1234567890`.
-> You must NOT remove this tag.
-> If you do, this integration won't work as intended.
+> :warning: **This integration recognizes the Todoist id using a tag like `Todoist/1234567890`.**  
+> **You must NOT remove this tag.**  
+> **If you do, this integration won't work as intended.**  
 
 ### complete task
 - This workflow will complete a task under your cursor.
@@ -73,7 +73,7 @@ if (!existing) {
 ```
 
 ### sync completed
-> :warning: I assume we use this workflow in `[[42Todoist]]` page or the page you set via `window.RTI.TODOIST_TAG_NAME`.
+> :warning: **I assume we use this workflow in `[[42Todoist]]` page or the page you set via `window.RTI.TODOIST_TAG_NAME`.**  
 
 - This workflow will sync completion status from Todoist to Roam Research.
 - If there are blocks which are already completed in Todoist, `{{[[TODO]]}}` part in Roam Research will be changed to `{{[[DONE]]}}` automatically just pressing this button.
