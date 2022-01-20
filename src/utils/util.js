@@ -3,6 +3,7 @@
 window.RTI = {};
 window.RTI.TODOIST_TAG_NAME = "42Todoist";
 
+ref. https://github.com/dvargas92495/SmartBlocks/issues/187#issuecomment-766252353
 window.RTI.convertToRoamDate = (dateString) => {
   const [year, month, day] = dateString.split("-").map((v) => Number(v));
   const months = [
