@@ -12,7 +12,8 @@
 
 ## Setup
 
-- Create a block with {{roam/js}} and put the code below as a child block.
+- Create a block with `{{roam/js}}` and put the code below as a child block.
+  - If you're not familiar with `{{roam/js}}`, see https://roamresearch.com/#/app/help/page/nBCwjGuI7.
 
 ```javascript
 window.TODOIST_TOKEN = "put your todoist token"; // Please replace with your token
@@ -40,17 +41,23 @@ I recommend you don’t change it once you set this tag.
 > :warning: **You should already have the page named `roam/js/smartblocks` if you followed `Setup` section. If not, make sure you set up SmartBlocks correctly first.**
 
 
-- Paste some workflows what you like under workflows block on [[roam/js/smartblocks]].
-  - After finishing setup, your [[roam/js/smartblocks]] page should look like this.
+- Paste some workflows what you like under workflows block on `[[roam/js/smartblocks]]`.
+  - After finishing setup, your `[[roam/js/smartblocks]]` page should look like this.
 
 ![screenshot](https://user-images.githubusercontent.com/15260226/150338952-f702b064-8e43-4570-90b0-8f633f6dc9ac.png)
 
+- Then, you can use these workflows typing your SmartBlocks trigger (I use `jj` for it).
+
+![CleanShot 2022-01-20 at 21 47 05](https://user-images.githubusercontent.com/15260226/150341510-a15a0025-2646-43aa-ba03-81fe5af13579.png)
 
 
 ### workflows
 
 
 - complete task
+  - This workflow will complete a task under your cursor.
+    - Roam Research: `{{[[TODO]]}}` will turn into `{{[[DONE]]}}`
+
 ```
 - #SmartBlock todoist - complete task
     - <%JAVASCRIPTASYNC:```javascript
@@ -61,6 +68,11 @@ I recommend you don’t change it once you set this tag.
 ```
 
 - sync completed
+  - I assume we use this workflow in `[[42Todoist]]` page or the page you set via `window.RTI.TODOIST_TAG_NAME`. 
+  - I recommend you use this workflow as a button in `[[42Todoist]]` as follows.
+    - `{{Sync todoist completed:42SmartBlock:todoist - sync completed:button=true,42RemoveButton=false}}`
+    - ![screenshot](https://user-images.githubusercontent.com/15260226/150343120-6a0da186-8501-43b4-b488-54a2cca1aff0.png)
+
 ```
 - #SmartBlock todoist - sync completed
     - <%JAVASCRIPTASYNC:```javascript
