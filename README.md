@@ -1,5 +1,14 @@
 # roam-todoist-integration
 
+## Motivation
+
+For a long time, I have been using Todoist as my personal task management tool.  
+I still think that Roam Research is the best note-taking tool, but I think that Todoist is more suitable for task management.  
+
+Since I started using Roam Research, I've been wondering if it would be possible to use Todoist for task management, but take detailed notes for each task in Roam Research.  
+
+This roam-todoist-integration is one way to make this possible. With this tool, you can copy tasks from Todoist to Roam Research, complete Todoist tasks from within Roam Reasearch, and synchronize task completion status between Todoist and Roam Reserach.  
+
 ## Prerequires
 
 - Todoist’s api token
@@ -34,13 +43,16 @@ if (!existing) {
 > :warning: **All tasks pulled from Todoist should have a specific tag you set via `window.RTI.TODOIST_TAG_NAME`.**  
 > **This tag is essential because this integration uses the tag to recognize which blocks come from Todoist.**  
 > **I recommend you don’t change it once you set this tag.**  
-> **See also [workflows section](https://github.com/kdnk/roam-todoist-integration/blob/main/README.md#workflows) for more details**. 
+> **See also [workflows section](https://github.com/kdnk/roam-todoist-integration/blob/main/README.md#workflows) for more details**.
 
+## aaa
+
+## bb
 
 ## Add workflows for SmartBlocks
 
-> :warning: **You should already have the page named `roam/js/smartblocks` if you followed `Setup` section.
-> If not, make sure you set up SmartBlocks correctly first.**
+> :warning: **You should already have the page named `roam/js/smartblocks` if you followed `Setup` section.  
+> If not, make sure you set up SmartBlocks correctly first.**  
 
 
 - Paste some [workflows](https://github.com/kdnk/roam-todoist-integration#workflows) what you like under workflows block on `[[roam/js/smartblocks]]`.
@@ -54,13 +66,14 @@ if (!existing) {
 ![sceenshot](https://user-images.githubusercontent.com/15260226/150341510-a15a0025-2646-43aa-ba03-81fe5af13579.png)
 
 
-## workflows
+## Workflowr
 
 > :warning: **This integration recognizes the Todoist id using a tag like `Todoist/1234567890`.**  
 > **You must NOT remove this tag.**  
 > **If you do, this integration won't work as intended.**  
 
 ### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> pull tasks
+
 - This workflow will pull tasks with the [Todoist's Filters](https://todoist.com/help/articles/introduction-to-filters).
 - Block will look like this.
   - ![image](https://user-images.githubusercontent.com/15260226/150467089-d564ebe3-cded-4bfe-860e-c6e032b93cd2.png)
@@ -70,6 +83,7 @@ if (!existing) {
     - You can pass your filter here.
   - `onlyDiff`
     - If you pass `true`, this workflow pulls only tasks which don't exist in the current page.
+
 ```
 - #SmartBlock todoist - pull daily today
     - <%JAVASCRIPTASYNC:```javascript
@@ -79,8 +93,11 @@ if (!existing) {
 ```%>
 ```
 
+
 ### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> sync completed
-> :warning: **I assume we use this workflow in `[[42Todoist]]` page or the page you set via `window.RTI.TODOIST_TAG_NAME`.**  
+
+
+> :warning: **I assume we use this workflow in `[[42Todoist]]` page or the page you set via `window.RTI.TODOIST_TAG_NAME`.**a  
 
 - This workflow will sync completion status from Todoist to Roam Research.
 - If there are blocks which are already completed in Todoist, `{{[[TODO]]}}` part in Roam Research will be changed to `{{[[DONE]]}}` automatically just pressing this button.
@@ -98,6 +115,7 @@ if (!existing) {
 ```
 
 ### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> complete task
+
 - This workflow will complete a task under your cursor.
   - After running this workflow, `{{[[TODO]]}}` will turn into `{{[[DONE]]}}` automatically.
 
@@ -113,7 +131,7 @@ if (!existing) {
 
 ## Recommended `roam/css`
 
-- I recommend you set css for todoist's priority. 
+- I recommend you set css for todoist's priority.
   - ref. https://roamresearch.com/#/app/help/page/RA1UXmzp0
 
 ```css
