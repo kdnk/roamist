@@ -117,7 +117,8 @@ if (!existing) {
 - If there are blocks which are already completed in Todoist, `{{[[TODO]]}}` part in Roam Research will be changed to `{{[[DONE]]}}` automatically just pressing this button.
 - I recommend you use this workflow as a button in `[[42Todoist]]` as follows.
   - `{{Sync todoist completed:42SmartBlock:todoist - sync completed:button=true,42RemoveButton=false}}`
-  - ![screenshot](https://user-images.githubusercontent.com/15260226/150343120-6a0da186-8501-43b4-b488-54a2cca1aff0.png)
+  - ![CleanShot 2022-01-22 at 00 00 59](https://user-images.githubusercontent.com/15260226/150549391-3d993f6d-2edd-4e8f-bc8b-e7440a4e2236.png)
+
 
 ```
 - #SmartBlock todoist - sync completed
