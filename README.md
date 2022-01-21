@@ -14,12 +14,12 @@
 
 ## Motivation
 
-For a long time, I have been using Todoist as my personal task management tool.  
-I still think that Roam Research is the best note-taking tool, but I think that Todoist is more suitable for task management.  
+I have been using Todoist as my task management tool for a long time.  
+I still think that Roam Research is the best note-taking tool, but Todoist is more suitable for task management.  
 
-Since I started using Roam Research, I've been wondering if it would be possible to use Todoist for task management, but take detailed notes for each task in Roam Research.  
+Since I started using Roam Research, I've wondered if it would be possible to use Todoist for task management but take detailed notes for each task in Roam Research.  
 
-This roam-todoist-integration is one way to make this possible. With this tool, you can copy tasks from Todoist to Roam Research, complete Todoist tasks from within Roam Reasearch, and synchronize task completion status between Todoist and Roam Reserach.  
+This roam-todoist-integration is one way to make this possible. With this integration, you can copy tasks from Todoist to Roam Research, complete Todoist tasks from within Roam Reasearch, and synchronize task completion status between Todoist and Roam Reserach.  
 
 ## Prerequires
 
