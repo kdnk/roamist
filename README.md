@@ -105,7 +105,7 @@ if (!existing) {
 ### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> sync completed
 
 
-> :warning: **I assume we use this workflow in `[[42Todoist]]` page or the page you set via `window.RTI.TODOIST_TAG_NAME`.**a  
+> :warning: **I assume we use this workflow in `[[42Todoist]]` page or the page you set via `window.RTI.TODOIST_TAG_NAME`.**  
 
 - This workflow will sync completion status from Todoist to Roam Research.
 - If there are blocks which are already completed in Todoist, `{{[[TODO]]}}` part in Roam Research will be changed to `{{[[DONE]]}}` automatically just pressing this button.
