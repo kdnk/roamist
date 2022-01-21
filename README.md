@@ -63,7 +63,7 @@ if (!existing) {
 ### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> pull tasks
 - This workflow will pull tasks with the [Todoist's Filters](https://todoist.com/help/articles/introduction-to-filters).
 - Block will look like this.
-  - ![screenshot](https://user-images.githubusercontent.com/15260226/150348701-c2dba704-103a-4194-944e-4d51a6ed468b.png)
+  - ![image](https://user-images.githubusercontent.com/15260226/150467089-d564ebe3-cded-4bfe-860e-c6e032b93cd2.png)
 - This command should work in any pages.
 - arguments
   - `todoistFilter`
