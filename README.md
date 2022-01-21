@@ -7,7 +7,7 @@
 * [Prerequires](#prerequires)
 * [Setup](#setup)
 * [Add workflows for SmartBlocks](#add-workflows-for-smartblocks)
-* [Workflowr](#workflowr)
+* [Workflows](#workflows)
   * [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> pull tasks](#img-width24px-srchttpsuser-imagesgithubusercontentcom15260226150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765png--pull-tasks)
   * [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> sync completed](#img-width24px-srchttpsuser-imagesgithubusercontentcom15260226150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765png--sync-completed)
   * [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> complete task](#img-width24px-srchttpsuser-imagesgithubusercontentcom15260226150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765png--complete-task)
@@ -77,7 +77,7 @@ if (!existing) {
 ![sceenshot](https://user-images.githubusercontent.com/15260226/150341510-a15a0025-2646-43aa-ba03-81fe5af13579.png)
 
 
-## Workflowr
+## Workflows
 
 > :warning: **This integration recognizes the Todoist id using a tag like `Todoist/1234567890`.**  
 > **You must NOT remove this tag.**  
