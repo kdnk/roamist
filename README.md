@@ -4,7 +4,7 @@
 
 - Todoist’s api token
   - See: https://developer.todoist.com/rest/v1/#javascript-sdk
-  - You can get your token from https://todoist.com/prefs/integrations.
+  - You can get your token on https://todoist.com/prefs/integrations.
 - roam42
   - https://roamjs.com/extensions/roam42
 - smartBlocks
@@ -99,7 +99,7 @@ if (!existing) {
 
 ### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> complete task
 - This workflow will complete a task under your cursor.
-  - Roam Research: `{{[[TODO]]}}` will turn into `{{[[DONE]]}}`
+  - After running this workflow, `{{[[TODO]]}}` will turn into `{{[[DONE]]}}` automatically.
 
 ```
 - #SmartBlock todoist - complete task
@@ -111,7 +111,48 @@ if (!existing) {
 ```
 
 
+## Recommended `roam/css`
 
+- I recommend you set css for todoist's priority. 
+  - ref. https://roamresearch.com/#/app/help/page/RA1UXmzp0
+
+```css
+- #priority/p1 #priority/p2 #priority/p3 #priority/p4
+    - ```css
+span.rm-page-ref[data-tag^="priority"]
+{
+  padding: 3px 5px 3px 5px;
+  display:inline-block;
+}
+
+span.rm-page-ref[data-tag$="/p1"]::before {
+  content: '🔴 ';
+}
+span.rm-page-ref[data-tag$="/p1"] {
+  background-color: rgb(252,231,235);
+}
+
+span.rm-page-ref[data-tag$="/p2"]::before {
+  content: '🟠 ';
+}
+span.rm-page-ref[data-tag$="/p2"] {
+  background-color: rgb(250,224,175);
+}
+
+span.rm-page-ref[data-tag$="/p3"]::before {
+  content: '🔵 ';
+}
+span.rm-page-ref[data-tag$="/p3"] {
+  background-color: rgb(199,230,240);
+}
+
+span.rm-page-ref[data-tag$="/p4"]::before {
+  content: '⚪️ ';
+}
+span.rm-page-ref[data-tag$="/p4"] {
+  background-color: rgb(244,244,244);
+}```
+```
 
 
 
