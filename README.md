@@ -1,5 +1,20 @@
 # roam-todoist-integration
 
+
+<!-- vim-markdown-toc GFM -->
+
+* [Motivation](#motivation)
+* [Prerequires](#prerequires)
+* [Setup](#setup)
+* [Add workflows for SmartBlocks](#add-workflows-for-smartblocks)
+* [Workflowr](#workflowr)
+  * [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> pull tasks](#img-width24px-srchttpsuser-imagesgithubusercontentcom15260226150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765png--pull-tasks)
+  * [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> sync completed](#img-width24px-srchttpsuser-imagesgithubusercontentcom15260226150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765png--sync-completed)
+  * [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> complete task](#img-width24px-srchttpsuser-imagesgithubusercontentcom15260226150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765png--complete-task)
+* [Recommended `roam/css`](#recommended-roamcss)
+
+<!-- vim-markdown-toc -->
+
 ## Motivation
 
 For a long time, I have been using Todoist as my personal task management tool.  
@@ -45,10 +60,6 @@ if (!existing) {
 > **I recommend you don’t change it once you set this tag.**  
 > **See also [workflows section](https://github.com/kdnk/roam-todoist-integration/blob/main/README.md#workflows) for more details**.
 
-## aaa
-
-## bb
-
 ## Add workflows for SmartBlocks
 
 > :warning: **You should already have the page named `roam/js/smartblocks` if you followed `Setup` section.  
@@ -83,8 +94,7 @@ if (!existing) {
     - You can pass your filter here.
   - `onlyDiff`
     - If you pass `true`, this workflow pulls only tasks which don't exist in the current page.
-
-```
+- ```
 - #SmartBlock todoist - pull daily today
     - <%JAVASCRIPTASYNC:```javascript
 (async function () {
@@ -92,6 +102,7 @@ if (!existing) {
 })();
 ```%>
 ```
+
 
 
 ### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> sync completed
@@ -104,8 +115,7 @@ if (!existing) {
 - I recommend you use this workflow as a button in `[[42Todoist]]` as follows.
   - `{{Sync todoist completed:42SmartBlock:todoist - sync completed:button=true,42RemoveButton=false}}`
   - ![screenshot](https://user-images.githubusercontent.com/15260226/150343120-6a0da186-8501-43b4-b488-54a2cca1aff0.png)
-
-```
+- ```
 - #SmartBlock todoist - sync completed
     - <%JAVASCRIPTASYNC:```javascript
 (async function () {
@@ -114,12 +124,12 @@ if (!existing) {
 ```%><%NOBLOCKOUTPUT%>
 ```
 
+
 ### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> complete task
 
 - This workflow will complete a task under your cursor.
   - After running this workflow, `{{[[TODO]]}}` will turn into `{{[[DONE]]}}` automatically.
-
-```
+- ```
 - #SmartBlock todoist - complete task
     - <%JAVASCRIPTASYNC:```javascript
 (async function () {
@@ -127,6 +137,7 @@ if (!existing) {
 })();
 ```%>
 ```
+
 
 
 ## Recommended `roam/css`
