@@ -72,11 +72,26 @@ window.RTI.pullTasks = async ({ todoistFilter, onlyDiff }) => {
 
       // add description
       if (subtask.description) {
-        await roam42.common.createBlock(
+        const descParentUid = await roam42.common.createBlock(
           currentSubBlockUid,
           2,
-          `desc:: ${subtask.description}`
+          `desc::`
         );
+        let descBlockUid;
+        subtask.description.split(/\r?\n/).forEach((text, index) => {
+          if (index === 0) {
+            descBlockUid = await roam42.common.createBlock(
+              descParentUid,
+              3,
+              text
+            );
+          } else {
+            descBlockUid = await roam42.common.createSiblingBlock(
+              descParentUid,
+              text
+            );
+          }
+        });
       }
     }
     if (taskIndex === 0) {
