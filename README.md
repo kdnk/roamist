@@ -160,7 +160,7 @@ if (!existing) {
 
 ## Inspired
 
-- (dvargas92495/roam42)[https://github.com/dvargas92495/roam42]
-- (Universal Quick Capture for Roam Research Beta)[https://github.com/dvargas92495/SmartBlocks/issues/187]
+- [dvargas92495/roam42](https://github.com/dvargas92495/roam42)
+- [Universal Quick Capture for Roam Research Beta](https://github.com/dvargas92495/SmartBlocks/issues/187)
 
 
