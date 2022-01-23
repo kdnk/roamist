@@ -78,7 +78,7 @@ window.RTI.pullTasks = async ({ todoistFilter, onlyDiff }) => {
           `desc::`
         );
         let descBlockUid;
-        subtask.description.split(/\r?\n/).forEach((text, index) => {
+        subtask.description.split(/\r?\n/).forEach(async (text, index) => {
           if (index === 0) {
             descBlockUid = await roam42.common.createBlock(
               descParentUid,
