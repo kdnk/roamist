@@ -6,8 +6,6 @@ https://user-images.githubusercontent.com/15260226/150548599-69e6f82a-15e8-43fc-
 
 
 
-## Table of Contents
-
 * [Motivation](#motivation)
 * [Prerequires](#prerequires)
 * [Setup](#setup)
@@ -16,7 +14,8 @@ https://user-images.githubusercontent.com/15260226/150548599-69e6f82a-15e8-43fc-
   * [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> pull tasks](#<img-width="24px"-src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png"-/>-pull-tasks)
   * [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> sync completed](#<img-width="24px"-src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png"-/>-sync-completed)
   * [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> complete task](#<img-width="24px"-src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png"-/>-complete-task)
-* [Recommended `roam/css`](#recommended-`roam/css`)
+* [`roam/css` for priority](#`roam/css`-for-priority)
+* [Inspired](#inspired)
 
 ## Motivation
 
@@ -146,7 +145,7 @@ if (!existing) {
 
 
 
-## Recommended `roam/css`
+## `roam/css` for priority
 
 - I recommend you set css for todoist's priority.
   - ref. https://roamresearch.com/#/app/help/page/RA1UXmzp0
@@ -154,39 +153,8 @@ if (!existing) {
 ```css
 - #priority/p1 #priority/p2 #priority/p3 #priority/p4
     - ```css
-span.rm-page-ref[data-tag^="priority"]
-{
-  padding: 3px 5px 3px 5px;
-  display:inline-block;
-}
-
-span.rm-page-ref[data-tag$="/p1"]::before {
-  content: '🔴 ';
-}
-span.rm-page-ref[data-tag$="/p1"] {
-  background-color: rgb(252,231,235);
-}
-
-span.rm-page-ref[data-tag$="/p2"]::before {
-  content: '🟠 ';
-}
-span.rm-page-ref[data-tag$="/p2"] {
-  background-color: rgb(250,224,175);
-}
-
-span.rm-page-ref[data-tag$="/p3"]::before {
-  content: '🔵 ';
-}
-span.rm-page-ref[data-tag$="/p3"] {
-  background-color: rgb(199,230,240);
-}
-
-span.rm-page-ref[data-tag$="/p4"]::before {
-  content: '⚪️ ';
-}
-span.rm-page-ref[data-tag$="/p4"] {
-  background-color: rgb(244,244,244);
-}```
+    @import url('https://kdnk.github.io/roam-todoist-integration/src/css/priority.css');
+    ```
 ```
 
 

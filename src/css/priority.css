@@ -1,0 +1,33 @@
+span.rm-page-ref[data-tag^="priority"]
+{
+  padding: 3px 5px 3px 5px;
+  display:inline-block;
+}
+
+span.rm-page-ref[data-tag$="/p1"]::before {
+  content: '🔴 ';
+}
+span.rm-page-ref[data-tag$="/p1"] {
+  background-color: rgb(252,231,235);
+}
+
+span.rm-page-ref[data-tag$="/p2"]::before {
+  content: '🟠 ';
+}
+span.rm-page-ref[data-tag$="/p2"] {
+  background-color: rgb(250,224,175);
+}
+
+span.rm-page-ref[data-tag$="/p3"]::before {
+  content: '🔵 ';
+}
+span.rm-page-ref[data-tag$="/p3"] {
+  background-color: rgb(199,230,240);
+}
+
+span.rm-page-ref[data-tag$="/p4"]::before {
+  content: '⚪️ ';
+}
+span.rm-page-ref[data-tag$="/p4"] {
+  background-color: rgb(244,244,244);
+}```
