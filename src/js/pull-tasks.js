@@ -37,11 +37,27 @@ window.RTI.pullTasks = async ({ todoistFilter, onlyDiff }) => {
 
     // add description
     if (task.description) {
-      await roam42.common.createBlock(
+      const descParentUid = await roam42.common.createBlock(
         currentBlockUid,
-        1,
-        `desc:: ${task.description}`
+        2,
+        `desc::`
       );
+      let descBlockUid;
+      const descList = task.description.split(/\r?\n/);
+      for ([descIndex, desc] of descList.entries()) {
+        if (descIndex === 0) {
+          descBlockUid = await roam42.common.createBlock(
+            descParentUid,
+            3,
+            desc
+          );
+        } else {
+          descBlockUid = await roam42.common.createSiblingBlock(
+            descBlockUid,
+            desc
+          );
+        }
+      }
     }
 
     // add subtask
@@ -78,20 +94,21 @@ window.RTI.pullTasks = async ({ todoistFilter, onlyDiff }) => {
           `desc::`
         );
         let descBlockUid;
-        subtask.description.split(/\r?\n/).forEach(async (text, index) => {
-          if (index === 0) {
+        const descList = subtask.description.split(/\r?\n/);
+        for ([descIndex, desc] of descList.entries()) {
+          if (descIndex === 0) {
             descBlockUid = await roam42.common.createBlock(
               descParentUid,
               3,
-              text
+              desc
             );
           } else {
             descBlockUid = await roam42.common.createSiblingBlock(
               descBlockUid,
-              text
+              desc
             );
           }
-        });
+        }
       }
     }
     if (taskIndex === 0) {
