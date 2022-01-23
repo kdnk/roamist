@@ -87,7 +87,7 @@ window.RTI.pullTasks = async ({ todoistFilter, onlyDiff }) => {
             );
           } else {
             descBlockUid = await roam42.common.createSiblingBlock(
-              descParentUid,
+              descBlockUid,
               text
             );
           }
