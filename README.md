@@ -49,7 +49,7 @@ const ID = "roam-todoist-integration";
 const existing = document.getElementById(ID);
 if (!existing) {
   const script = document.createElement("script");
-  script.src = "https://kdnk.github.io/roam-todoist-integration/src/index.js";
+  script.src = "https://kdnk.github.io/roam-todoist-integration/src/js/index.js";
   script.id = ID;
   script.async = true;
   script.type = "text/javascript";
