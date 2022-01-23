@@ -1,9 +1,5 @@
 /* vim: set sw=2 sts=2 ts=2 et: */
 
-// (async function () {
-//   await window.RTI.pullWork();
-// })();
-
 window.RTI.pullTasks = async ({ todoistFilter, onlyDiff }) => {
   const FILTER = encodeURIComponent(todoistFilter);
 

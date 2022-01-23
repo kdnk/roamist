@@ -1,9 +1,5 @@
 /* vim: set sw=2 sts=2 ts=2 et: */
 
-// (async function (options) {
-//   await window.RTI.syncCompleted();
-// })();
-
 window.RTI.syncCompleted = async () => {
   const getActiveTodoistIds = async () => {
     const url = "https://api.todoist.com/rest/v1/tasks";

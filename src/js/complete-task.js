@@ -1,9 +1,5 @@
 /* vim: set sw=2 sts=2 ts=2 et: */
 
-// (async function () {
-//   await window.RTI.completeTask();
-// })();
-
 window.RTI.completeTask = async () => {
   const TODOIST_TOKEN = window.TODOIST_TOKEN;
 
