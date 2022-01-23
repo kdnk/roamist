@@ -14,6 +14,34 @@ window.RTI.pullTasks = async ({ todoistFilter, onlyDiff }) => {
     return tasks;
   };
 
+  const createDescriptionBlock = async ({
+    description,
+    currentBlockUid,
+    currentIndent,
+  }) => {
+    const descParentUid = await roam42.common.createBlock(
+      currentBlockUid,
+      currentIndent + 1,
+      `desc::`
+    );
+    let descBlockUid;
+    const descList = description.split(/\r?\n/);
+    for ([descIndex, desc] of descList.entries()) {
+      if (descIndex === 0) {
+        descBlockUid = await roam42.common.createBlock(
+          descParentUid,
+          currentIndent + 2,
+          desc
+        );
+      } else {
+        descBlockUid = await roam42.common.createSiblingBlock(
+          descBlockUid,
+          desc
+        );
+      }
+    }
+  };
+
   const projects = await window.RTI.getTodoistProjects();
   const tasks = await getTodoistTasks();
   let taskList = tasks.filter((task) => !task.parent_id);
@@ -37,27 +65,11 @@ window.RTI.pullTasks = async ({ todoistFilter, onlyDiff }) => {
 
     // add description
     if (task.description) {
-      const descParentUid = await roam42.common.createBlock(
-        currentBlockUid,
-        2,
-        `desc::`
-      );
-      let descBlockUid;
-      const descList = task.description.split(/\r?\n/);
-      for ([descIndex, desc] of descList.entries()) {
-        if (descIndex === 0) {
-          descBlockUid = await roam42.common.createBlock(
-            descParentUid,
-            3,
-            desc
-          );
-        } else {
-          descBlockUid = await roam42.common.createSiblingBlock(
-            descBlockUid,
-            desc
-          );
-        }
-      }
+      await createDescriptionBlock({
+        description: task.description,
+        currentBlockUid: currentBlockUid,
+        currentIndent: 1,
+      });
     }
 
     // add subtask
@@ -88,27 +100,11 @@ window.RTI.pullTasks = async ({ todoistFilter, onlyDiff }) => {
 
       // add description
       if (subtask.description) {
-        const descParentUid = await roam42.common.createBlock(
-          currentSubBlockUid,
-          2,
-          `desc::`
-        );
-        let descBlockUid;
-        const descList = subtask.description.split(/\r?\n/);
-        for ([descIndex, desc] of descList.entries()) {
-          if (descIndex === 0) {
-            descBlockUid = await roam42.common.createBlock(
-              descParentUid,
-              3,
-              desc
-            );
-          } else {
-            descBlockUid = await roam42.common.createSiblingBlock(
-              descBlockUid,
-              desc
-            );
-          }
-        }
+        await createDescriptionBlock({
+          description: subtask.description,
+          currentBlockUid: currentSubBlockUid,
+          currentIndent: 2,
+        });
       }
     }
     if (taskIndex === 0) {
