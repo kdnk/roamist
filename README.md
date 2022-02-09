@@ -1,7 +1,7 @@
 
 
 <div align="center">
-  <h1>Roam Research ❤️ Todoist</h1>
+  <h1>Todoist ❤️ Roam Research</h1>
   <h2>🚧 WORK IN PROGRESS 🚧</h2>
   <p>This is a work in progress and breaking changes to the setup/config could
   occur in the future. Sorry for any inconveniences.
