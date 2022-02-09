@@ -3,11 +3,14 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 window.RTI = window.RTI || {};
-window.RTI.TODOIST_TAG_NAME = window.RTI.TODOIST_TAG_NAME || "42Todoist";
+window.RTI.TODOIST_TAG_NAME =
+  window.RTI.TODOIST_TAG_NAME || "42Todoist";
 
 // ref. https://github.com/dvargas92495/SmartBlocks/issues/187#issuecomment-766252353
 export const convertToRoamDate = (dateString: string) => {
-  const [year, month, day] = dateString.split("-").map((v) => Number(v));
+  const [year, month, day] = dateString
+    .split("-")
+    .map((v) => Number(v));
   const months = [
     "January",
     "February",
@@ -81,7 +84,9 @@ export const createTodoistTaskString = ({
     }
   }
 
-  let taskString = `${getParsedContent(task.content)} [🔗](${task.url})`;
+  let taskString = `${getParsedContent(task.content)} [🔗](${
+    task.url
+  })`;
 
   // priority
   let priority = "";
@@ -104,7 +109,9 @@ export const createTodoistTaskString = ({
 
   // due date
   if (task.due) {
-    taskString = `${taskString} [[${convertToRoamDate(task.due.date)}]]`;
+    taskString = `${taskString} [[${convertToRoamDate(
+      task.due.date
+    )}]]`;
   }
 
   // project tag
@@ -113,7 +120,9 @@ export const createTodoistTaskString = ({
   return `{{[[TODO]]}} ${taskString} `;
 };
 
-export const getAllTodoistBlocksFromPageTitle = async (pageTitle: string) => {
+export const getAllTodoistBlocksFromPageTitle = async (
+  pageTitle: string
+) => {
   const rule =
     "[[(ancestor ?b ?a)[?a :block/children ?b]][(ancestor ?b ?a)[?parent :block/children ?b ](ancestor ?parent ?a) ]]";
 
