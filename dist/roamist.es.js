@@ -253,9 +253,9 @@ const syncCompleted = async () => {
   }
   return "";
 };
-window.RTI = {
+window.RTI = __spreadProps(__spreadValues({}, window.RTI), {
   completeTask,
   pullTasks,
   syncCompleted
-};
+});
 export { completeTask, pullTasks, syncCompleted };
