@@ -1,5 +1,3 @@
-# roam-todoist-integration
-
 <div align="center">
   <h1>roam-todoist-integration</h1>
   <h1>🚧 WORK IN PROGRESS 🚧</h1>
