@@ -56,7 +56,7 @@ if (!existing) {
   const script = document.createElement("script");
   script.src = "https://kdnk.github.io/roamist/dist/roamist.es.js";
   script.id = ID;
-  script.async = true;
+  script.defer = true;
   script.type = "text/javascript";
   document.getElementsByTagName("head")[0].appendChild(script);
 }
