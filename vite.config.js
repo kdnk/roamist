@@ -4,7 +4,7 @@ const { resolve } = require("path");
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, "src/index.ts"),
+      entry: resolve(__dirname, "src/js/index.ts"),
       name: "roamist",
       filename: (format) => `roamist.${format}.js`,
     },

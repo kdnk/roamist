@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-window.RTI.syncCompleted = async () => {
+export const syncCompleted = async () => {
   const getActiveTodoistIds = async () => {
     const url = "https://api.todoist.com/rest/v1/tasks";
     const bearer = "Bearer " + window.TODOIST_TOKEN;

@@ -1,4 +1,4 @@
-window.RTI.completeTask = async () => {
+export const completeTask = async () => {
   const TODOIST_TOKEN = window.TODOIST_TOKEN;
 
   const blockUid = roam42.common.currentActiveBlockUID();

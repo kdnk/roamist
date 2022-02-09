@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-window.RTI.pullTasks = async ({
+export const pullTasks = async ({
   todoistFilter,
   onlyDiff,
 }: {

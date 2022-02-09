@@ -2,7 +2,7 @@
   "name": "roam-todoist-integration",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "./src/js/index.ts",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
