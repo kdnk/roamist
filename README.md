@@ -49,12 +49,12 @@ This Roamist is one way to make this possible. With this integration, you can co
 ```javascript
 window.TODOIST_TOKEN = "put your todoist token"; // Please replace with your token
 window.RTI = {};
-window.RTI.TODOIST_TAG_NAME = "42Todoist"; // Please replace here with any tags what you want to use for this integration.
+window.RTI.TODOIST_TAG_NAME = "Roamist"; // Please replace here with any tags what you want to use for this integration.
 const ID = "roamist";
 const existing = document.getElementById(ID);
 if (!existing) {
   const script = document.createElement("script");
-  script.src = "https://kdnk.github.io/roamist/src/js/index.js";
+  script.src = "https://kdnk.github.io/roamist/dist/roamist.es.js";
   script.id = ID;
   script.async = true;
   script.type = "text/javascript";
