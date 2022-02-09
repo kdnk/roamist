@@ -38,6 +38,35 @@ const completeTask = async () => {
 };
 window.RTI = window.RTI || {};
 window.RTI.TODOIST_TAG_NAME = window.RTI.TODOIST_TAG_NAME || "42Todoist";
+const convertToRoamDate = (dateString) => {
+  const [year, month, day] = dateString.split("-").map((v) => Number(v));
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+  const monthName = months[month - 1];
+  const suffix = day >= 4 && day <= 20 || day >= 24 && day <= 30 ? "th" : ["st", "nd", "rd"][day % 10 - 1];
+  return `${monthName} ${day}${suffix}, ${year}`;
+};
+const getTodoistId = (url) => {
+  try {
+    const todoistId = url.match(/\d{10}/)[0];
+    return todoistId;
+  } catch (e) {
+    console.warn(e);
+    return "";
+  }
+};
 const createTodoistTaskString = ({
   task,
   project
@@ -83,28 +112,40 @@ const createTodoistTaskString = ({
     priority = "p4";
   }
   taskString = `#priority/${priority} ${taskString}`;
-  const taskId = window.RTI.getTodoistId(task.url);
+  const taskId = getTodoistId(task.url);
   if (taskId) {
     taskString = `${taskString} #Todoist/${taskId}`;
   }
   if (task.due) {
-    taskString = `${taskString} [[${window.RTI.convertToRoamDate(task.due.date)}]]`;
+    taskString = `${taskString} [[${convertToRoamDate(task.due.date)}]]`;
   }
   taskString = `${taskString} #[[${project.name}]] #${window.RTI.TODOIST_TAG_NAME}`;
   return `{{[[TODO]]}} ${taskString} `;
+};
+const getAllTodoistBlocksFromPageTitle = async (pageTitle) => {
+  const rule = "[[(ancestor ?b ?a)[?a :block/children ?b]][(ancestor ?b ?a)[?parent :block/children ?b ](ancestor ?parent ?a) ]]";
+  const query = `[:find  (pull ?block [:block/uid :block/string])
+                                  :in $ ?page_title %
+                                  :where
+                                  [?page :node/title ?page_title]
+                                  [?block :block/string ?contents]
+                                  [(clojure.string/includes? ?contents "#${window.RTI.TODOIST_TAG_NAME}")]
+                                  (ancestor ?block ?page)]`;
+  const results = await window.roamAlphaAPI.q(query, pageTitle, rule);
+  return results;
 };
 const dedupTaskList = async (taskList) => {
   const currentPageUid = await roam42.common.currentPageUID();
   console.log(`[util.js:79] currentPageUid: `, currentPageUid);
   const currentpageTitle = await roam42.common.getBlockInfoByUID(currentPageUid);
-  const existingBlocks = await window.RTI.getAllTodoistBlocksFromPageTitle(currentpageTitle[0][0].title);
+  const existingBlocks = await getAllTodoistBlocksFromPageTitle(currentpageTitle[0][0].title);
   const existingTodoistIds = existingBlocks.map((item) => {
     const block = item[0];
-    const todoistId = window.RTI.getTodoistId(block.string);
+    const todoistId = getTodoistId(block.string);
     return todoistId;
   });
   const newTaskList = taskList.filter((task) => {
-    const taskId = window.RTI.getTodoistId(task.url);
+    const taskId = getTodoistId(task.url);
     return !existingTodoistIds.includes(taskId);
   });
   return newTaskList;
@@ -258,4 +299,5 @@ window.RTI = __spreadProps(__spreadValues({}, window.RTI), {
   pullTasks,
   syncCompleted
 });
-console.log("[index.ts:12] window.RTI: ", window.RTI);
+console.log("<<< roamist >>> window.RTI: ", window.RTI);
+console.log("<<< roamist >>> setup compoleted.");
