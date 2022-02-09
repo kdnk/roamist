@@ -1,6 +1,9 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { TodoistApi } from "@doist/todoist-api-typescript";
+
+const api = new TodoistApi(window.TODOIST_TOKEN);
 
 window.RTI = window.RTI || {};
 window.RTI.TODOIST_TAG_NAME =
@@ -160,14 +163,7 @@ export const dedupTaskList = async (taskList: any) => {
 };
 
 export const getTodoistProjects = async () => {
-  const url = `https://api.todoist.com/rest/v1/projects`;
-  const bearer = "Bearer " + TODOIST_TOKEN;
-  const projects = await fetch(url, {
-    headers: {
-      Authorization: bearer,
-    },
-  }).then((res) => res.json());
-  return projects;
+  return await api.getProjects();
 };
 
 export const getTodoistProject = (projects: any, projectId: any) => {
