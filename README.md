@@ -2,7 +2,7 @@
 
 <div align="center">
   <h1>Roam Research ❤️ Todoist</h1>
-  <h1>🚧 WORK IN PROGRESS 🚧</h1>
+  <h2>🚧 WORK IN PROGRESS 🚧</h2>
   <p>This is a work in progress and breaking changes to the setup/config could
   occur in the future. Sorry for any inconveniences.
   If you have any trobule, please contact me on <a href="https://roamresearch.slack.com/archives/C03318RAN72">#roamist</a> channel on Roam Slack.
