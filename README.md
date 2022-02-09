@@ -1,6 +1,12 @@
 # roam-todoist-integration
 
-
+<div align="center">
+  <h1>roam-todoist-integration</h1>
+  <h1>🚧 WORK IN PROGRESS 🚧</h1>
+  <p>This is a work in progress and breaking changes to the setup/config could
+  occur in the future. Sorry for any inconveniences.
+  </p>
+</div>
 
 https://user-images.githubusercontent.com/15260226/150548599-69e6f82a-15e8-43fc-a761-59c0f515c56f.mp4
 
