@@ -7,7 +7,6 @@ import {
   createTodoistTaskString,
   dedupTaskList,
   getTodoistProject,
-  getTodoistProjects,
 } from "./utils/util";
 
 export const pullTasks = async ({
@@ -49,7 +48,7 @@ export const pullTasks = async ({
     }
   };
 
-  const projects = await getTodoistProjects();
+  const projects = await api.getProjects();
   const tasks = await api.getTasks({ filter: todoistFilter });
   let taskList = tasks.filter((task: any) => !task.parent_id);
   if (onlyDiff) {
