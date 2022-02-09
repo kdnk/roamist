@@ -1,10 +1,12 @@
-/* vim: set sw=2 sts=2 ts=2 et: */
+/* eslint-disable no-useless-escape */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 window.RTI = window.RTI || {};
 window.RTI.TODOIST_TAG_NAME = window.RTI.TODOIST_TAG_NAME || "42Todoist";
 
 // ref. https://github.com/dvargas92495/SmartBlocks/issues/187#issuecomment-766252353
-window.RTI.convertToRoamDate = (dateString) => {
+window.RTI.convertToRoamDate = (dateString: string) => {
   const [year, month, day] = dateString.split("-").map((v) => Number(v));
   const months = [
     "January",
@@ -28,9 +30,9 @@ window.RTI.convertToRoamDate = (dateString) => {
   return `${monthName} ${day}${suffix}, ${year}`;
 };
 
-window.RTI.getTodoistId = (url) => {
+window.RTI.getTodoistId = (url: string) => {
   try {
-    const todoistId = url.match(/\d{10}/)[0];
+    const todoistId = url.match(/\d{10}/)![0];
     return todoistId;
   } catch (e) {
     console.warn(e);
@@ -38,15 +40,22 @@ window.RTI.getTodoistId = (url) => {
   }
 };
 
-window.RTI.createTodoistTaskString = ({ task, project }) => {
-  function getParsedContent(content) {
+window.RTI.createTodoistTaskString = ({
+  task,
+  project,
+}: {
+  task: any;
+  project: any;
+}) => {
+  function getParsedContent(content: string) {
     const matchedLink = content.match(/\[(.*)\]\((.*)\)/);
     if (!matchedLink) {
       return content;
     } else {
       // isUrl
       const [matchedString, title, urlString] = matchedLink;
-      const getDiff = (diffMe, diffBy) => diffMe.split(diffBy).join("");
+      const getDiff = (diffMe: any, diffBy: any) =>
+        diffMe.split(diffBy).join("");
       const diff = getDiff(content, matchedString);
 
       const url = new URL(urlString);
@@ -106,7 +115,7 @@ window.RTI.createTodoistTaskString = ({ task, project }) => {
   return `{{[[TODO]]}} ${taskString} `;
 };
 
-window.RTI.getAllTodoistBlocksFromPageTitle = async (pageTitle) => {
+window.RTI.getAllTodoistBlocksFromPageTitle = async (pageTitle: string) => {
   const rule =
     "[[(ancestor ?b ?a)[?a :block/children ?b]][(ancestor ?b ?a)[?parent :block/children ?b ](ancestor ?parent ?a) ]]";
 
@@ -122,7 +131,7 @@ window.RTI.getAllTodoistBlocksFromPageTitle = async (pageTitle) => {
   return results;
 };
 
-window.RTI.dedupTaskList = async (taskList) => {
+window.RTI.dedupTaskList = async (taskList: any) => {
   const currentPageUid = await roam42.common.currentPageUID();
   console.log(`[util.js:79] currentPageUid: `, currentPageUid);
   const currentpageTitle = await roam42.common.getBlockInfoByUID(
@@ -131,12 +140,12 @@ window.RTI.dedupTaskList = async (taskList) => {
   const existingBlocks = await window.RTI.getAllTodoistBlocksFromPageTitle(
     currentpageTitle[0][0].title
   );
-  const existingTodoistIds = existingBlocks.map((item) => {
+  const existingTodoistIds = existingBlocks.map((item: any) => {
     const block = item[0];
-    todoistId = window.RTI.getTodoistId(block.string);
+    const todoistId = window.RTI.getTodoistId(block.string);
     return todoistId;
   });
-  const newTaskList = taskList.filter((task) => {
+  const newTaskList = taskList.filter((task: any) => {
     const taskId = window.RTI.getTodoistId(task.url);
     return !existingTodoistIds.includes(taskId);
   });
@@ -154,8 +163,8 @@ window.RTI.getTodoistProjects = async () => {
   return projects;
 };
 
-window.RTI.getTodoistProject = (projects, projectId) => {
-  const project = projects.find((p) => {
+window.RTI.getTodoistProject = (projects: any, projectId: any) => {
+  const project = projects.find((p: any) => {
     return p.id === projectId;
   });
   return project;
