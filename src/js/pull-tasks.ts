@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { TodoistApi } from "@doist/todoist-api-typescript";
+
+const api = new TodoistApi(window.TODOIST_TOKEN);
 
 import {
   createTodoistTaskString,
@@ -14,19 +17,6 @@ export const pullTasks = async ({
   todoistFilter: string;
   onlyDiff: boolean;
 }) => {
-  const FILTER = encodeURIComponent(todoistFilter);
-
-  const getTodoistTasks = async () => {
-    const url = `https://api.todoist.com/rest/v1/tasks?filter=${FILTER}`;
-    const bearer = "Bearer " + window.TODOIST_TOKEN;
-    const tasks = await fetch(url, {
-      headers: {
-        Authorization: bearer,
-      },
-    }).then((res) => res.json());
-    return tasks;
-  };
-
   const createDescriptionBlock = async ({
     description,
     currentBlockUid,
@@ -60,7 +50,7 @@ export const pullTasks = async ({
   };
 
   const projects = await getTodoistProjects();
-  const tasks = await getTodoistTasks();
+  const tasks = await api.getTasks({ filter: todoistFilter });
   let taskList = tasks.filter((task: any) => !task.parent_id);
   if (onlyDiff) {
     taskList = await dedupTaskList(taskList);
@@ -73,7 +63,7 @@ export const pullTasks = async ({
   const cursorBlockUid = roam42.common.currentActiveBlockUID();
   let currentBlockUid = cursorBlockUid;
   for (const [taskIndex, task] of taskList.entries()) {
-    const project = getTodoistProject(projects, task.project_id);
+    const project = getTodoistProject(projects, task.projectId);
     currentBlockUid = await roam42.common.createSiblingBlock(
       currentBlockUid,
       createTodoistTaskString({ task, project }),
