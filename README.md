@@ -1,9 +1,9 @@
 <div align="center">
   <h1>Todoist ❤️ Roam Research</h1>
   <h2>🚧 WORK IN PROGRESS 🚧</h2>
-  <p>This is a work in progress and breaking changes to the setup/config could
-  occur in the future. Sorry for any inconveniences.
-  If you have any trobule, please contact me on <a href="https://roamresearch.slack.com/archives/C03318RAN72">#roamist</a> channel on Roam Slack.
+  <p>
+  This is a work in progress, and breaking changes to the setup/config could occur in the future. 
+  If you have any trouble, don't hesitate to contact me on the <a href="https://roamresearch.slack.com/archives/C03318RAN72">#roamist</a> channel on Roam Slack. Sorry for any inconvenience.
   </p>
 </div>
 
