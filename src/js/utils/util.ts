@@ -6,7 +6,7 @@ window.RTI = window.RTI || {};
 window.RTI.TODOIST_TAG_NAME = window.RTI.TODOIST_TAG_NAME || "42Todoist";
 
 // ref. https://github.com/dvargas92495/SmartBlocks/issues/187#issuecomment-766252353
-window.RTI.convertToRoamDate = (dateString: string) => {
+export const convertToRoamDate = (dateString: string) => {
   const [year, month, day] = dateString.split("-").map((v) => Number(v));
   const months = [
     "January",
@@ -30,7 +30,7 @@ window.RTI.convertToRoamDate = (dateString: string) => {
   return `${monthName} ${day}${suffix}, ${year}`;
 };
 
-window.RTI.getTodoistId = (url: string) => {
+export const getTodoistId = (url: string) => {
   try {
     const todoistId = url.match(/\d{10}/)![0];
     return todoistId;
@@ -40,7 +40,7 @@ window.RTI.getTodoistId = (url: string) => {
   }
 };
 
-window.RTI.createTodoistTaskString = ({
+export const createTodoistTaskString = ({
   task,
   project,
 }: {
@@ -115,7 +115,7 @@ window.RTI.createTodoistTaskString = ({
   return `{{[[TODO]]}} ${taskString} `;
 };
 
-window.RTI.getAllTodoistBlocksFromPageTitle = async (pageTitle: string) => {
+export const getAllTodoistBlocksFromPageTitle = async (pageTitle: string) => {
   const rule =
     "[[(ancestor ?b ?a)[?a :block/children ?b]][(ancestor ?b ?a)[?parent :block/children ?b ](ancestor ?parent ?a) ]]";
 
@@ -131,7 +131,7 @@ window.RTI.getAllTodoistBlocksFromPageTitle = async (pageTitle: string) => {
   return results;
 };
 
-window.RTI.dedupTaskList = async (taskList: any) => {
+export const dedupTaskList = async (taskList: any) => {
   const currentPageUid = await roam42.common.currentPageUID();
   console.log(`[util.js:79] currentPageUid: `, currentPageUid);
   const currentpageTitle = await roam42.common.getBlockInfoByUID(
@@ -152,7 +152,7 @@ window.RTI.dedupTaskList = async (taskList: any) => {
   return newTaskList;
 };
 
-window.RTI.getTodoistProjects = async () => {
+export const getTodoistProjects = async () => {
   const url = `https://api.todoist.com/rest/v1/projects`;
   const bearer = "Bearer " + TODOIST_TOKEN;
   const projects = await fetch(url, {
@@ -163,7 +163,7 @@ window.RTI.getTodoistProjects = async () => {
   return projects;
 };
 
-window.RTI.getTodoistProject = (projects: any, projectId: any) => {
+export const getTodoistProject = (projects: any, projectId: any) => {
   const project = projects.find((p: any) => {
     return p.id === projectId;
   });

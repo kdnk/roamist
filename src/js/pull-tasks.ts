@@ -1,5 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import {
+  createTodoistTaskString,
+  dedupTaskList,
+  getTodoistProject,
+  getTodoistProjects,
+} from "./utils/util";
+
 export const pullTasks = async ({
   todoistFilter,
   onlyDiff,
@@ -52,11 +59,11 @@ export const pullTasks = async ({
     }
   };
 
-  const projects = await window.RTI.getTodoistProjects();
+  const projects = await getTodoistProjects();
   const tasks = await getTodoistTasks();
   let taskList = tasks.filter((task: any) => !task.parent_id);
   if (onlyDiff) {
-    taskList = await window.RTI.dedupTaskList(taskList);
+    taskList = await dedupTaskList(taskList);
   }
   taskList.sort((a: any, b: any) => {
     return b.priority - a.priority;
@@ -66,10 +73,10 @@ export const pullTasks = async ({
   const cursorBlockUid = roam42.common.currentActiveBlockUID();
   let currentBlockUid = cursorBlockUid;
   for (const [taskIndex, task] of taskList.entries()) {
-    const project = window.RTI.getTodoistProject(projects, task.project_id);
+    const project = getTodoistProject(projects, task.project_id);
     currentBlockUid = await roam42.common.createSiblingBlock(
       currentBlockUid,
-      window.RTI.createTodoistTaskString({ task, project }),
+      createTodoistTaskString({ task, project }),
       true
     );
 
@@ -92,7 +99,7 @@ export const pullTasks = async ({
         currentSubBlockUid = await roam42.common.createBlock(
           currentBlockUid,
           1,
-          window.RTI.createTodoistTaskString({
+          createTodoistTaskString({
             task: subtask,
             project,
           })
@@ -100,7 +107,7 @@ export const pullTasks = async ({
       } else {
         currentSubBlockUid = await roam42.common.createSiblingBlock(
           currentSubBlockUid,
-          window.RTI.createTodoistTaskString({
+          createTodoistTaskString({
             task: subtask,
             project,
           }),
