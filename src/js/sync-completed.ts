@@ -1,17 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export const syncCompleted = async () => {
-  const getActiveTodoistIds = async () => {
-    const url = "https://api.todoist.com/rest/v1/tasks";
-    const bearer = "Bearer " + window.TODOIST_TOKEN;
-    const tasks = await fetch(url, {
-      headers: {
-        Authorization: bearer,
-      },
-    }).then((res) => res.json());
-    return tasks.map((task: any) => task.id);
-  };
+import { TodoistApi } from "@doist/todoist-api-typescript";
 
+const api = new TodoistApi(window.TODOIST_TOKEN);
+
+export const syncCompleted = async () => {
   const getTodoBlocksReferringToThisPage = async (title: string) => {
     try {
       return await window.roamAlphaAPI.q(`
@@ -38,7 +31,10 @@ export const syncCompleted = async () => {
     });
   };
 
-  const getCompletedBlockUIds = (activeTodoistIds: any, roamTodoist: any) => {
+  const getCompletedBlockUIds = (
+    activeTodoistIds: any,
+    roamTodoist: any
+  ) => {
     const completedBlocks = roamTodoist.filter(
       ({ todoistId }: { todoistId: string }) => {
         return !activeTodoistIds.includes(Number(todoistId));
@@ -47,12 +43,19 @@ export const syncCompleted = async () => {
     return completedBlocks;
   };
 
-  const activeTodoistIds = await getActiveTodoistIds();
+  const tasks = await api.getTasks();
+  const activeTodoistIds = tasks.map((task: any) => task.id);
   const roamTodoist = await getTodoBlocksWithTodoistId();
-  const completedBlocks = getCompletedBlockUIds(activeTodoistIds, roamTodoist);
+  const completedBlocks = getCompletedBlockUIds(
+    activeTodoistIds,
+    roamTodoist
+  );
 
   for (const block of completedBlocks) {
-    const newContent = block.string.replace("{{[[TODO]]}}", "{{[[DONE]]}}");
+    const newContent = block.string.replace(
+      "{{[[TODO]]}}",
+      "{{[[DONE]]}}"
+    );
     await roam42.common.updateBlock(block.uid, newContent);
   }
 
