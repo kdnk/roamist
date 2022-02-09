@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>roam-todoist-integration</h1>
+  <h1>Roamist</h1>
   <h1>🚧 WORK IN PROGRESS 🚧</h1>
   <p>This is a work in progress and breaking changes to the setup/config could
   occur in the future. Sorry for any inconveniences.
@@ -29,7 +29,7 @@ I still think that Roam Research is the best note-taking tool, but Todoist is mo
 
 Since I started using Roam Research, I've wondered if it would be possible to use Todoist for task management but take detailed notes for each task in Roam Research.  
 
-This roam-todoist-integration is one way to make this possible. With this integration, you can copy tasks from Todoist to Roam Research, complete Todoist tasks from within Roam Reasearch, and synchronize task completion status between Todoist and Roam Reserach.  
+This Roamist is one way to make this possible. With this integration, you can copy tasks from Todoist to Roam Research, complete Todoist tasks from within Roam Reasearch, and synchronize task completion status between Todoist and Roam Reserach.  
 
 ## Prerequires
 
@@ -50,11 +50,11 @@ This roam-todoist-integration is one way to make this possible. With this integr
 window.TODOIST_TOKEN = "put your todoist token"; // Please replace with your token
 window.RTI = {};
 window.RTI.TODOIST_TAG_NAME = "42Todoist"; // Please replace here with any tags what you want to use for this integration.
-const ID = "roam-todoist-integration";
+const ID = "roamist";
 const existing = document.getElementById(ID);
 if (!existing) {
   const script = document.createElement("script");
-  script.src = "https://kdnk.github.io/roam-todoist-integration/src/js/index.js";
+  script.src = "https://kdnk.github.io/roamist/src/js/index.js";
   script.id = ID;
   script.async = true;
   script.type = "text/javascript";
@@ -65,7 +65,7 @@ if (!existing) {
 > :warning: **All tasks pulled from Todoist should have a specific tag you set via `window.RTI.TODOIST_TAG_NAME`.**  
 > **This tag is essential because this integration uses the tag to recognize which blocks come from Todoist.**  
 > **I recommend you don’t change it once you set this tag.**  
-> **See also [workflows section](https://github.com/kdnk/roam-todoist-integration/blob/main/README.md#workflows) for more details**.
+> **See also [workflows section](https://github.com/kdnk/roamist/blob/main/README.md#workflows) for more details**.
 
 ## Add workflows for SmartBlocks
 
@@ -73,12 +73,12 @@ if (!existing) {
 > If not, make sure you set up SmartBlocks correctly first.**  
 
 
-- Paste some [workflows](https://github.com/kdnk/roam-todoist-integration#workflows) what you like under workflows block on `[[roam/js/smartblocks]]`.
+- Paste some [workflows](https://github.com/kdnk/roamist#workflows) what you like under workflows block on `[[roam/js/smartblocks]]`.
   - After finishing setup, your `[[roam/js/smartblocks]]` page should look like this.
 
 ![screenshot](https://user-images.githubusercontent.com/15260226/150348953-ceb7f670-450f-4673-8b01-0e1eac29fda6.png)
 
-- Then, you can use these [workflows](https://github.com/kdnk/roam-todoist-integration#workflows) typing your SmartBlocks trigger (I use `jj` for it).
+- Then, you can use these [workflows](https://github.com/kdnk/roamist#workflows) typing your SmartBlocks trigger (I use `jj` for it).
 
 
 ![sceenshot](https://user-images.githubusercontent.com/15260226/150341510-a15a0025-2646-43aa-ba03-81fe5af13579.png)
@@ -158,7 +158,7 @@ if (!existing) {
 ```css
 - #priority/p1 #priority/p2 #priority/p3 #priority/p4
     - ```css
-    @import url('https://kdnk.github.io/roam-todoist-integration/src/css/priority.css');
+    @import url('https://kdnk.github.io/roamist/src/css/priority.css');
     ```
 ```
 

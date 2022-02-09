@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kdnk/roam-todoist-integration.git"
+    "url": "git+https://github.com/kdnk/roamist.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kdnk/roam-todoist-integration/issues"
+    "url": "https://github.com/kdnk/roamist/issues"
   },
-  "homepage": "https://github.com/kdnk/roam-todoist-integration#readme",
+  "homepage": "https://github.com/kdnk/roamist#readme",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.11.0",
