@@ -97,16 +97,14 @@ export const createTodoistTaskString = ({
   taskString = `#priority/${priority} ${taskString}`;
 
   // add id
-  const taskId = window.RTI.getTodoistId(task.url);
+  const taskId = getTodoistId(task.url);
   if (taskId) {
     taskString = `${taskString} #Todoist/${taskId}`;
   }
 
   // due date
   if (task.due) {
-    taskString = `${taskString} [[${window.RTI.convertToRoamDate(
-      task.due.date
-    )}]]`;
+    taskString = `${taskString} [[${convertToRoamDate(task.due.date)}]]`;
   }
 
   // project tag
@@ -137,16 +135,16 @@ export const dedupTaskList = async (taskList: any) => {
   const currentpageTitle = await roam42.common.getBlockInfoByUID(
     currentPageUid
   );
-  const existingBlocks = await window.RTI.getAllTodoistBlocksFromPageTitle(
+  const existingBlocks = await getAllTodoistBlocksFromPageTitle(
     currentpageTitle[0][0].title
   );
   const existingTodoistIds = existingBlocks.map((item: any) => {
     const block = item[0];
-    const todoistId = window.RTI.getTodoistId(block.string);
+    const todoistId = getTodoistId(block.string);
     return todoistId;
   });
   const newTaskList = taskList.filter((task: any) => {
-    const taskId = window.RTI.getTodoistId(task.url);
+    const taskId = getTodoistId(task.url);
     return !existingTodoistIds.includes(taskId);
   });
   return newTaskList;
