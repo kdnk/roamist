@@ -259,4 +259,3 @@ window.RTI = __spreadProps(__spreadValues({}, window.RTI), {
   syncCompleted
 });
 console.log("[index.ts:12] window.RTI: ", window.RTI);
-export { completeTask, pullTasks, syncCompleted };

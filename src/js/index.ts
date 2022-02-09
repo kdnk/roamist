@@ -10,5 +10,3 @@ window.RTI = {
 };
 
 console.log("[index.ts:12] window.RTI: ", window.RTI);
-
-export { completeTask, pullTasks, syncCompleted };
