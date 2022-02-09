@@ -1,5 +1,5 @@
 {
-  "name": "roam-todoist-integration",
+  "name": "roamist",
   "version": "0.0.1",
   "description": "",
   "main": "./src/js/index.ts",
