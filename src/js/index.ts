@@ -9,4 +9,5 @@ window.RTI = {
   syncCompleted,
 };
 
-console.log("[index.ts:12] window.RTI: ", window.RTI);
+console.log("<<< roamist >>> window.RTI: ", window.RTI);
+console.log("<<< roamist >>> setup compoleted.");
