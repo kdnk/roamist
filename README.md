@@ -3,7 +3,7 @@
   <h2>🚧 WORK IN PROGRESS 🚧</h2>
   <p>
   This is a work in progress, and breaking changes to the setup/config could occur in the future. 
-  If you have any trouble, don't hesitate to contact me on the <a href="https://roamresearch.slack.com/archives/C03318RAN72">#roamist</a> channel on Roam Slack. Sorry for any inconvenience.
+  If you have any trouble, don't hesitate to create new Issues or contact me on the <a href="https://roamresearch.slack.com/archives/C03318RAN72">#roamist</a> channel on Roam Slack. Sorry for any inconvenience.
   </p>
 </div>
 
