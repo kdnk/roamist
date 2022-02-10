@@ -1,13 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TodoistApi } from "@doist/todoist-api-typescript";
+import { createTodoistTaskString } from "./utils/create-todoist-task-string";
+import { getAllTodoistBlocksFromPageTitle } from "./utils/get-all-todoist-blocks-from-page-title";
+import { getTodoistId } from "./utils/get-todoist-id-from-url";
 
 const api = new TodoistApi(window.TODOIST_TOKEN);
-
-import {
-  createTodoistTaskString,
-  dedupTaskList,
-  getTodoistProject,
-} from "./utils/util";
 
 export const pullTasks = async ({
   todoistFilter,
@@ -62,7 +59,9 @@ export const pullTasks = async ({
   const cursorBlockUid = roam42.common.currentActiveBlockUID();
   let currentBlockUid = cursorBlockUid;
   for (const [taskIndex, task] of taskList.entries()) {
-    const project = getTodoistProject(projects, task.projectId);
+  const project = projects.find((p: any) => {
+    return p.id === task.projectId;
+  });
     currentBlockUid = await roam42.common.createSiblingBlock(
       currentBlockUid,
       createTodoistTaskString({ task, project }),
@@ -120,3 +119,24 @@ export const pullTasks = async ({
 
   return "";
 };
+
+async function dedupTaskList  (taskList: any) {
+  const currentPageUid = await roam42.common.currentPageUID();
+  console.log(`[util.js:79] currentPageUid: `, currentPageUid);
+  const currentpageTitle = await roam42.common.getBlockInfoByUID(
+    currentPageUid
+  );
+  const existingBlocks = await getAllTodoistBlocksFromPageTitle(
+    currentpageTitle[0][0].title
+  );
+  const existingTodoistIds = existingBlocks.map((item: any) => {
+    const block = item[0];
+    const todoistId = getTodoistId(block.string);
+    return todoistId;
+  });
+  const newTaskList = taskList.filter((task: any) => {
+    const taskId = getTodoistId(task.url);
+    return !existingTodoistIds.includes(taskId);
+  });
+  return newTaskList;
+}
