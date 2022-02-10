@@ -5740,10 +5740,15 @@ const syncCompleted = async () => {
   }
   return "";
 };
-window.RTI = __spreadProps(__spreadValues({}, window.RTI), {
+window.Roamist = __spreadProps(__spreadValues(__spreadValues({}, window.RTI), window.Roamist), {
   completeTask,
   pullTasks,
   syncCompleted
 });
-console.log("<<< roamist >>> window.RTI: ", window.RTI);
+window.RTI = {
+  completeTask,
+  pullTasks,
+  syncCompleted
+};
+console.log("<<< roamist >>> window.Roamist: ", window.Roamist);
 console.log("<<< roamist >>> setup compoleted.");
