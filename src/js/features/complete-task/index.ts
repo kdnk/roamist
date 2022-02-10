@@ -16,7 +16,9 @@ export const completeTask = async () => {
     const { blockUid } = getActiveUids();
     const text = getTextByBlockUid(blockUid);
     const matched = text.match(/\d{10}/);
+    logger(`matched: ${matched}}`);
     if (!matched) {
+      logger(`text: ${text}`);
       logger(`This block (${blockUid}) hasn't todoist id.`);
       return;
     }
@@ -29,5 +31,6 @@ export const completeTask = async () => {
   } catch (e) {
     logger("failed.");
     logger(e);
+    throw e;
   }
 };

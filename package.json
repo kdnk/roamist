@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "watch": "vite build --watch",
     "preview": "vite preview",
     "eslint": "eslint './src'",
     "tsc": "./node_modules/.bin/tsc --noEmit"
