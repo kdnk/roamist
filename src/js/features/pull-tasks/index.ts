@@ -29,6 +29,7 @@ export const pullTasks = async ({
 
     const { parentUid } = getActiveUids();
     for (const [taskIndex, task] of taskList.entries()) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const project = projects.find((p: any) => {
         return p.id === task.projectId;
       });
