@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TodoistApi } from "@doist/todoist-api-typescript";
+import { createLogger } from "../../utils/create-loagger";
 
 const api = new TodoistApi(window.TODOIST_TOKEN);
 
-const logger = (log: any) => {
-  console.log(`<<<<<<<<< [roamist] complete-task >>>>>>>>>: ${log}`);
-};
+const logger = createLogger("complete-task");
 
 export const completeTask = async () => {
   const blockUid = roam42.common.currentActiveBlockUID();
