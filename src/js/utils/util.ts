@@ -5,9 +5,9 @@ import { TodoistApi } from "@doist/todoist-api-typescript";
 
 const api = new TodoistApi(window.TODOIST_TOKEN);
 
-window.RTI = window.RTI || {};
-window.RTI.TODOIST_TAG_NAME =
-  window.RTI.TODOIST_TAG_NAME || "42Todoist";
+window.Roamist = window.Roamist || {};
+window.Roamist.TODOIST_TAG_NAME =
+  window.Roamist.TODOIST_TAG_NAME || "42Todoist";
 
 // ref. https://github.com/dvargas92495/SmartBlocks/issues/187#issuecomment-766252353
 export const convertToRoamDate = (dateString: string) => {
@@ -118,7 +118,7 @@ export const createTodoistTaskString = ({
   }
 
   // project tag
-  taskString = `${taskString} #[[${project.name}]] #${window.RTI.TODOIST_TAG_NAME}`;
+  taskString = `${taskString} #[[${project.name}]] #${window.Roamist.TODOIST_TAG_NAME}`;
 
   return `{{[[TODO]]}} ${taskString} `;
 };
@@ -134,7 +134,7 @@ export const getAllTodoistBlocksFromPageTitle = async (
                                   :where
                                   [?page :node/title ?page_title]
                                   [?block :block/string ?contents]
-                                  [(clojure.string/includes? ?contents "#${window.RTI.TODOIST_TAG_NAME}")]
+                                  [(clojure.string/includes? ?contents "#${window.Roamist.TODOIST_TAG_NAME}")]
                                   (ancestor ?block ?page)]`;
 
   const results = await window.roamAlphaAPI.q(query, pageTitle, rule);

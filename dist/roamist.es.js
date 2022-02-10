@@ -5510,8 +5510,8 @@ const completeTask = async () => {
   }
 };
 new dist.TodoistApi(window.TODOIST_TOKEN);
-window.RTI = window.RTI || {};
-window.RTI.TODOIST_TAG_NAME = window.RTI.TODOIST_TAG_NAME || "42Todoist";
+window.Roamist = window.Roamist || {};
+window.Roamist.TODOIST_TAG_NAME = window.Roamist.TODOIST_TAG_NAME || "42Todoist";
 const convertToRoamDate = (dateString) => {
   const [year, month, day] = dateString.split("-").map((v) => Number(v));
   const months = [
@@ -5593,7 +5593,7 @@ const createTodoistTaskString = ({
   if (task.due) {
     taskString = `${taskString} [[${convertToRoamDate(task.due.date)}]]`;
   }
-  taskString = `${taskString} #[[${project.name}]] #${window.RTI.TODOIST_TAG_NAME}`;
+  taskString = `${taskString} #[[${project.name}]] #${window.Roamist.TODOIST_TAG_NAME}`;
   return `{{[[TODO]]}} ${taskString} `;
 };
 const getAllTodoistBlocksFromPageTitle = async (pageTitle) => {
@@ -5603,7 +5603,7 @@ const getAllTodoistBlocksFromPageTitle = async (pageTitle) => {
                                   :where
                                   [?page :node/title ?page_title]
                                   [?block :block/string ?contents]
-                                  [(clojure.string/includes? ?contents "#${window.RTI.TODOIST_TAG_NAME}")]
+                                  [(clojure.string/includes? ?contents "#${window.Roamist.TODOIST_TAG_NAME}")]
                                   (ancestor ?block ?page)]`;
   const results = await window.roamAlphaAPI.q(query, pageTitle, rule);
   return results;
@@ -5714,7 +5714,7 @@ const syncCompleted = async () => {
     }
   };
   const getTodoBlocksWithTodoistId = async () => {
-    const roamTodoBlocks = await getTodoBlocksReferringToThisPage(window.RTI.TODOIST_TAG_NAME);
+    const roamTodoBlocks = await getTodoBlocksReferringToThisPage(window.Roamist.TODOIST_TAG_NAME);
     return roamTodoBlocks.map((item) => {
       const block = item[0];
       const { string: string2 } = block;

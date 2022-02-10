@@ -18,7 +18,7 @@ export const syncCompleted = async () => {
 
   const getTodoBlocksWithTodoistId = async () => {
     const roamTodoBlocks = await getTodoBlocksReferringToThisPage(
-      window.RTI.TODOIST_TAG_NAME
+      window.Roamist.TODOIST_TAG_NAME
     );
     return roamTodoBlocks.map((item: any) => {
       const block = item[0];
