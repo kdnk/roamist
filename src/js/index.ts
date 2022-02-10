@@ -1,6 +1,6 @@
-import { completeTask } from "./complete-task";
-import { pullTasks } from "./pull-tasks";
-import { syncCompleted } from "./sync-completed";
+import { completeTask } from "./features/complete-task";
+import { pullTasks } from "./features/pull-tasks";
+import { syncCompleted } from "./features/sync-completed";
 
 window.Roamist = window.Roamist || {};
 window.Roamist.TODOIST_TAG_NAME = window.Roamist.TODOIST_TAG_NAME || "Roamist";

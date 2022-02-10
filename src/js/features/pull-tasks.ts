@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TodoistApi } from "@doist/todoist-api-typescript";
-import { createTodoistTaskString } from "./utils/create-todoist-task-string";
-import { getAllTodoistBlocksFromPageTitle } from "./utils/get-all-todoist-blocks-from-page-title";
-import { getTodoistId } from "./utils/get-todoist-id-from-url";
+import { createTodoistTaskString } from "../utils/create-todoist-task-string";
+import { getAllTodoistBlocksFromPageTitle } from "../utils/get-all-todoist-blocks-from-page-title";
+import { getTodoistId } from "../utils/get-todoist-id-from-url";
 
 const api = new TodoistApi(window.TODOIST_TOKEN);
 
@@ -13,38 +13,6 @@ export const pullTasks = async ({
   todoistFilter: string;
   onlyDiff: boolean;
 }) => {
-  const createDescriptionBlock = async ({
-    description,
-    currentBlockUid,
-    currentIndent,
-  }: {
-    description: string;
-    currentBlockUid: any;
-    currentIndent: number;
-  }) => {
-    const descParentUid = await roam42.common.createBlock(
-      currentBlockUid,
-      currentIndent + 1,
-      `desc::`
-    );
-    let descBlockUid;
-    const descList = description.split(/\r?\n/);
-    for (const [descIndex, desc] of descList.entries()) {
-      if (descIndex === 0) {
-        descBlockUid = await roam42.common.createBlock(
-          descParentUid,
-          currentIndent + 2,
-          desc
-        );
-      } else {
-        descBlockUid = await roam42.common.createSiblingBlock(
-          descBlockUid,
-          desc
-        );
-      }
-    }
-  };
-
   const projects = await api.getProjects();
   const tasks = await api.getTasks({ filter: todoistFilter });
   let taskList = tasks.filter((task: any) => !task.parent_id);
@@ -59,9 +27,9 @@ export const pullTasks = async ({
   const cursorBlockUid = roam42.common.currentActiveBlockUID();
   let currentBlockUid = cursorBlockUid;
   for (const [taskIndex, task] of taskList.entries()) {
-  const project = projects.find((p: any) => {
-    return p.id === task.projectId;
-  });
+    const project = projects.find((p: any) => {
+      return p.id === task.projectId;
+    });
     currentBlockUid = await roam42.common.createSiblingBlock(
       currentBlockUid,
       createTodoistTaskString({ task, project }),
@@ -116,11 +84,38 @@ export const pullTasks = async ({
       await roam42.common.deleteBlock(cursorBlockUid);
     }
   }
-
-  return "";
 };
 
-async function dedupTaskList  (taskList: any) {
+async function createDescriptionBlock({
+  description,
+  currentBlockUid,
+  currentIndent,
+}: {
+  description: string;
+  currentBlockUid: any;
+  currentIndent: number;
+}) {
+  const descParentUid = await roam42.common.createBlock(
+    currentBlockUid,
+    currentIndent + 1,
+    `desc::`
+  );
+  let descBlockUid;
+  const descList = description.split(/\r?\n/);
+  for (const [descIndex, desc] of descList.entries()) {
+    if (descIndex === 0) {
+      descBlockUid = await roam42.common.createBlock(
+        descParentUid,
+        currentIndent + 2,
+        desc
+      );
+    } else {
+      descBlockUid = await roam42.common.createSiblingBlock(descBlockUid, desc);
+    }
+  }
+}
+
+async function dedupTaskList(taskList: any) {
   const currentPageUid = await roam42.common.currentPageUID();
   console.log(`[util.js:79] currentPageUid: `, currentPageUid);
   const currentpageTitle = await roam42.common.getBlockInfoByUID(
