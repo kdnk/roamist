@@ -11,33 +11,31 @@ https://user-images.githubusercontent.com/15260226/150548599-69e6f82a-15e8-43fc-
 
 ## Table of Contents
 
-* [Motivation](#motivation)
-* [Prerequires](#prerequires)
-* [Setup](#setup)
-* [Add workflows for SmartBlocks](#add-workflows-for-smartblocks)
-* [Workflows](#workflows)
-  * [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> pull tasks](#<img-width="24px"-src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png"-/>-pull-tasks)
-  * [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> sync completed](#<img-width="24px"-src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png"-/>-sync-completed)
-  * [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> complete task](#<img-width="24px"-src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png"-/>-complete-task)
-* [`roam/css` for priority](#`roam/css`-for-priority)
-* [Inspired](#inspired)
+- [Motivation](#motivation)
+- [Prerequires](#prerequires)
+- [Setup](#setup)
+- [Add workflows for SmartBlocks](#add-workflows-for-smartblocks)
+- [Workflows](#workflows)
+  - [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> pull tasks](#<img-width="24px"-src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png"-/>-pull-tasks)
+  - [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> sync completed](#<img-width="24px"-src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png"-/>-sync-completed)
+  - [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> complete task](#<img-width="24px"-src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png"-/>-complete-task)
+- [`roam/css` for priority](#`roam/css`-for-priority)
+- [Inspired](#inspired)
 
 ## Motivation
 
 I have been using Todoist as my task management tool for a long time.  
-I still think that Roam Research is the best note-taking tool, but Todoist is more suitable for task management.  
+I still think that Roam Research is the best note-taking tool, but Todoist is more suitable for task management.
 
-Since I started using Roam Research, I've wondered if it would be possible to use Todoist for task management but take detailed notes for each task in Roam Research.  
+Since I started using Roam Research, I've wondered if it would be possible to use Todoist for task management but take detailed notes for each task in Roam Research.
 
-This Roamist is one way to make this possible. With this integration, you can copy tasks from Todoist to Roam Research, complete Todoist tasks from within Roam Reasearch, and synchronize task completion status between Todoist and Roam Reserach.  
+This Roamist is one way to make this possible. With this integration, you can copy tasks from Todoist to Roam Research, complete Todoist tasks from within Roam Reasearch, and synchronize task completion status between Todoist and Roam Reserach.
 
 ## Prerequires
 
 - Todoist’s api token
   - See: https://developer.todoist.com/rest/v1/#javascript-sdk
   - You can get your token on https://todoist.com/prefs/integrations.
-- roam42
-  - https://roamjs.com/extensions/roam42
 - smartBlocks
   - https://roamjs.com/extensions/smartblocks
 
@@ -70,8 +68,7 @@ if (!existing) {
 ## Add workflows for SmartBlocks
 
 > :warning: **You should already have the page named `roam/js/smartblocks` if you followed `Setup` section.  
-> If not, make sure you set up SmartBlocks correctly first.**  
-
+> If not, make sure you set up SmartBlocks correctly first.**
 
 - Paste some [workflows](https://github.com/kdnk/roamist#workflows) what you like under workflows block on `[[roam/js/smartblocks]]`.
   - After finishing setup, your `[[roam/js/smartblocks]]` page should look like this.
@@ -80,15 +77,13 @@ if (!existing) {
 
 - Then, you can use these [workflows](https://github.com/kdnk/roamist#workflows) typing your SmartBlocks trigger (I use `jj` for it).
 
-
 ![sceenshot](https://user-images.githubusercontent.com/15260226/150341510-a15a0025-2646-43aa-ba03-81fe5af13579.png)
-
 
 ## Workflows
 
 > :warning: **This integration recognizes the Todoist id using a tag like `Todoist/1234567890`.**  
 > **You must NOT remove this tag.**  
-> **If you do, this integration won't work as intended.**  
+> **If you do, this integration won't work as intended.**
 
 ### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> pull tasks
 
@@ -102,20 +97,18 @@ if (!existing) {
   - `onlyDiff`
     - If you pass `true`, this workflow pulls only tasks which don't exist in the current page.
 
-```
+````
 - #SmartBlock todoist - pull daily today
     - <%JAVASCRIPTASYNC:```javascript
 (async function () {
   await window.Roamist.pullTasks({ todoistFilter: "(#🧘Routine & #🦒Personal) & today", onlyDiff: false });
 })();
 ```%>
-```
-
+````
 
 ### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> sync completed
 
-
-> :warning: **I assume we use this workflow in `[[42Todoist]]` page or the page you set via `window.Roamist.TODOIST_TAG_NAME`.**  
+> :warning: **I assume we use this workflow in `[[42Todoist]]` page or the page you set via `window.Roamist.TODOIST_TAG_NAME`.**
 
 - This workflow will sync completion status from Todoist to Roam Research.
 - If there are blocks which are already completed in Todoist, `{{[[TODO]]}}` part in Roam Research will be changed to `{{[[DONE]]}}` automatically just pressing this button.
@@ -123,49 +116,42 @@ if (!existing) {
   - `{{Sync todoist completed:42SmartBlock:todoist - sync completed:button=true,42RemoveButton=false}}`
   - ![CleanShot 2022-01-22 at 00 00 59](https://user-images.githubusercontent.com/15260226/150549391-3d993f6d-2edd-4e8f-bc8b-e7440a4e2236.png)
 
-
-```
+````
 - #SmartBlock todoist - sync completed
     - <%JAVASCRIPTASYNC:```javascript
 (async function () {
   await window.Roamist.syncCompleted();
 })();
 ```%><%NOBLOCKOUTPUT%>
-```
+````
 
 ### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> complete task
-
 
 - This workflow will complete a task under your cursor.
   - After running this workflow, `{{[[TODO]]}}` will turn into `{{[[DONE]]}}` automatically.
 
-```
+````
 - #SmartBlock todoist - complete task
     - <%JAVASCRIPTASYNC:```javascript
 (async function () {
   await window.Roamist.completeTask();
 })();
 ```%>
-```
-
-
+````
 
 ## `roam/css` for priority
 
 - I recommend you set css for todoist's priority.
   - ref. https://roamresearch.com/#/app/help/page/RA1UXmzp0
 
-```css
+````css
 - #priority/p1 #priority/p2 #priority/p3 #priority/p4
     - ```css
     @import url('https://kdnk.github.io/roamist/src/css/priority.css');
     ```
-```
-
+````
 
 ## Inspired
 
 - [dvargas92495/roam42](https://github.com/dvargas92495/roam42)
 - [Universal Quick Capture for Roam Research Beta](https://github.com/dvargas92495/SmartBlocks/issues/187)
-
-
