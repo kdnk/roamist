@@ -69728,26 +69728,26 @@ const createLogger = (featureName) => {
   };
 };
 const api$2 = new dist$2.TodoistApi(window.TODOIST_TOKEN);
-const logger$2 = createLogger("complete-task");
+const logger$3 = createLogger("complete-task");
 const completeTask = async () => {
   try {
     const { blockUid } = roamjsComponents.getActiveUids();
     const text2 = roamjsComponents.getTextByBlockUid(blockUid);
     const matched = text2.match(/\d{10}/);
-    logger$2(`matched: ${matched}}`);
+    logger$3(`matched: ${matched}}`);
     if (!matched) {
-      logger$2(`text: ${text2}`);
-      logger$2(`This block (${blockUid}) hasn't todoist id.`);
+      logger$3(`text: ${text2}`);
+      logger$3(`This block (${blockUid}) hasn't todoist id.`);
       return;
     }
     const todoistId = matched[0];
     await api$2.closeTask(Number(todoistId));
     const newContent = text2.replace("{{[[TODO]]}}", "{{[[DONE]]}}");
     await roamjsComponents.updateBlock({ text: newContent, uid: blockUid });
-    logger$2("succeeded.");
+    logger$3("succeeded.");
   } catch (e2) {
-    logger$2("failed.");
-    logger$2(e2);
+    logger$3("failed.");
+    logger$3(e2);
     throw e2;
   }
 };
@@ -69837,10 +69837,10 @@ const createTodoistTaskString = ({
 };
 async function createDescriptionBlock({
   description: description2,
-  currentBlockUid
+  taskBlockUid
 }) {
   const descParentUid = await roamjsComponents.createBlock({
-    parentUid: currentBlockUid,
+    parentUid: taskBlockUid,
     node: { text: `desc::` }
   });
   const descList = description2.split(/\r?\n/);
@@ -69864,9 +69864,10 @@ const getAllTodoistBlocksFromPageTitle = async (pageTitle) => {
   const results = await window.roamAlphaAPI.q(query, pageTitle, rule);
   return results;
 };
+const logger$2 = createLogger("pull-tasks");
 async function dedupTaskList(taskList) {
   const currentPageUid = roamjsComponents.getCurrentPageUid();
-  console.log(`[util.js:79] currentPageUid: `, currentPageUid);
+  logger$2(`currentPageUid: ${currentPageUid}`);
   const currentpageTitle = roamjsComponents.getPageTitleByPageUid(currentPageUid);
   const existingBlocks = await getAllTodoistBlocksFromPageTitle(currentpageTitle);
   const existingTodoistIds = existingBlocks.map((item) => {
@@ -69886,53 +69887,57 @@ const pullTasks = async ({
   todoistFilter,
   onlyDiff
 }) => {
+  const projects = await api$1.getProjects();
+  const tasks = await api$1.getTasks({ filter: todoistFilter });
+  let taskList = tasks.filter((task) => !task.parent_id);
+  if (onlyDiff) {
+    taskList = await dedupTaskList(taskList);
+  }
+  taskList.sort((a2, b2) => {
+    return b2.priority - a2.priority;
+  });
+  const subTaskList = tasks.filter((task) => task.parent_id);
   try {
-    const projects = await api$1.getProjects();
-    const tasks = await api$1.getTasks({ filter: todoistFilter });
-    let taskList = tasks.filter((task) => !task.parent_id);
-    if (onlyDiff) {
-      taskList = await dedupTaskList(taskList);
-    }
-    taskList.sort((a2, b2) => {
-      return b2.priority - a2.priority;
-    });
-    const subTaskList = tasks.filter((task) => task.parent_id);
-    const cursorBlockUid = roam42.common.currentActiveBlockUID();
-    let currentBlockUid = cursorBlockUid;
+    const { blockUid: cursorBlockUid, parentUid } = roamjsComponents.getActiveUids();
     for (const [taskIndex, task] of taskList.entries()) {
       const project = projects.find((p2) => {
         return p2.id === task.projectId;
       });
-      currentBlockUid = await roam42.common.createSiblingBlock(currentBlockUid, createTodoistTaskString({ task, project }), true);
+      if (!project) {
+        return;
+      }
+      const mainTaskBlockUid = await roamjsComponents.createBlock({
+        parentUid,
+        node: { text: createTodoistTaskString({ task, project }) },
+        order: taskIndex
+      });
       if (task.description) {
         await createDescriptionBlock({
           description: task.description,
-          currentBlockUid
+          taskBlockUid: mainTaskBlockUid
         });
       }
       const subtasks = subTaskList.filter((subtask) => subtask.parent_id === task.id);
-      let currentSubBlockUid;
       for (const [subtaskIndex, subtask] of subtasks.entries()) {
-        if (subtaskIndex === 0) {
-          currentSubBlockUid = await roam42.common.createBlock(currentBlockUid, 1, createTodoistTaskString({
-            task: subtask,
-            project
-          }));
-        } else {
-          currentSubBlockUid = await roam42.common.createSiblingBlock(currentSubBlockUid, createTodoistTaskString({
-            task: subtask,
-            project
-          }), true);
-        }
+        const subTaskBlockUid = await roamjsComponents.createBlock({
+          parentUid: mainTaskBlockUid,
+          node: {
+            text: createTodoistTaskString({
+              task: subtask,
+              project
+            })
+          },
+          order: subtaskIndex + (task.description ? 1 : 0)
+        });
         if (subtask.description) {
           await createDescriptionBlock({
             description: subtask.description,
-            currentBlockUid: currentSubBlockUid
+            taskBlockUid: subTaskBlockUid
           });
         }
       }
       if (taskIndex === 0) {
-        await roam42.common.deleteBlock(cursorBlockUid);
+        roamjsComponents.deleteBlock(cursorBlockUid);
       }
     }
     logger$1("succeeded.");

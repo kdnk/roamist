@@ -1,16 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { createBlock } from "roamjs-components";
 
 export async function createDescriptionBlock({
   description,
-  currentBlockUid,
+  taskBlockUid,
 }: {
   description: string;
-  currentBlockUid: any;
+  taskBlockUid: string;
 }) {
   const descParentUid = await createBlock({
-    parentUid: currentBlockUid,
+    parentUid: taskBlockUid,
     node: { text: `desc::` },
   });
   const descList = description.split(/\r?\n/);
