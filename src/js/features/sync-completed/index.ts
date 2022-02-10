@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { TodoistApi } from "@doist/todoist-api-typescript";
+import { updateBlock } from "roamjs-components";
 import { createLogger } from "../../utils/create-loagger";
 import { getCompletedBlockUIds } from "./get-completed-block-uids";
 import { getTodoBlocksWithTodoistId } from "./get-todo-blocks-with-todoist-id";
@@ -20,7 +21,7 @@ export const syncCompleted = async () => {
 
     for (const block of completedBlocks) {
       const newContent = block.string.replace("{{[[TODO]]}}", "{{[[DONE]]}}");
-      await roam42.common.updateBlock(block.uid, newContent);
+      await updateBlock({ text: newContent, uid: block.uid });
     }
     logger("succeeded.");
   } catch (e) {

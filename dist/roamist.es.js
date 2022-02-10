@@ -69980,7 +69980,7 @@ const syncCompleted = async () => {
     const completedBlocks = getCompletedBlockUIds(activeTodoistIds, roamTodoist);
     for (const block of completedBlocks) {
       const newContent = block.string.replace("{{[[TODO]]}}", "{{[[DONE]]}}");
-      await roam42.common.updateBlock(block.uid, newContent);
+      await roamjsComponents.updateBlock({ text: newContent, uid: block.uid });
     }
     logger("succeeded.");
   } catch (e2) {
