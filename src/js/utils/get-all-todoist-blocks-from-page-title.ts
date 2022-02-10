@@ -1,6 +1,4 @@
-export const getAllTodoistBlocksFromPageTitle = async (
-  pageTitle: string
-) => {
+export const getAllTodoistBlocksFromPageTitle = async (pageTitle: string) => {
   const rule =
     "[[(ancestor ?b ?a)[?a :block/children ?b]][(ancestor ?b ?a)[?parent :block/children ?b ](ancestor ?parent ?a) ]]";
 

@@ -4,8 +4,8 @@
 declare var roam42: any;
 declare var Roamist: any;
 /**
-  * @deprecated
-  */
+ * @deprecated
+ */
 declare var RTI: any;
 declare var TODOIST_TOKEN: any;
 declare var roamAlphaAPI: any;

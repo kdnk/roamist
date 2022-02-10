@@ -43,9 +43,7 @@ export const createTodoistTaskString = ({
     }
   }
 
-  let taskString = `${getParsedContent(task.content)} [🔗](${
-    task.url
-  })`;
+  let taskString = `${getParsedContent(task.content)} [🔗](${task.url})`;
 
   // priority
   let priority = "";
@@ -68,9 +66,7 @@ export const createTodoistTaskString = ({
 
   // due date
   if (task.due) {
-    taskString = `${taskString} [[${convertToRoamDate(
-      task.due.date
-    )}]]`;
+    taskString = `${taskString} [[${convertToRoamDate(task.due.date)}]]`;
   }
 
   // project tag
