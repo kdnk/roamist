@@ -69865,10 +69865,10 @@ const getAllTodoistBlocksFromPageTitle = async (pageTitle) => {
   return results;
 };
 async function dedupTaskList(taskList) {
-  const currentPageUid = await roam42.common.currentPageUID();
+  const currentPageUid = roamjsComponents.getCurrentPageUid();
   console.log(`[util.js:79] currentPageUid: `, currentPageUid);
-  const currentpageTitle = await roam42.common.getBlockInfoByUID(currentPageUid);
-  const existingBlocks = await getAllTodoistBlocksFromPageTitle(currentpageTitle[0][0].title);
+  const currentpageTitle = roamjsComponents.getPageTitleByPageUid(currentPageUid);
+  const existingBlocks = await getAllTodoistBlocksFromPageTitle(currentpageTitle);
   const existingTodoistIds = existingBlocks.map((item) => {
     const block = item[0];
     const todoistId = getTodoistId(block.string);

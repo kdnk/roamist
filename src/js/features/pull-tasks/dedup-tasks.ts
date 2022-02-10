@@ -1,15 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { getCurrentPageUid, getPageTitleByPageUid } from "roamjs-components";
+import { createLogger } from "../../utils/create-loagger";
 import { getAllTodoistBlocksFromPageTitle } from "../../utils/get-all-todoist-blocks-from-page-title";
 import { getTodoistId } from "../../utils/get-todoist-id-from-url";
 
+const logger = createLogger("pull-tasks");
+
 export async function dedupTaskList(taskList: any) {
-  const currentPageUid = await roam42.common.currentPageUID();
-  console.log(`[util.js:79] currentPageUid: `, currentPageUid);
-  const currentpageTitle = await roam42.common.getBlockInfoByUID(
-    currentPageUid
-  );
+  const currentPageUid = getCurrentPageUid();
+  logger(`currentPageUid: ${currentPageUid}`);
+  const currentpageTitle = getPageTitleByPageUid(currentPageUid);
   const existingBlocks = await getAllTodoistBlocksFromPageTitle(
-    currentpageTitle[0][0].title
+    currentpageTitle
   );
   const existingTodoistIds = existingBlocks.map((item: any) => {
     const block = item[0];
