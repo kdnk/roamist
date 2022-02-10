@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TodoistApi } from "@doist/todoist-api-typescript";
-import { createTodoistTaskString } from "../utils/create-todoist-task-string";
-import { getAllTodoistBlocksFromPageTitle } from "../utils/get-all-todoist-blocks-from-page-title";
-import { getTodoistId } from "../utils/get-todoist-id-from-url";
+import { createTodoistTaskString } from "../../utils/create-todoist-task-string";
+import { getAllTodoistBlocksFromPageTitle } from "../../utils/get-all-todoist-blocks-from-page-title";
+import { getTodoistId } from "../../utils/get-todoist-id-from-url";
 
 const api = new TodoistApi(window.TODOIST_TOKEN);
 
