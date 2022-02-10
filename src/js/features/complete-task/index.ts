@@ -1,5 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TodoistApi } from "@doist/todoist-api-typescript";
+import { getActiveUids, getTextByBlockUid, updateBlock } from "roamjs-components";
+
 import { createLogger } from "../../utils/create-loagger";
 
 const api = new TodoistApi(window.TODOIST_TOKEN);
@@ -7,16 +8,19 @@ const api = new TodoistApi(window.TODOIST_TOKEN);
 const logger = createLogger("complete-task");
 
 export const completeTask = async () => {
-  const blockUid = roam42.common.currentActiveBlockUID();
-  const blockInfo = await roam42.common.getBlockInfoByUID(blockUid);
-  const block = blockInfo[0][0];
-  const text = block?.string;
-  const todoistId = text.match(/\d{10}/);
-
   try {
-    await api.closeTask(todoistId);
-    const newContent = block.string.replace("{{[[TODO]]}}", "{{[[DONE]]}}");
-    await roam42.common.updateBlock(blockUid, newContent);
+    const { blockUid } = getActiveUids()
+    const text = getTextByBlockUid(blockUid)
+    const matched = text.match(/\d{10}/);
+    if (!matched) {
+        logger(`This block (${blockUid}) hasn't todoist id.`)
+        return
+    }
+
+    const todoistId = matched[0];
+    await api.closeTask(Number(todoistId));
+    const newContent = text.replace("{{[[TODO]]}}", "{{[[DONE]]}}");
+    await updateBlock({text: newContent, uid: blockUid })
     logger("succeeded.");
   } catch (e) {
     logger("failed.");
