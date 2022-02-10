@@ -44,7 +44,6 @@ export const pullTasks = async ({
         await createDescriptionBlock({
           description: task.description,
           currentBlockUid: currentBlockUid,
-          currentIndent: 1,
         });
       }
 
@@ -79,7 +78,6 @@ export const pullTasks = async ({
           await createDescriptionBlock({
             description: subtask.description,
             currentBlockUid: currentSubBlockUid,
-            currentIndent: 2,
           });
         }
       }

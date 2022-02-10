@@ -69837,18 +69837,19 @@ const createTodoistTaskString = ({
 };
 async function createDescriptionBlock({
   description: description2,
-  currentBlockUid,
-  currentIndent
+  currentBlockUid
 }) {
-  const descParentUid = await roam42.common.createBlock(currentBlockUid, currentIndent + 1, `desc::`);
-  let descBlockUid;
+  const descParentUid = await roamjsComponents.createBlock({
+    parentUid: currentBlockUid,
+    node: { text: `desc::` }
+  });
   const descList = description2.split(/\r?\n/);
   for (const [descIndex, desc] of descList.entries()) {
-    if (descIndex === 0) {
-      descBlockUid = await roam42.common.createBlock(descParentUid, currentIndent + 2, desc);
-    } else {
-      descBlockUid = await roam42.common.createSiblingBlock(descBlockUid, desc);
-    }
+    await roamjsComponents.createBlock({
+      parentUid: descParentUid,
+      order: descIndex,
+      node: { text: desc }
+    });
   }
 }
 const getAllTodoistBlocksFromPageTitle = async (pageTitle) => {
@@ -69906,8 +69907,7 @@ const pullTasks = async ({
       if (task.description) {
         await createDescriptionBlock({
           description: task.description,
-          currentBlockUid,
-          currentIndent: 1
+          currentBlockUid
         });
       }
       const subtasks = subTaskList.filter((subtask) => subtask.parent_id === task.id);
@@ -69927,8 +69927,7 @@ const pullTasks = async ({
         if (subtask.description) {
           await createDescriptionBlock({
             description: subtask.description,
-            currentBlockUid: currentSubBlockUid,
-            currentIndent: 2
+            currentBlockUid: currentSubBlockUid
           });
         }
       }
