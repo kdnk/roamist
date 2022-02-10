@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TodoistApi } from "@doist/todoist-api-typescript";
 import { createTodoistTaskString } from "../../utils/create-todoist-task-string";
-import { getAllTodoistBlocksFromPageTitle } from "../../utils/get-all-todoist-blocks-from-page-title";
-import { getTodoistId } from "../../utils/get-todoist-id-from-url";
+import { createDescriptionBlock } from "./create-description-block";
+import { dedupTaskList } from "./dedup-tasks";
 
 const api = new TodoistApi(window.TODOIST_TOKEN);
 
@@ -85,53 +85,3 @@ export const pullTasks = async ({
     }
   }
 };
-
-async function createDescriptionBlock({
-  description,
-  currentBlockUid,
-  currentIndent,
-}: {
-  description: string;
-  currentBlockUid: any;
-  currentIndent: number;
-}) {
-  const descParentUid = await roam42.common.createBlock(
-    currentBlockUid,
-    currentIndent + 1,
-    `desc::`
-  );
-  let descBlockUid;
-  const descList = description.split(/\r?\n/);
-  for (const [descIndex, desc] of descList.entries()) {
-    if (descIndex === 0) {
-      descBlockUid = await roam42.common.createBlock(
-        descParentUid,
-        currentIndent + 2,
-        desc
-      );
-    } else {
-      descBlockUid = await roam42.common.createSiblingBlock(descBlockUid, desc);
-    }
-  }
-}
-
-async function dedupTaskList(taskList: any) {
-  const currentPageUid = await roam42.common.currentPageUID();
-  console.log(`[util.js:79] currentPageUid: `, currentPageUid);
-  const currentpageTitle = await roam42.common.getBlockInfoByUID(
-    currentPageUid
-  );
-  const existingBlocks = await getAllTodoistBlocksFromPageTitle(
-    currentpageTitle[0][0].title
-  );
-  const existingTodoistIds = existingBlocks.map((item: any) => {
-    const block = item[0];
-    const todoistId = getTodoistId(block.string);
-    return todoistId;
-  });
-  const newTaskList = taskList.filter((task: any) => {
-    const taskId = getTodoistId(task.url);
-    return !existingTodoistIds.includes(taskId);
-  });
-  return newTaskList;
-}
