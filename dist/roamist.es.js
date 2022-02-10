@@ -69815,13 +69815,13 @@ const createTodoistTaskString = ({
   }
   let taskString = `${getParsedContent(task.content)} [\u{1F517}](${task.url})`;
   let priority = "";
-  if (task.priority == "4") {
+  if (task.priority == 4) {
     priority = "p1";
-  } else if (task.priority == "3") {
+  } else if (task.priority == 3) {
     priority = "p2";
-  } else if (task.priority == "2") {
+  } else if (task.priority == 2) {
     priority = "p3";
-  } else if (task.priority == "1") {
+  } else if (task.priority == 1) {
     priority = "p4";
   }
   taskString = `#priority/${priority} ${taskString}`;

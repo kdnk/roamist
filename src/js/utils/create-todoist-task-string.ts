@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Project, Task } from "@doist/todoist-api-typescript";
 import { convertToRoamDate } from "./convert-date-to-roam";
 import { getTodoistId } from "./get-todoist-id-from-url";
 
@@ -6,8 +6,8 @@ export const createTodoistTaskString = ({
   task,
   project,
 }: {
-  task: any;
-  project: any;
+  task: Task;
+  project: Project;
 }) => {
   function getParsedContent(content: string) {
     const matchedLink = content.match(/\[(.*)\]\((.*)\)/);
@@ -16,7 +16,7 @@ export const createTodoistTaskString = ({
     } else {
       // isUrl
       const [matchedString, title, urlString] = matchedLink;
-      const getDiff = (diffMe: any, diffBy: any) =>
+      const getDiff = (diffMe: string, diffBy: string) =>
         diffMe.split(diffBy).join("");
       const diff = getDiff(content, matchedString);
 
@@ -47,13 +47,13 @@ export const createTodoistTaskString = ({
 
   // priority
   let priority = "";
-  if (task.priority == "4") {
+  if (task.priority == 4) {
     priority = "p1";
-  } else if (task.priority == "3") {
+  } else if (task.priority == 3) {
     priority = "p2";
-  } else if (task.priority == "2") {
+  } else if (task.priority == 2) {
     priority = "p3";
-  } else if (task.priority == "1") {
+  } else if (task.priority == 1) {
     priority = "p4";
   }
   taskString = `#priority/${priority} ${taskString}`;
