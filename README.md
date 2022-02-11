@@ -11,16 +11,18 @@ https://user-images.githubusercontent.com/15260226/150548599-69e6f82a-15e8-43fc-
 
 ## Table of Contents
 
-- [Motivation](#motivation)
-- [Prerequires](#prerequires)
-- [Setup](#setup)
-- [Add workflows for SmartBlocks](#add-workflows-for-smartblocks)
-- [Workflows](#workflows)
-  - [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> pull tasks](#<img-width="24px"-src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png"-/>-pull-tasks)
-  - [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> sync completed](#<img-width="24px"-src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png"-/>-sync-completed)
-  - [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> complete task](#<img-width="24px"-src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png"-/>-complete-task)
-- [`roam/css` for priority](#`roam/css`-for-priority)
-- [Inspired](#inspired)
+* [Motivation](#motivation)
+* [Prerequires](#prerequires)
+* [Setup](#setup)
+  * [Load Roamist](#load-roamist)
+  * [Configuration](#configuration)
+* [Add workflows for SmartBlocks](#add-workflows-for-smartblocks)
+* [Workflows](#workflows)
+  * [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> pull tasks](#<img-width="24px"-src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png"-/>-pull-tasks)
+  * [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> sync completed](#<img-width="24px"-src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png"-/>-sync-completed)
+  * [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> complete task](#<img-width="24px"-src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png"-/>-complete-task)
+* [`roam/css` for priority](#`roam/css`-for-priority)
+* [Inspired](#inspired)
 
 ## Motivation
 
@@ -40,6 +42,8 @@ This Roamist is one way to make this possible. With this integration, you can co
   - https://roamjs.com/extensions/smartblocks
 
 ## Setup
+
+### Load Roamist
 
 1. Create a block with `{{[[roam/js]]}}` and put the code below as a child block.
   - If you're not familiar with `{{[[roam/js]]}}`, see https://roamresearch.com/#/app/help/page/nBCwjGuI7.
@@ -62,7 +66,10 @@ if (!existing) {
 > **I recommend you don’t change it once you set this tag.**  
 > **See also [workflows section](https://github.com/kdnk/roamist/blob/main/README.md#workflows) for more details**.
 
-1. Set up `Token` and `Tag` in `[[roam/roamist]]`
+### Configuration
+
+- Set up `Token` and `Tag` in `[[roam/roamist]]`
+  - You should already have `[[roam/roamist]]`, if you follow [Load Roamist](#load-roamist) properly.
 
 <img width="500px" src="https://user-images.githubusercontent.com/15260226/153557453-fd92289b-b418-44dc-8d45-b297ab422f76.png" />
 
