@@ -94,7 +94,7 @@ const createRoamistWorkflows = () => {
     {
       title: "Roamist - sync completed",
       content:
-        "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.syncCompleted(); })(); ```%>",
+        "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.syncCompleted(); })(); ```%><%NOBLOCKOUTPUT%>",
     },
   ];
 

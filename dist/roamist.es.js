@@ -70108,7 +70108,7 @@ const createRoamistWorkflows = () => {
   const syncCompletedWorkflows = [
     {
       title: "Roamist - sync completed",
-      content: "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.syncCompleted(); })(); ```%>"
+      content: "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.syncCompleted(); })(); ```%><%NOBLOCKOUTPUT%>"
     }
   ];
   const getJs = (args) => {
