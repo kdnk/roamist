@@ -66,27 +66,6 @@ if (!existing) {
 > **I recommend you don’t change it once you set this tag.**  
 > **See also [workflows section](https://github.com/kdnk/roamist/blob/main/README.md#workflows) for more details**.
 
-### Configuration
-
-- Set up `Token` and `Tag` in `[[roam/roamist]]`
-  - You should already have `[[roam/roamist]]`, if you follow [Load Roamist](#load-roamist) properly.
-
-<img width="500px" src="https://user-images.githubusercontent.com/15260226/153557453-fd92289b-b418-44dc-8d45-b297ab422f76.png" />
-
-## Add workflows for SmartBlocks
-
-> :warning: **You should already have the page named `roam/js/smartblocks` if you followed `Setup` section.  
-> If not, make sure you set up SmartBlocks correctly first.**
-
-- Paste some [workflows](https://github.com/kdnk/roamist#workflows) what you like under workflows block on `[[roam/js/smartblocks]]`.
-  - After finishing setup, your `[[roam/js/smartblocks]]` page should look like this.
-
-![screenshot](https://user-images.githubusercontent.com/15260226/150348953-ceb7f670-450f-4673-8b01-0e1eac29fda6.png)
-
-- Then, you can use these [workflows](https://github.com/kdnk/roamist#workflows) typing your SmartBlocks trigger (I use `jj` for it).
-
-![sceenshot](https://user-images.githubusercontent.com/15260226/150341510-a15a0025-2646-43aa-ba03-81fe5af13579.png)
-
 ## Workflows
 
 > :warning: **This integration recognizes the Todoist id using a tag like `Todoist/1234567890`.**  
