@@ -45,9 +45,6 @@ This Roamist is one way to make this possible. With this integration, you can co
   - If you're not familiar with `{{roam/js}}`, see https://roamresearch.com/#/app/help/page/nBCwjGuI7.
 
 ```javascript
-window.TODOIST_TOKEN = "put your todoist token"; // Please replace with your token
-window.Roamist = {};
-window.Roamist.TODOIST_TAG_NAME = "Roamist"; // Please replace here with any tags what you want to use for this integration.
 const ID = "roamist";
 const existing = document.getElementById(ID);
 if (!existing) {
@@ -60,7 +57,7 @@ if (!existing) {
 }
 ```
 
-> :warning: **All tasks pulled from Todoist should have a specific tag you set via `window.Roamist.TODOIST_TAG_NAME`.**  
+> :warning: **All tasks pulled from Todoist should have a specific tag you set in `[[roam/roamist]]`.**  
 > **This tag is essential because this integration uses the tag to recognize which blocks come from Todoist.**  
 > **I recommend you don’t change it once you set this tag.**  
 > **See also [workflows section](https://github.com/kdnk/roamist/blob/main/README.md#workflows) for more details**.
@@ -108,7 +105,7 @@ if (!existing) {
 
 ### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> sync completed
 
-> :warning: **I assume we use this workflow in `[[42Todoist]]` page or the page you set via `window.Roamist.TODOIST_TAG_NAME`.**
+> :warning: **I assume we use this workflow in `[[42Todoist]]` page or the page you set via `[[roam/roamist]]`.**
 
 - This workflow will sync completion status from Todoist to Roam Research.
 - If there are blocks which are already completed in Todoist, `{{[[TODO]]}}` part in Roam Research will be changed to `{{[[DONE]]}}` automatically just pressing this button.
