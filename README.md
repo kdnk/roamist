@@ -64,6 +64,7 @@ if (!existing) {
 
 1. Set up `Todoist Token` and `tag` in `[[roam/roamist]]`
 
+<img width="500px" src="https://user-images.githubusercontent.com/15260226/153557453-fd92289b-b418-44dc-8d45-b297ab422f76.png" />
  
 
 ## Add workflows for SmartBlocks
