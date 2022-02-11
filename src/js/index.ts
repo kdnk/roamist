@@ -41,8 +41,17 @@ createConfigObserver({
           },
           {
             type: "flag",
-            title: "show date",
-            description: "show date",
+            title: "[Not Implemented] show date",
+            description: "[Not Implemented] show date",
+          },
+          {
+            type: "select",
+            title: "[Not Implemented] sorter",
+            description: "[Not Implemented] sorter",
+            options: {
+              items: ["priority", "date", "title"],
+            },
+            defaultValue: "priority",
           },
         ],
       },
