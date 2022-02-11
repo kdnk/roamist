@@ -105,47 +105,20 @@ if (!existing) {
   - `onlyDiff`
     - If you pass `true`, this workflow pulls only tasks which don't exist in the current page.
 
-````
-- #SmartBlock todoist - pull daily today
-    - <%JAVASCRIPTASYNC:```javascript
-(async function () {
-  await window.Roamist.pullTasks({ todoistFilter: "(#🧘Routine & #🦒Personal) & today", onlyDiff: false });
-})();
-```%>
-````
-
 ### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> sync completed
 
-> :warning: **I assume we use this workflow in `[[42Todoist]]` page or the page you set via `[[roam/roamist]]`.**
+> :warning: **I assume we use this workflow in `[[Roamist]]` page or the page you set via `[[roam/roamist]]`.**
 
 - This workflow will sync completion status from Todoist to Roam Research.
-- If there are blocks which are already completed in Todoist, `{{[[TODO]]}}` part in Roam Research will be changed to `{{[[DONE]]}}` automatically just pressing this button.
-- I recommend you use this workflow as a button in `[[42Todoist]]` as follows.
+- I recommend you use this workflow as a button in `[[Roamist]]` as follows.
   - `{{Sync todoist completed:42SmartBlock:todoist - sync completed:button=true,42RemoveButton=false}}`
   - ![CleanShot 2022-01-22 at 00 00 59](https://user-images.githubusercontent.com/15260226/150549391-3d993f6d-2edd-4e8f-bc8b-e7440a4e2236.png)
-
-````
-- #SmartBlock todoist - sync completed
-    - <%JAVASCRIPTASYNC:```javascript
-(async function () {
-  await window.Roamist.syncCompleted();
-})();
-```%><%NOBLOCKOUTPUT%>
-````
+- If there are blocks which are already completed in Todoist, `{{[[TODO]]}}` part in Roam Research will be changed to `{{[[DONE]]}}` automatically just pressing this button.
 
 ### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> complete task
 
 - This workflow will complete a task under your cursor.
   - After running this workflow, `{{[[TODO]]}}` will turn into `{{[[DONE]]}}` automatically.
-
-````
-- #SmartBlock todoist - complete task
-    - <%JAVASCRIPTASYNC:```javascript
-(async function () {
-  await window.Roamist.completeTask();
-})();
-```%>
-````
 
 ## `roam/css` for priority
 
