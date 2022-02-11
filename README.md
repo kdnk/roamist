@@ -16,7 +16,6 @@ https://user-images.githubusercontent.com/15260226/150548599-69e6f82a-15e8-43fc-
 * [Setup](#setup)
   * [Load Roamist](#load-roamist)
   * [Configuration](#configuration)
-* [Add workflows for SmartBlocks](#add-workflows-for-smartblocks)
 * [Workflows](#workflows)
   * [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> pull tasks](#<img-width="24px"-src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png"-/>-pull-tasks)
   * [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> sync completed](#<img-width="24px"-src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png"-/>-sync-completed)
