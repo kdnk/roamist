@@ -23,7 +23,7 @@ window.RTI = {
 console.log("<<< roamist >>> window.Roamist: ", window.Roamist);
 
 createConfigObserver({
-  title: "roam/roamist",
+  title: "Roamist",
   config: {
     tabs: [
       {
