@@ -1459,13 +1459,13 @@ function CancelToken(executor) {
   this.promise = new Promise(function promiseExecutor(resolve) {
     resolvePromise = resolve;
   });
-  var token = this;
+  var token2 = this;
   executor(function cancel(message) {
-    if (token.reason) {
+    if (token2.reason) {
       return;
     }
-    token.reason = new Cancel(message);
-    resolvePromise(token.reason);
+    token2.reason = new Cancel(message);
+    resolvePromise(token2.reason);
   });
 }
 CancelToken.prototype.throwIfRequested = function throwIfRequested() {
@@ -1475,11 +1475,11 @@ CancelToken.prototype.throwIfRequested = function throwIfRequested() {
 };
 CancelToken.source = function source() {
   var cancel;
-  var token = new CancelToken(function executor(c2) {
+  var token2 = new CancelToken(function executor(c2) {
     cancel = c2;
   });
   return {
-    token,
+    token: token2,
     cancel
   };
 };
@@ -1532,14 +1532,14 @@ getRoamJSUser$1.awsGetRoamJSUser = void 0;
 const tslib_1$1d = require$$0$4;
 const axios_1$b = (0, tslib_1$1d.__importDefault)(axios);
 const headers_1$1 = (0, tslib_1$1d.__importDefault)(headers$1);
-const getRoamJSUser = (token, extensionId = "", email = {}.ROAMJS_EMAIL, dev = false) => axios_1$b.default.get(`https://lambda.roamjs.com/user`, {
-  headers: Object.assign({ Authorization: `Bearer ${Buffer.from(`${email}:${{}.ROAMJS_DEVELOPER_TOKEN}`).toString("base64")}`, "x-roamjs-token": token, "x-roamjs-extension": extensionId }, dev ? {
+const getRoamJSUser = (token2, extensionId = "", email = {}.ROAMJS_EMAIL, dev = false) => axios_1$b.default.get(`https://lambda.roamjs.com/user`, {
+  headers: Object.assign({ Authorization: `Bearer ${Buffer.from(`${email}:${{}.ROAMJS_DEVELOPER_TOKEN}`).toString("base64")}`, "x-roamjs-token": token2, "x-roamjs-extension": extensionId }, dev ? {
     "x-roamjs-dev": "true"
   } : {})
 }).then((r2) => r2.data);
 const awsGetRoamJSUser = (handler) => (event) => {
-  const token = event.headers.Authorization || event.headers.authorization || "";
-  return getRoamJSUser(token).then((u2) => handler(Object.assign(Object.assign({}, u2), { token }), Object.assign(Object.assign({}, event.queryStringParameters), JSON.parse(event.body || "{}")))).catch((e2) => {
+  const token2 = event.headers.Authorization || event.headers.authorization || "";
+  return getRoamJSUser(token2).then((u2) => handler(Object.assign(Object.assign({}, u2), { token: token2 }), Object.assign(Object.assign({}, event.queryStringParameters), JSON.parse(event.body || "{}")))).catch((e2) => {
     var _a2;
     return {
       statusCode: 401,
@@ -1569,8 +1569,8 @@ putRoamJSUser$1.awsPutRoamJSUser = void 0;
 const tslib_1$1b = require$$0$4;
 const axios_1$9 = (0, tslib_1$1b.__importDefault)(axios);
 const headers_1 = (0, tslib_1$1b.__importDefault)(headers$1);
-const putRoamJSUser = (token, data2, extensionId = "", email = {}.ROAMJS_EMAIL, dev = false) => axios_1$9.default.put(`https://lambda.roamjs.com/user`, data2, {
-  headers: Object.assign({ Authorization: `Bearer ${Buffer.from(`${email}:${{}.ROAMJS_DEVELOPER_TOKEN}`).toString("base64")}`, "x-roamjs-token": token, "x-roamjs-extension": extensionId }, dev ? {
+const putRoamJSUser = (token2, data2, extensionId = "", email = {}.ROAMJS_EMAIL, dev = false) => axios_1$9.default.put(`https://lambda.roamjs.com/user`, data2, {
+  headers: Object.assign({ Authorization: `Bearer ${Buffer.from(`${email}:${{}.ROAMJS_DEVELOPER_TOKEN}`).toString("base64")}`, "x-roamjs-token": token2, "x-roamjs-extension": extensionId }, dev ? {
     "x-roamjs-dev": "true"
   } : {})
 }).then((r2) => r2.data);
@@ -22850,9 +22850,9 @@ var formatDistanceLocale = {
     other: "almost {{count}} years"
   }
 };
-var formatDistance$1 = function(token, count, options) {
+var formatDistance$1 = function(token2, count, options) {
   var result2;
-  var tokenValue = formatDistanceLocale[token];
+  var tokenValue = formatDistanceLocale[token2];
   if (typeof tokenValue === "string") {
     result2 = tokenValue;
   } else if (count === 1) {
@@ -22919,8 +22919,8 @@ var formatRelativeLocale = {
   nextWeek: "eeee 'at' p",
   other: "P"
 };
-var formatRelative$1 = function(token, _date, _baseDate, _options) {
-  return formatRelativeLocale[token];
+var formatRelative$1 = function(token2, _date, _baseDate, _options) {
+  return formatRelativeLocale[token2];
 };
 var formatRelative$2 = formatRelative$1;
 function buildLocalizeFn(args) {
@@ -23377,21 +23377,21 @@ function addLeadingZeros(number2, targetLength) {
   return sign + output;
 }
 var formatters$2 = {
-  y: function(date2, token) {
+  y: function(date2, token2) {
     var signedYear = date2.getUTCFullYear();
     var year = signedYear > 0 ? signedYear : 1 - signedYear;
-    return addLeadingZeros(token === "yy" ? year % 100 : year, token.length);
+    return addLeadingZeros(token2 === "yy" ? year % 100 : year, token2.length);
   },
-  M: function(date2, token) {
+  M: function(date2, token2) {
     var month = date2.getUTCMonth();
-    return token === "M" ? String(month + 1) : addLeadingZeros(month + 1, 2);
+    return token2 === "M" ? String(month + 1) : addLeadingZeros(month + 1, 2);
   },
-  d: function(date2, token) {
-    return addLeadingZeros(date2.getUTCDate(), token.length);
+  d: function(date2, token2) {
+    return addLeadingZeros(date2.getUTCDate(), token2.length);
   },
-  a: function(date2, token) {
+  a: function(date2, token2) {
     var dayPeriodEnumValue = date2.getUTCHours() / 12 >= 1 ? "pm" : "am";
-    switch (token) {
+    switch (token2) {
       case "a":
       case "aa":
         return dayPeriodEnumValue.toUpperCase();
@@ -23404,23 +23404,23 @@ var formatters$2 = {
         return dayPeriodEnumValue === "am" ? "a.m." : "p.m.";
     }
   },
-  h: function(date2, token) {
-    return addLeadingZeros(date2.getUTCHours() % 12 || 12, token.length);
+  h: function(date2, token2) {
+    return addLeadingZeros(date2.getUTCHours() % 12 || 12, token2.length);
   },
-  H: function(date2, token) {
-    return addLeadingZeros(date2.getUTCHours(), token.length);
+  H: function(date2, token2) {
+    return addLeadingZeros(date2.getUTCHours(), token2.length);
   },
-  m: function(date2, token) {
-    return addLeadingZeros(date2.getUTCMinutes(), token.length);
+  m: function(date2, token2) {
+    return addLeadingZeros(date2.getUTCMinutes(), token2.length);
   },
-  s: function(date2, token) {
-    return addLeadingZeros(date2.getUTCSeconds(), token.length);
+  s: function(date2, token2) {
+    return addLeadingZeros(date2.getUTCSeconds(), token2.length);
   },
-  S: function(date2, token) {
-    var numberOfDigits = token.length;
+  S: function(date2, token2) {
+    var numberOfDigits = token2.length;
     var milliseconds2 = date2.getUTCMilliseconds();
     var fractionalSeconds = Math.floor(milliseconds2 * Math.pow(10, numberOfDigits - 3));
-    return addLeadingZeros(fractionalSeconds, token.length);
+    return addLeadingZeros(fractionalSeconds, token2.length);
   }
 };
 var formatters$3 = formatters$2;
@@ -23435,9 +23435,9 @@ var dayPeriodEnum = {
   night: "night"
 };
 var formatters = {
-  G: function(date2, token, localize2) {
+  G: function(date2, token2, localize2) {
     var era = date2.getUTCFullYear() > 0 ? 1 : 0;
-    switch (token) {
+    switch (token2) {
       case "G":
       case "GG":
       case "GGG":
@@ -23455,41 +23455,41 @@ var formatters = {
         });
     }
   },
-  y: function(date2, token, localize2) {
-    if (token === "yo") {
+  y: function(date2, token2, localize2) {
+    if (token2 === "yo") {
       var signedYear = date2.getUTCFullYear();
       var year = signedYear > 0 ? signedYear : 1 - signedYear;
       return localize2.ordinalNumber(year, {
         unit: "year"
       });
     }
-    return formatters$3.y(date2, token);
+    return formatters$3.y(date2, token2);
   },
-  Y: function(date2, token, localize2, options) {
+  Y: function(date2, token2, localize2, options) {
     var signedWeekYear = getUTCWeekYear(date2, options);
     var weekYear = signedWeekYear > 0 ? signedWeekYear : 1 - signedWeekYear;
-    if (token === "YY") {
+    if (token2 === "YY") {
       var twoDigitYear = weekYear % 100;
       return addLeadingZeros(twoDigitYear, 2);
     }
-    if (token === "Yo") {
+    if (token2 === "Yo") {
       return localize2.ordinalNumber(weekYear, {
         unit: "year"
       });
     }
-    return addLeadingZeros(weekYear, token.length);
+    return addLeadingZeros(weekYear, token2.length);
   },
-  R: function(date2, token) {
+  R: function(date2, token2) {
     var isoWeekYear = getUTCISOWeekYear(date2);
-    return addLeadingZeros(isoWeekYear, token.length);
+    return addLeadingZeros(isoWeekYear, token2.length);
   },
-  u: function(date2, token) {
+  u: function(date2, token2) {
     var year = date2.getUTCFullYear();
-    return addLeadingZeros(year, token.length);
+    return addLeadingZeros(year, token2.length);
   },
-  Q: function(date2, token, localize2) {
+  Q: function(date2, token2, localize2) {
     var quarter = Math.ceil((date2.getUTCMonth() + 1) / 3);
-    switch (token) {
+    switch (token2) {
       case "Q":
         return String(quarter);
       case "QQ":
@@ -23516,9 +23516,9 @@ var formatters = {
         });
     }
   },
-  q: function(date2, token, localize2) {
+  q: function(date2, token2, localize2) {
     var quarter = Math.ceil((date2.getUTCMonth() + 1) / 3);
-    switch (token) {
+    switch (token2) {
       case "q":
         return String(quarter);
       case "qq":
@@ -23545,12 +23545,12 @@ var formatters = {
         });
     }
   },
-  M: function(date2, token, localize2) {
+  M: function(date2, token2, localize2) {
     var month = date2.getUTCMonth();
-    switch (token) {
+    switch (token2) {
       case "M":
       case "MM":
-        return formatters$3.M(date2, token);
+        return formatters$3.M(date2, token2);
       case "Mo":
         return localize2.ordinalNumber(month + 1, {
           unit: "month"
@@ -23573,9 +23573,9 @@ var formatters = {
         });
     }
   },
-  L: function(date2, token, localize2) {
+  L: function(date2, token2, localize2) {
     var month = date2.getUTCMonth();
-    switch (token) {
+    switch (token2) {
       case "L":
         return String(month + 1);
       case "LL":
@@ -23602,44 +23602,44 @@ var formatters = {
         });
     }
   },
-  w: function(date2, token, localize2, options) {
+  w: function(date2, token2, localize2, options) {
     var week = getUTCWeek(date2, options);
-    if (token === "wo") {
+    if (token2 === "wo") {
       return localize2.ordinalNumber(week, {
         unit: "week"
       });
     }
-    return addLeadingZeros(week, token.length);
+    return addLeadingZeros(week, token2.length);
   },
-  I: function(date2, token, localize2) {
+  I: function(date2, token2, localize2) {
     var isoWeek = getUTCISOWeek(date2);
-    if (token === "Io") {
+    if (token2 === "Io") {
       return localize2.ordinalNumber(isoWeek, {
         unit: "week"
       });
     }
-    return addLeadingZeros(isoWeek, token.length);
+    return addLeadingZeros(isoWeek, token2.length);
   },
-  d: function(date2, token, localize2) {
-    if (token === "do") {
+  d: function(date2, token2, localize2) {
+    if (token2 === "do") {
       return localize2.ordinalNumber(date2.getUTCDate(), {
         unit: "date"
       });
     }
-    return formatters$3.d(date2, token);
+    return formatters$3.d(date2, token2);
   },
-  D: function(date2, token, localize2) {
+  D: function(date2, token2, localize2) {
     var dayOfYear = getUTCDayOfYear(date2);
-    if (token === "Do") {
+    if (token2 === "Do") {
       return localize2.ordinalNumber(dayOfYear, {
         unit: "dayOfYear"
       });
     }
-    return addLeadingZeros(dayOfYear, token.length);
+    return addLeadingZeros(dayOfYear, token2.length);
   },
-  E: function(date2, token, localize2) {
+  E: function(date2, token2, localize2) {
     var dayOfWeek = date2.getUTCDay();
-    switch (token) {
+    switch (token2) {
       case "E":
       case "EE":
       case "EEE":
@@ -23665,10 +23665,10 @@ var formatters = {
         });
     }
   },
-  e: function(date2, token, localize2, options) {
+  e: function(date2, token2, localize2, options) {
     var dayOfWeek = date2.getUTCDay();
     var localDayOfWeek = (dayOfWeek - options.weekStartsOn + 8) % 7 || 7;
-    switch (token) {
+    switch (token2) {
       case "e":
         return String(localDayOfWeek);
       case "ee":
@@ -23700,14 +23700,14 @@ var formatters = {
         });
     }
   },
-  c: function(date2, token, localize2, options) {
+  c: function(date2, token2, localize2, options) {
     var dayOfWeek = date2.getUTCDay();
     var localDayOfWeek = (dayOfWeek - options.weekStartsOn + 8) % 7 || 7;
-    switch (token) {
+    switch (token2) {
       case "c":
         return String(localDayOfWeek);
       case "cc":
-        return addLeadingZeros(localDayOfWeek, token.length);
+        return addLeadingZeros(localDayOfWeek, token2.length);
       case "co":
         return localize2.ordinalNumber(localDayOfWeek, {
           unit: "day"
@@ -23735,14 +23735,14 @@ var formatters = {
         });
     }
   },
-  i: function(date2, token, localize2) {
+  i: function(date2, token2, localize2) {
     var dayOfWeek = date2.getUTCDay();
     var isoDayOfWeek = dayOfWeek === 0 ? 7 : dayOfWeek;
-    switch (token) {
+    switch (token2) {
       case "i":
         return String(isoDayOfWeek);
       case "ii":
-        return addLeadingZeros(isoDayOfWeek, token.length);
+        return addLeadingZeros(isoDayOfWeek, token2.length);
       case "io":
         return localize2.ordinalNumber(isoDayOfWeek, {
           unit: "day"
@@ -23770,10 +23770,10 @@ var formatters = {
         });
     }
   },
-  a: function(date2, token, localize2) {
+  a: function(date2, token2, localize2) {
     var hours = date2.getUTCHours();
     var dayPeriodEnumValue = hours / 12 >= 1 ? "pm" : "am";
-    switch (token) {
+    switch (token2) {
       case "a":
       case "aa":
         return localize2.dayPeriod(dayPeriodEnumValue, {
@@ -23798,7 +23798,7 @@ var formatters = {
         });
     }
   },
-  b: function(date2, token, localize2) {
+  b: function(date2, token2, localize2) {
     var hours = date2.getUTCHours();
     var dayPeriodEnumValue;
     if (hours === 12) {
@@ -23808,7 +23808,7 @@ var formatters = {
     } else {
       dayPeriodEnumValue = hours / 12 >= 1 ? "pm" : "am";
     }
-    switch (token) {
+    switch (token2) {
       case "b":
       case "bb":
         return localize2.dayPeriod(dayPeriodEnumValue, {
@@ -23833,7 +23833,7 @@ var formatters = {
         });
     }
   },
-  B: function(date2, token, localize2) {
+  B: function(date2, token2, localize2) {
     var hours = date2.getUTCHours();
     var dayPeriodEnumValue;
     if (hours >= 17) {
@@ -23845,7 +23845,7 @@ var formatters = {
     } else {
       dayPeriodEnumValue = dayPeriodEnum.night;
     }
-    switch (token) {
+    switch (token2) {
       case "B":
       case "BB":
       case "BBB":
@@ -23866,8 +23866,8 @@ var formatters = {
         });
     }
   },
-  h: function(date2, token, localize2) {
-    if (token === "ho") {
+  h: function(date2, token2, localize2) {
+    if (token2 === "ho") {
       var hours = date2.getUTCHours() % 12;
       if (hours === 0)
         hours = 12;
@@ -23875,62 +23875,62 @@ var formatters = {
         unit: "hour"
       });
     }
-    return formatters$3.h(date2, token);
+    return formatters$3.h(date2, token2);
   },
-  H: function(date2, token, localize2) {
-    if (token === "Ho") {
+  H: function(date2, token2, localize2) {
+    if (token2 === "Ho") {
       return localize2.ordinalNumber(date2.getUTCHours(), {
         unit: "hour"
       });
     }
-    return formatters$3.H(date2, token);
+    return formatters$3.H(date2, token2);
   },
-  K: function(date2, token, localize2) {
+  K: function(date2, token2, localize2) {
     var hours = date2.getUTCHours() % 12;
-    if (token === "Ko") {
+    if (token2 === "Ko") {
       return localize2.ordinalNumber(hours, {
         unit: "hour"
       });
     }
-    return addLeadingZeros(hours, token.length);
+    return addLeadingZeros(hours, token2.length);
   },
-  k: function(date2, token, localize2) {
+  k: function(date2, token2, localize2) {
     var hours = date2.getUTCHours();
     if (hours === 0)
       hours = 24;
-    if (token === "ko") {
+    if (token2 === "ko") {
       return localize2.ordinalNumber(hours, {
         unit: "hour"
       });
     }
-    return addLeadingZeros(hours, token.length);
+    return addLeadingZeros(hours, token2.length);
   },
-  m: function(date2, token, localize2) {
-    if (token === "mo") {
+  m: function(date2, token2, localize2) {
+    if (token2 === "mo") {
       return localize2.ordinalNumber(date2.getUTCMinutes(), {
         unit: "minute"
       });
     }
-    return formatters$3.m(date2, token);
+    return formatters$3.m(date2, token2);
   },
-  s: function(date2, token, localize2) {
-    if (token === "so") {
+  s: function(date2, token2, localize2) {
+    if (token2 === "so") {
       return localize2.ordinalNumber(date2.getUTCSeconds(), {
         unit: "second"
       });
     }
-    return formatters$3.s(date2, token);
+    return formatters$3.s(date2, token2);
   },
-  S: function(date2, token) {
-    return formatters$3.S(date2, token);
+  S: function(date2, token2) {
+    return formatters$3.S(date2, token2);
   },
-  X: function(date2, token, _localize, options) {
+  X: function(date2, token2, _localize, options) {
     var originalDate = options._originalDate || date2;
     var timezoneOffset = originalDate.getTimezoneOffset();
     if (timezoneOffset === 0) {
       return "Z";
     }
-    switch (token) {
+    switch (token2) {
       case "X":
         return formatTimezoneWithOptionalMinutes(timezoneOffset);
       case "XXXX":
@@ -23942,10 +23942,10 @@ var formatters = {
         return formatTimezone(timezoneOffset, ":");
     }
   },
-  x: function(date2, token, _localize, options) {
+  x: function(date2, token2, _localize, options) {
     var originalDate = options._originalDate || date2;
     var timezoneOffset = originalDate.getTimezoneOffset();
-    switch (token) {
+    switch (token2) {
       case "x":
         return formatTimezoneWithOptionalMinutes(timezoneOffset);
       case "xxxx":
@@ -23957,10 +23957,10 @@ var formatters = {
         return formatTimezone(timezoneOffset, ":");
     }
   },
-  O: function(date2, token, _localize, options) {
+  O: function(date2, token2, _localize, options) {
     var originalDate = options._originalDate || date2;
     var timezoneOffset = originalDate.getTimezoneOffset();
-    switch (token) {
+    switch (token2) {
       case "O":
       case "OO":
       case "OOO":
@@ -23970,10 +23970,10 @@ var formatters = {
         return "GMT" + formatTimezone(timezoneOffset, ":");
     }
   },
-  z: function(date2, token, _localize, options) {
+  z: function(date2, token2, _localize, options) {
     var originalDate = options._originalDate || date2;
     var timezoneOffset = originalDate.getTimezoneOffset();
-    switch (token) {
+    switch (token2) {
       case "z":
       case "zz":
       case "zzz":
@@ -23983,15 +23983,15 @@ var formatters = {
         return "GMT" + formatTimezone(timezoneOffset, ":");
     }
   },
-  t: function(date2, token, _localize, options) {
+  t: function(date2, token2, _localize, options) {
     var originalDate = options._originalDate || date2;
     var timestamp = Math.floor(originalDate.getTime() / 1e3);
-    return addLeadingZeros(timestamp, token.length);
+    return addLeadingZeros(timestamp, token2.length);
   },
-  T: function(date2, token, _localize, options) {
+  T: function(date2, token2, _localize, options) {
     var originalDate = options._originalDate || date2;
     var timestamp = originalDate.getTime();
-    return addLeadingZeros(timestamp, token.length);
+    return addLeadingZeros(timestamp, token2.length);
   }
 };
 function formatTimezoneShort(offset2, dirtyDelimiter) {
@@ -24103,20 +24103,20 @@ var longFormatters = {
 var longFormatters$1 = longFormatters;
 var protectedDayOfYearTokens = ["D", "DD"];
 var protectedWeekYearTokens = ["YY", "YYYY"];
-function isProtectedDayOfYearToken(token) {
-  return protectedDayOfYearTokens.indexOf(token) !== -1;
+function isProtectedDayOfYearToken(token2) {
+  return protectedDayOfYearTokens.indexOf(token2) !== -1;
 }
-function isProtectedWeekYearToken(token) {
-  return protectedWeekYearTokens.indexOf(token) !== -1;
+function isProtectedWeekYearToken(token2) {
+  return protectedWeekYearTokens.indexOf(token2) !== -1;
 }
-function throwProtectedError(token, format2, input) {
-  if (token === "YYYY") {
+function throwProtectedError(token2, format2, input) {
+  if (token2 === "YYYY") {
     throw new RangeError("Use `yyyy` instead of `YYYY` (in `".concat(format2, "`) for formatting years to the input `").concat(input, "`; see: https://git.io/fxCyr"));
-  } else if (token === "YY") {
+  } else if (token2 === "YY") {
     throw new RangeError("Use `yy` instead of `YY` (in `".concat(format2, "`) for formatting years to the input `").concat(input, "`; see: https://git.io/fxCyr"));
-  } else if (token === "D") {
+  } else if (token2 === "D") {
     throw new RangeError("Use `d` instead of `D` (in `".concat(format2, "`) for formatting days of the month to the input `").concat(input, "`; see: https://git.io/fxCyr"));
-  } else if (token === "DD") {
+  } else if (token2 === "DD") {
     throw new RangeError("Use `dd` instead of `DD` (in `".concat(format2, "`) for formatting days of the month to the input `").concat(input, "`; see: https://git.io/fxCyr"));
   }
 }
@@ -24400,11 +24400,11 @@ function formatDuration(duration) {
   var zero = (options === null || options === void 0 ? void 0 : options.zero) || false;
   var delimiter = (options === null || options === void 0 ? void 0 : options.delimiter) || " ";
   var result2 = format2.reduce(function(acc, unit) {
-    var token = "x".concat(unit.replace(/(^.)/, function(m2) {
+    var token2 = "x".concat(unit.replace(/(^.)/, function(m2) {
       return m2.toUpperCase();
     }));
     var addChunk = typeof duration[unit] === "number" && (zero || duration[unit]);
-    return addChunk && locale2.formatDistance ? acc.concat(locale2.formatDistance(token, duration[unit])) : acc;
+    return addChunk && locale2.formatDistance ? acc.concat(locale2.formatDistance(token2, duration[unit])) : acc;
   }, []).join(delimiter);
   return result2;
 }
@@ -24568,25 +24568,25 @@ function formatRelative(dirtyDate, dirtyBaseDate, dirtyOptions) {
   if (isNaN(diff2)) {
     throw new RangeError("Invalid time value");
   }
-  var token;
+  var token2;
   if (diff2 < -6) {
-    token = "other";
+    token2 = "other";
   } else if (diff2 < -1) {
-    token = "lastWeek";
+    token2 = "lastWeek";
   } else if (diff2 < 0) {
-    token = "yesterday";
+    token2 = "yesterday";
   } else if (diff2 < 1) {
-    token = "today";
+    token2 = "today";
   } else if (diff2 < 2) {
-    token = "tomorrow";
+    token2 = "tomorrow";
   } else if (diff2 < 7) {
-    token = "nextWeek";
+    token2 = "nextWeek";
   } else {
-    token = "other";
+    token2 = "other";
   }
   var utcDate = subMilliseconds(date2, getTimezoneOffsetInMilliseconds(date2));
   var utcBaseDate = subMilliseconds(baseDate, getTimezoneOffsetInMilliseconds(baseDate));
-  var formatStr = locale2.formatRelative(token, utcDate, utcBaseDate, {
+  var formatStr = locale2.formatRelative(token2, utcDate, utcBaseDate, {
     locale: locale2,
     weekStartsOn
   });
@@ -25134,8 +25134,8 @@ function isLeapYearIndex$1(year) {
 var parsers = {
   G: {
     priority: 140,
-    parse: function(string2, token, match2, _options) {
-      switch (token) {
+    parse: function(string2, token2, match2, _options) {
+      switch (token2) {
         case "G":
         case "GG":
         case "GGG":
@@ -25169,14 +25169,14 @@ var parsers = {
   },
   y: {
     priority: 130,
-    parse: function(string2, token, match2, _options) {
+    parse: function(string2, token2, match2, _options) {
       var valueCallback = function(year) {
         return {
           year,
-          isTwoDigitYear: token === "yy"
+          isTwoDigitYear: token2 === "yy"
         };
       };
-      switch (token) {
+      switch (token2) {
         case "y":
           return parseNDigits(4, string2, valueCallback);
         case "yo":
@@ -25185,7 +25185,7 @@ var parsers = {
             valueCallback
           });
         default:
-          return parseNDigits(token.length, string2, valueCallback);
+          return parseNDigits(token2.length, string2, valueCallback);
       }
     },
     validate: function(_date, value, _options) {
@@ -25208,14 +25208,14 @@ var parsers = {
   },
   Y: {
     priority: 130,
-    parse: function(string2, token, match2, _options) {
+    parse: function(string2, token2, match2, _options) {
       var valueCallback = function(year) {
         return {
           year,
-          isTwoDigitYear: token === "YY"
+          isTwoDigitYear: token2 === "YY"
         };
       };
-      switch (token) {
+      switch (token2) {
         case "Y":
           return parseNDigits(4, string2, valueCallback);
         case "Yo":
@@ -25224,7 +25224,7 @@ var parsers = {
             valueCallback
           });
         default:
-          return parseNDigits(token.length, string2, valueCallback);
+          return parseNDigits(token2.length, string2, valueCallback);
       }
     },
     validate: function(_date, value, _options) {
@@ -25247,11 +25247,11 @@ var parsers = {
   },
   R: {
     priority: 130,
-    parse: function(string2, token, _match, _options) {
-      if (token === "R") {
+    parse: function(string2, token2, _match, _options) {
+      if (token2 === "R") {
         return parseNDigitsSigned(4, string2);
       }
-      return parseNDigitsSigned(token.length, string2);
+      return parseNDigitsSigned(token2.length, string2);
     },
     set: function(_date, _flags, value, _options) {
       var firstWeekOfYear = new Date(0);
@@ -25263,11 +25263,11 @@ var parsers = {
   },
   u: {
     priority: 130,
-    parse: function(string2, token, _match, _options) {
-      if (token === "u") {
+    parse: function(string2, token2, _match, _options) {
+      if (token2 === "u") {
         return parseNDigitsSigned(4, string2);
       }
-      return parseNDigitsSigned(token.length, string2);
+      return parseNDigitsSigned(token2.length, string2);
     },
     set: function(date2, _flags, value, _options) {
       date2.setUTCFullYear(value, 0, 1);
@@ -25278,11 +25278,11 @@ var parsers = {
   },
   Q: {
     priority: 120,
-    parse: function(string2, token, match2, _options) {
-      switch (token) {
+    parse: function(string2, token2, match2, _options) {
+      switch (token2) {
         case "Q":
         case "QQ":
-          return parseNDigits(token.length, string2);
+          return parseNDigits(token2.length, string2);
         case "Qo":
           return match2.ordinalNumber(string2, {
             unit: "quarter"
@@ -25326,11 +25326,11 @@ var parsers = {
   },
   q: {
     priority: 120,
-    parse: function(string2, token, match2, _options) {
-      switch (token) {
+    parse: function(string2, token2, match2, _options) {
+      switch (token2) {
         case "q":
         case "qq":
-          return parseNDigits(token.length, string2);
+          return parseNDigits(token2.length, string2);
         case "qo":
           return match2.ordinalNumber(string2, {
             unit: "quarter"
@@ -25374,11 +25374,11 @@ var parsers = {
   },
   M: {
     priority: 110,
-    parse: function(string2, token, match2, _options) {
+    parse: function(string2, token2, match2, _options) {
       var valueCallback = function(value) {
         return value - 1;
       };
-      switch (token) {
+      switch (token2) {
         case "M":
           return parseNumericPattern(numericPatterns.month, string2, valueCallback);
         case "MM":
@@ -25427,11 +25427,11 @@ var parsers = {
   },
   L: {
     priority: 110,
-    parse: function(string2, token, match2, _options) {
+    parse: function(string2, token2, match2, _options) {
       var valueCallback = function(value) {
         return value - 1;
       };
-      switch (token) {
+      switch (token2) {
         case "L":
           return parseNumericPattern(numericPatterns.month, string2, valueCallback);
         case "LL":
@@ -25480,8 +25480,8 @@ var parsers = {
   },
   w: {
     priority: 100,
-    parse: function(string2, token, match2, _options) {
-      switch (token) {
+    parse: function(string2, token2, match2, _options) {
+      switch (token2) {
         case "w":
           return parseNumericPattern(numericPatterns.week, string2);
         case "wo":
@@ -25489,7 +25489,7 @@ var parsers = {
             unit: "week"
           });
         default:
-          return parseNDigits(token.length, string2);
+          return parseNDigits(token2.length, string2);
       }
     },
     validate: function(_date, value, _options) {
@@ -25502,8 +25502,8 @@ var parsers = {
   },
   I: {
     priority: 100,
-    parse: function(string2, token, match2, _options) {
-      switch (token) {
+    parse: function(string2, token2, match2, _options) {
+      switch (token2) {
         case "I":
           return parseNumericPattern(numericPatterns.week, string2);
         case "Io":
@@ -25511,7 +25511,7 @@ var parsers = {
             unit: "week"
           });
         default:
-          return parseNDigits(token.length, string2);
+          return parseNDigits(token2.length, string2);
       }
     },
     validate: function(_date, value, _options) {
@@ -25525,8 +25525,8 @@ var parsers = {
   d: {
     priority: 90,
     subPriority: 1,
-    parse: function(string2, token, match2, _options) {
-      switch (token) {
+    parse: function(string2, token2, match2, _options) {
+      switch (token2) {
         case "d":
           return parseNumericPattern(numericPatterns.date, string2);
         case "do":
@@ -25534,7 +25534,7 @@ var parsers = {
             unit: "date"
           });
         default:
-          return parseNDigits(token.length, string2);
+          return parseNDigits(token2.length, string2);
       }
     },
     validate: function(date2, value, _options) {
@@ -25557,8 +25557,8 @@ var parsers = {
   D: {
     priority: 90,
     subPriority: 1,
-    parse: function(string2, token, match2, _options) {
-      switch (token) {
+    parse: function(string2, token2, match2, _options) {
+      switch (token2) {
         case "D":
         case "DD":
           return parseNumericPattern(numericPatterns.dayOfYear, string2);
@@ -25567,7 +25567,7 @@ var parsers = {
             unit: "date"
           });
         default:
-          return parseNDigits(token.length, string2);
+          return parseNDigits(token2.length, string2);
       }
     },
     validate: function(date2, value, _options) {
@@ -25588,8 +25588,8 @@ var parsers = {
   },
   E: {
     priority: 90,
-    parse: function(string2, token, match2, _options) {
-      switch (token) {
+    parse: function(string2, token2, match2, _options) {
+      switch (token2) {
         case "E":
         case "EE":
         case "EEE":
@@ -25645,15 +25645,15 @@ var parsers = {
   },
   e: {
     priority: 90,
-    parse: function(string2, token, match2, options) {
+    parse: function(string2, token2, match2, options) {
       var valueCallback = function(value) {
         var wholeWeekDays = Math.floor((value - 1) / 7) * 7;
         return (value + options.weekStartsOn + 6) % 7 + wholeWeekDays;
       };
-      switch (token) {
+      switch (token2) {
         case "e":
         case "ee":
-          return parseNDigits(token.length, string2, valueCallback);
+          return parseNDigits(token2.length, string2, valueCallback);
         case "eo":
           return match2.ordinalNumber(string2, {
             unit: "day",
@@ -25712,15 +25712,15 @@ var parsers = {
   },
   c: {
     priority: 90,
-    parse: function(string2, token, match2, options) {
+    parse: function(string2, token2, match2, options) {
       var valueCallback = function(value) {
         var wholeWeekDays = Math.floor((value - 1) / 7) * 7;
         return (value + options.weekStartsOn + 6) % 7 + wholeWeekDays;
       };
-      switch (token) {
+      switch (token2) {
         case "c":
         case "cc":
-          return parseNDigits(token.length, string2, valueCallback);
+          return parseNDigits(token2.length, string2, valueCallback);
         case "co":
           return match2.ordinalNumber(string2, {
             unit: "day",
@@ -25779,17 +25779,17 @@ var parsers = {
   },
   i: {
     priority: 90,
-    parse: function(string2, token, match2, _options) {
+    parse: function(string2, token2, match2, _options) {
       var valueCallback = function(value) {
         if (value === 0) {
           return 7;
         }
         return value;
       };
-      switch (token) {
+      switch (token2) {
         case "i":
         case "ii":
-          return parseNDigits(token.length, string2);
+          return parseNDigits(token2.length, string2);
         case "io":
           return match2.ordinalNumber(string2, {
             unit: "day"
@@ -25857,8 +25857,8 @@ var parsers = {
   },
   a: {
     priority: 80,
-    parse: function(string2, token, match2, _options) {
-      switch (token) {
+    parse: function(string2, token2, match2, _options) {
+      switch (token2) {
         case "a":
         case "aa":
         case "aaa":
@@ -25896,8 +25896,8 @@ var parsers = {
   },
   b: {
     priority: 80,
-    parse: function(string2, token, match2, _options) {
-      switch (token) {
+    parse: function(string2, token2, match2, _options) {
+      switch (token2) {
         case "b":
         case "bb":
         case "bbb":
@@ -25935,8 +25935,8 @@ var parsers = {
   },
   B: {
     priority: 80,
-    parse: function(string2, token, match2, _options) {
-      switch (token) {
+    parse: function(string2, token2, match2, _options) {
+      switch (token2) {
         case "B":
         case "BB":
         case "BBB":
@@ -25974,8 +25974,8 @@ var parsers = {
   },
   h: {
     priority: 70,
-    parse: function(string2, token, match2, _options) {
-      switch (token) {
+    parse: function(string2, token2, match2, _options) {
+      switch (token2) {
         case "h":
           return parseNumericPattern(numericPatterns.hour12h, string2);
         case "ho":
@@ -25983,7 +25983,7 @@ var parsers = {
             unit: "hour"
           });
         default:
-          return parseNDigits(token.length, string2);
+          return parseNDigits(token2.length, string2);
       }
     },
     validate: function(_date, value, _options) {
@@ -26004,8 +26004,8 @@ var parsers = {
   },
   H: {
     priority: 70,
-    parse: function(string2, token, match2, _options) {
-      switch (token) {
+    parse: function(string2, token2, match2, _options) {
+      switch (token2) {
         case "H":
           return parseNumericPattern(numericPatterns.hour23h, string2);
         case "Ho":
@@ -26013,7 +26013,7 @@ var parsers = {
             unit: "hour"
           });
         default:
-          return parseNDigits(token.length, string2);
+          return parseNDigits(token2.length, string2);
       }
     },
     validate: function(_date, value, _options) {
@@ -26027,8 +26027,8 @@ var parsers = {
   },
   K: {
     priority: 70,
-    parse: function(string2, token, match2, _options) {
-      switch (token) {
+    parse: function(string2, token2, match2, _options) {
+      switch (token2) {
         case "K":
           return parseNumericPattern(numericPatterns.hour11h, string2);
         case "Ko":
@@ -26036,7 +26036,7 @@ var parsers = {
             unit: "hour"
           });
         default:
-          return parseNDigits(token.length, string2);
+          return parseNDigits(token2.length, string2);
       }
     },
     validate: function(_date, value, _options) {
@@ -26055,8 +26055,8 @@ var parsers = {
   },
   k: {
     priority: 70,
-    parse: function(string2, token, match2, _options) {
-      switch (token) {
+    parse: function(string2, token2, match2, _options) {
+      switch (token2) {
         case "k":
           return parseNumericPattern(numericPatterns.hour24h, string2);
         case "ko":
@@ -26064,7 +26064,7 @@ var parsers = {
             unit: "hour"
           });
         default:
-          return parseNDigits(token.length, string2);
+          return parseNDigits(token2.length, string2);
       }
     },
     validate: function(_date, value, _options) {
@@ -26079,8 +26079,8 @@ var parsers = {
   },
   m: {
     priority: 60,
-    parse: function(string2, token, match2, _options) {
-      switch (token) {
+    parse: function(string2, token2, match2, _options) {
+      switch (token2) {
         case "m":
           return parseNumericPattern(numericPatterns.minute, string2);
         case "mo":
@@ -26088,7 +26088,7 @@ var parsers = {
             unit: "minute"
           });
         default:
-          return parseNDigits(token.length, string2);
+          return parseNDigits(token2.length, string2);
       }
     },
     validate: function(_date, value, _options) {
@@ -26102,8 +26102,8 @@ var parsers = {
   },
   s: {
     priority: 50,
-    parse: function(string2, token, match2, _options) {
-      switch (token) {
+    parse: function(string2, token2, match2, _options) {
+      switch (token2) {
         case "s":
           return parseNumericPattern(numericPatterns.second, string2);
         case "so":
@@ -26111,7 +26111,7 @@ var parsers = {
             unit: "second"
           });
         default:
-          return parseNDigits(token.length, string2);
+          return parseNDigits(token2.length, string2);
       }
     },
     validate: function(_date, value, _options) {
@@ -26125,11 +26125,11 @@ var parsers = {
   },
   S: {
     priority: 30,
-    parse: function(string2, token, _match, _options) {
+    parse: function(string2, token2, _match, _options) {
       var valueCallback = function(value) {
-        return Math.floor(value * Math.pow(10, -token.length + 3));
+        return Math.floor(value * Math.pow(10, -token2.length + 3));
       };
-      return parseNDigits(token.length, string2, valueCallback);
+      return parseNDigits(token2.length, string2, valueCallback);
     },
     set: function(date2, _flags, value, _options) {
       date2.setUTCMilliseconds(value);
@@ -26139,8 +26139,8 @@ var parsers = {
   },
   X: {
     priority: 10,
-    parse: function(string2, token, _match, _options) {
-      switch (token) {
+    parse: function(string2, token2, _match, _options) {
+      switch (token2) {
         case "X":
           return parseTimezonePattern(timezonePatterns.basicOptionalMinutes, string2);
         case "XX":
@@ -26164,8 +26164,8 @@ var parsers = {
   },
   x: {
     priority: 10,
-    parse: function(string2, token, _match, _options) {
-      switch (token) {
+    parse: function(string2, token2, _match, _options) {
+      switch (token2) {
         case "x":
           return parseTimezonePattern(timezonePatterns.basicOptionalMinutes, string2);
         case "xx":
@@ -26270,14 +26270,14 @@ function parse$5(dirtyDateString, dirtyFormatString, dirtyReferenceDate, dirtyOp
   }).join("").match(formattingTokensRegExp$1);
   var usedTokens = [];
   for (i2 = 0; i2 < tokens2.length; i2++) {
-    var token = tokens2[i2];
-    if (!options.useAdditionalWeekYearTokens && isProtectedWeekYearToken(token)) {
-      throwProtectedError(token, formatString, dirtyDateString);
+    var token2 = tokens2[i2];
+    if (!options.useAdditionalWeekYearTokens && isProtectedWeekYearToken(token2)) {
+      throwProtectedError(token2, formatString, dirtyDateString);
     }
-    if (!options.useAdditionalDayOfYearTokens && isProtectedDayOfYearToken(token)) {
-      throwProtectedError(token, formatString, dirtyDateString);
+    if (!options.useAdditionalDayOfYearTokens && isProtectedDayOfYearToken(token2)) {
+      throwProtectedError(token2, formatString, dirtyDateString);
     }
-    var firstCharacter = token[0];
+    var firstCharacter = token2[0];
     var parser2 = parsers$1[firstCharacter];
     if (parser2) {
       var incompatibleTokens = parser2.incompatibleTokens;
@@ -26291,16 +26291,16 @@ function parse$5(dirtyDateString, dirtyFormatString, dirtyReferenceDate, dirtyOp
           }
         }
         if (incompatibleToken) {
-          throw new RangeError("The format string mustn't contain `".concat(incompatibleToken.fullToken, "` and `").concat(token, "` at the same time"));
+          throw new RangeError("The format string mustn't contain `".concat(incompatibleToken.fullToken, "` and `").concat(token2, "` at the same time"));
         }
       } else if (parser2.incompatibleTokens === "*" && usedTokens.length) {
-        throw new RangeError("The format string mustn't contain `".concat(token, "` and any other token at the same time"));
+        throw new RangeError("The format string mustn't contain `".concat(token2, "` and any other token at the same time"));
       }
       usedTokens.push({
         token: firstCharacter,
-        fullToken: token
+        fullToken: token2
       });
-      var parseResult = parser2.parse(dateString, token, locale2.match, subFnOptions);
+      var parseResult = parser2.parse(dateString, token2, locale2.match, subFnOptions);
       if (!parseResult) {
         return new Date(NaN);
       }
@@ -26317,13 +26317,13 @@ function parse$5(dirtyDateString, dirtyFormatString, dirtyReferenceDate, dirtyOp
       if (firstCharacter.match(unescapedLatinCharacterRegExp$1)) {
         throw new RangeError("Format string contains an unescaped latin alphabet character `" + firstCharacter + "`");
       }
-      if (token === "''") {
-        token = "'";
+      if (token2 === "''") {
+        token2 = "'";
       } else if (firstCharacter === "'") {
-        token = cleanEscapedString$1(token);
+        token2 = cleanEscapedString$1(token2);
       }
-      if (dateString.indexOf(token) === 0) {
-        dateString = dateString.slice(token.length);
+      if (dateString.indexOf(token2) === 0) {
+        dateString = dateString.slice(token2.length);
       } else {
         return new Date(NaN);
       }
@@ -26792,10 +26792,10 @@ function splitDateString(dateString) {
     }
   }
   if (timeString) {
-    var token = patterns.timezone.exec(timeString);
-    if (token) {
-      dateStrings.time = timeString.replace(token[1], "");
-      dateStrings.timezone = token[1];
+    var token2 = patterns.timezone.exec(timeString);
+    if (token2) {
+      dateStrings.time = timeString.replace(token2[1], "");
+      dateStrings.timezone = token2[1];
     } else {
       dateStrings.time = timeString;
     }
@@ -29291,94 +29291,94 @@ var marked = { exports: {} };
         if (this.options.pedantic) {
           src2 = src2.replace(/^ +$/gm, "");
         }
-        var token, i2, l2, lastToken, cutSrc, lastParagraphClipped;
+        var token2, i2, l2, lastToken, cutSrc, lastParagraphClipped;
         while (src2) {
           if (this.options.extensions && this.options.extensions.block && this.options.extensions.block.some(function(extTokenizer) {
-            if (token = extTokenizer.call(_this, src2, tokens2)) {
-              src2 = src2.substring(token.raw.length);
-              tokens2.push(token);
+            if (token2 = extTokenizer.call(_this, src2, tokens2)) {
+              src2 = src2.substring(token2.raw.length);
+              tokens2.push(token2);
               return true;
             }
             return false;
           })) {
             continue;
           }
-          if (token = this.tokenizer.space(src2)) {
-            src2 = src2.substring(token.raw.length);
-            if (token.type) {
-              tokens2.push(token);
+          if (token2 = this.tokenizer.space(src2)) {
+            src2 = src2.substring(token2.raw.length);
+            if (token2.type) {
+              tokens2.push(token2);
             }
             continue;
           }
-          if (token = this.tokenizer.code(src2)) {
-            src2 = src2.substring(token.raw.length);
+          if (token2 = this.tokenizer.code(src2)) {
+            src2 = src2.substring(token2.raw.length);
             lastToken = tokens2[tokens2.length - 1];
             if (lastToken && lastToken.type === "paragraph") {
-              lastToken.raw += "\n" + token.raw;
-              lastToken.text += "\n" + token.text;
+              lastToken.raw += "\n" + token2.raw;
+              lastToken.text += "\n" + token2.text;
             } else {
-              tokens2.push(token);
+              tokens2.push(token2);
             }
             continue;
           }
-          if (token = this.tokenizer.fences(src2)) {
-            src2 = src2.substring(token.raw.length);
-            tokens2.push(token);
+          if (token2 = this.tokenizer.fences(src2)) {
+            src2 = src2.substring(token2.raw.length);
+            tokens2.push(token2);
             continue;
           }
-          if (token = this.tokenizer.heading(src2)) {
-            src2 = src2.substring(token.raw.length);
-            tokens2.push(token);
+          if (token2 = this.tokenizer.heading(src2)) {
+            src2 = src2.substring(token2.raw.length);
+            tokens2.push(token2);
             continue;
           }
-          if (token = this.tokenizer.nptable(src2)) {
-            src2 = src2.substring(token.raw.length);
-            tokens2.push(token);
+          if (token2 = this.tokenizer.nptable(src2)) {
+            src2 = src2.substring(token2.raw.length);
+            tokens2.push(token2);
             continue;
           }
-          if (token = this.tokenizer.hr(src2)) {
-            src2 = src2.substring(token.raw.length);
-            tokens2.push(token);
+          if (token2 = this.tokenizer.hr(src2)) {
+            src2 = src2.substring(token2.raw.length);
+            tokens2.push(token2);
             continue;
           }
-          if (token = this.tokenizer.blockquote(src2)) {
-            src2 = src2.substring(token.raw.length);
-            token.tokens = this.blockTokens(token.text, [], top);
-            tokens2.push(token);
+          if (token2 = this.tokenizer.blockquote(src2)) {
+            src2 = src2.substring(token2.raw.length);
+            token2.tokens = this.blockTokens(token2.text, [], top);
+            tokens2.push(token2);
             continue;
           }
-          if (token = this.tokenizer.list(src2)) {
-            src2 = src2.substring(token.raw.length);
-            l2 = token.items.length;
+          if (token2 = this.tokenizer.list(src2)) {
+            src2 = src2.substring(token2.raw.length);
+            l2 = token2.items.length;
             for (i2 = 0; i2 < l2; i2++) {
-              token.items[i2].tokens = this.blockTokens(token.items[i2].text, [], false);
+              token2.items[i2].tokens = this.blockTokens(token2.items[i2].text, [], false);
             }
-            tokens2.push(token);
+            tokens2.push(token2);
             continue;
           }
-          if (token = this.tokenizer.html(src2)) {
-            src2 = src2.substring(token.raw.length);
-            tokens2.push(token);
+          if (token2 = this.tokenizer.html(src2)) {
+            src2 = src2.substring(token2.raw.length);
+            tokens2.push(token2);
             continue;
           }
-          if (top && (token = this.tokenizer.def(src2))) {
-            src2 = src2.substring(token.raw.length);
-            if (!this.tokens.links[token.tag]) {
-              this.tokens.links[token.tag] = {
-                href: token.href,
-                title: token.title
+          if (top && (token2 = this.tokenizer.def(src2))) {
+            src2 = src2.substring(token2.raw.length);
+            if (!this.tokens.links[token2.tag]) {
+              this.tokens.links[token2.tag] = {
+                href: token2.href,
+                title: token2.title
               };
             }
             continue;
           }
-          if (token = this.tokenizer.table(src2)) {
-            src2 = src2.substring(token.raw.length);
-            tokens2.push(token);
+          if (token2 = this.tokenizer.table(src2)) {
+            src2 = src2.substring(token2.raw.length);
+            tokens2.push(token2);
             continue;
           }
-          if (token = this.tokenizer.lheading(src2)) {
-            src2 = src2.substring(token.raw.length);
-            tokens2.push(token);
+          if (token2 = this.tokenizer.lheading(src2)) {
+            src2 = src2.substring(token2.raw.length);
+            tokens2.push(token2);
             continue;
           }
           cutSrc = src2;
@@ -29398,26 +29398,26 @@ var marked = { exports: {} };
               }
             })();
           }
-          if (top && (token = this.tokenizer.paragraph(cutSrc))) {
+          if (top && (token2 = this.tokenizer.paragraph(cutSrc))) {
             lastToken = tokens2[tokens2.length - 1];
             if (lastParagraphClipped && lastToken.type === "paragraph") {
-              lastToken.raw += "\n" + token.raw;
-              lastToken.text += "\n" + token.text;
+              lastToken.raw += "\n" + token2.raw;
+              lastToken.text += "\n" + token2.text;
             } else {
-              tokens2.push(token);
+              tokens2.push(token2);
             }
             lastParagraphClipped = cutSrc.length !== src2.length;
-            src2 = src2.substring(token.raw.length);
+            src2 = src2.substring(token2.raw.length);
             continue;
           }
-          if (token = this.tokenizer.text(src2)) {
-            src2 = src2.substring(token.raw.length);
+          if (token2 = this.tokenizer.text(src2)) {
+            src2 = src2.substring(token2.raw.length);
             lastToken = tokens2[tokens2.length - 1];
             if (lastToken && lastToken.type === "text") {
-              lastToken.raw += "\n" + token.raw;
-              lastToken.text += "\n" + token.text;
+              lastToken.raw += "\n" + token2.raw;
+              lastToken.text += "\n" + token2.text;
             } else {
-              tokens2.push(token);
+              tokens2.push(token2);
             }
             continue;
           }
@@ -29434,47 +29434,47 @@ var marked = { exports: {} };
         return tokens2;
       };
       _proto.inline = function inline2(tokens2) {
-        var i2, j2, k2, l2, row, token;
+        var i2, j2, k2, l2, row, token2;
         var l3 = tokens2.length;
         for (i2 = 0; i2 < l3; i2++) {
-          token = tokens2[i2];
-          switch (token.type) {
+          token2 = tokens2[i2];
+          switch (token2.type) {
             case "paragraph":
             case "text":
             case "heading": {
-              token.tokens = [];
-              this.inlineTokens(token.text, token.tokens);
+              token2.tokens = [];
+              this.inlineTokens(token2.text, token2.tokens);
               break;
             }
             case "table": {
-              token.tokens = {
+              token2.tokens = {
                 header: [],
                 cells: []
               };
-              l2 = token.header.length;
+              l2 = token2.header.length;
               for (j2 = 0; j2 < l2; j2++) {
-                token.tokens.header[j2] = [];
-                this.inlineTokens(token.header[j2], token.tokens.header[j2]);
+                token2.tokens.header[j2] = [];
+                this.inlineTokens(token2.header[j2], token2.tokens.header[j2]);
               }
-              l2 = token.cells.length;
+              l2 = token2.cells.length;
               for (j2 = 0; j2 < l2; j2++) {
-                row = token.cells[j2];
-                token.tokens.cells[j2] = [];
+                row = token2.cells[j2];
+                token2.tokens.cells[j2] = [];
                 for (k2 = 0; k2 < row.length; k2++) {
-                  token.tokens.cells[j2][k2] = [];
-                  this.inlineTokens(row[k2], token.tokens.cells[j2][k2]);
+                  token2.tokens.cells[j2][k2] = [];
+                  this.inlineTokens(row[k2], token2.tokens.cells[j2][k2]);
                 }
               }
               break;
             }
             case "blockquote": {
-              this.inline(token.tokens);
+              this.inline(token2.tokens);
               break;
             }
             case "list": {
-              l2 = token.items.length;
+              l2 = token2.items.length;
               for (j2 = 0; j2 < l2; j2++) {
-                this.inline(token.items[j2].tokens);
+                this.inline(token2.items[j2].tokens);
               }
               break;
             }
@@ -29493,7 +29493,7 @@ var marked = { exports: {} };
         if (inRawBlock === void 0) {
           inRawBlock = false;
         }
-        var token, lastToken, cutSrc;
+        var token2, lastToken, cutSrc;
         var maskedSrc = src2;
         var match2;
         var keepPrevChar, prevChar;
@@ -29519,85 +29519,85 @@ var marked = { exports: {} };
           }
           keepPrevChar = false;
           if (this.options.extensions && this.options.extensions.inline && this.options.extensions.inline.some(function(extTokenizer) {
-            if (token = extTokenizer.call(_this2, src2, tokens2)) {
-              src2 = src2.substring(token.raw.length);
-              tokens2.push(token);
+            if (token2 = extTokenizer.call(_this2, src2, tokens2)) {
+              src2 = src2.substring(token2.raw.length);
+              tokens2.push(token2);
               return true;
             }
             return false;
           })) {
             continue;
           }
-          if (token = this.tokenizer.escape(src2)) {
-            src2 = src2.substring(token.raw.length);
-            tokens2.push(token);
+          if (token2 = this.tokenizer.escape(src2)) {
+            src2 = src2.substring(token2.raw.length);
+            tokens2.push(token2);
             continue;
           }
-          if (token = this.tokenizer.tag(src2, inLink, inRawBlock)) {
-            src2 = src2.substring(token.raw.length);
-            inLink = token.inLink;
-            inRawBlock = token.inRawBlock;
+          if (token2 = this.tokenizer.tag(src2, inLink, inRawBlock)) {
+            src2 = src2.substring(token2.raw.length);
+            inLink = token2.inLink;
+            inRawBlock = token2.inRawBlock;
             lastToken = tokens2[tokens2.length - 1];
-            if (lastToken && token.type === "text" && lastToken.type === "text") {
-              lastToken.raw += token.raw;
-              lastToken.text += token.text;
+            if (lastToken && token2.type === "text" && lastToken.type === "text") {
+              lastToken.raw += token2.raw;
+              lastToken.text += token2.text;
             } else {
-              tokens2.push(token);
+              tokens2.push(token2);
             }
             continue;
           }
-          if (token = this.tokenizer.link(src2)) {
-            src2 = src2.substring(token.raw.length);
-            if (token.type === "link") {
-              token.tokens = this.inlineTokens(token.text, [], true, inRawBlock);
+          if (token2 = this.tokenizer.link(src2)) {
+            src2 = src2.substring(token2.raw.length);
+            if (token2.type === "link") {
+              token2.tokens = this.inlineTokens(token2.text, [], true, inRawBlock);
             }
-            tokens2.push(token);
+            tokens2.push(token2);
             continue;
           }
-          if (token = this.tokenizer.reflink(src2, this.tokens.links)) {
-            src2 = src2.substring(token.raw.length);
+          if (token2 = this.tokenizer.reflink(src2, this.tokens.links)) {
+            src2 = src2.substring(token2.raw.length);
             lastToken = tokens2[tokens2.length - 1];
-            if (token.type === "link") {
-              token.tokens = this.inlineTokens(token.text, [], true, inRawBlock);
-              tokens2.push(token);
-            } else if (lastToken && token.type === "text" && lastToken.type === "text") {
-              lastToken.raw += token.raw;
-              lastToken.text += token.text;
+            if (token2.type === "link") {
+              token2.tokens = this.inlineTokens(token2.text, [], true, inRawBlock);
+              tokens2.push(token2);
+            } else if (lastToken && token2.type === "text" && lastToken.type === "text") {
+              lastToken.raw += token2.raw;
+              lastToken.text += token2.text;
             } else {
-              tokens2.push(token);
+              tokens2.push(token2);
             }
             continue;
           }
-          if (token = this.tokenizer.emStrong(src2, maskedSrc, prevChar)) {
-            src2 = src2.substring(token.raw.length);
-            token.tokens = this.inlineTokens(token.text, [], inLink, inRawBlock);
-            tokens2.push(token);
+          if (token2 = this.tokenizer.emStrong(src2, maskedSrc, prevChar)) {
+            src2 = src2.substring(token2.raw.length);
+            token2.tokens = this.inlineTokens(token2.text, [], inLink, inRawBlock);
+            tokens2.push(token2);
             continue;
           }
-          if (token = this.tokenizer.codespan(src2)) {
-            src2 = src2.substring(token.raw.length);
-            tokens2.push(token);
+          if (token2 = this.tokenizer.codespan(src2)) {
+            src2 = src2.substring(token2.raw.length);
+            tokens2.push(token2);
             continue;
           }
-          if (token = this.tokenizer.br(src2)) {
-            src2 = src2.substring(token.raw.length);
-            tokens2.push(token);
+          if (token2 = this.tokenizer.br(src2)) {
+            src2 = src2.substring(token2.raw.length);
+            tokens2.push(token2);
             continue;
           }
-          if (token = this.tokenizer.del(src2)) {
-            src2 = src2.substring(token.raw.length);
-            token.tokens = this.inlineTokens(token.text, [], inLink, inRawBlock);
-            tokens2.push(token);
+          if (token2 = this.tokenizer.del(src2)) {
+            src2 = src2.substring(token2.raw.length);
+            token2.tokens = this.inlineTokens(token2.text, [], inLink, inRawBlock);
+            tokens2.push(token2);
             continue;
           }
-          if (token = this.tokenizer.autolink(src2, mangle)) {
-            src2 = src2.substring(token.raw.length);
-            tokens2.push(token);
+          if (token2 = this.tokenizer.autolink(src2, mangle)) {
+            src2 = src2.substring(token2.raw.length);
+            tokens2.push(token2);
             continue;
           }
-          if (!inLink && (token = this.tokenizer.url(src2, mangle))) {
-            src2 = src2.substring(token.raw.length);
-            tokens2.push(token);
+          if (!inLink && (token2 = this.tokenizer.url(src2, mangle))) {
+            src2 = src2.substring(token2.raw.length);
+            tokens2.push(token2);
             continue;
           }
           cutSrc = src2;
@@ -29617,18 +29617,18 @@ var marked = { exports: {} };
               }
             })();
           }
-          if (token = this.tokenizer.inlineText(cutSrc, inRawBlock, smartypants)) {
-            src2 = src2.substring(token.raw.length);
-            if (token.raw.slice(-1) !== "_") {
-              prevChar = token.raw.slice(-1);
+          if (token2 = this.tokenizer.inlineText(cutSrc, inRawBlock, smartypants)) {
+            src2 = src2.substring(token2.raw.length);
+            if (token2.raw.slice(-1) !== "_") {
+              prevChar = token2.raw.slice(-1);
             }
             keepPrevChar = true;
             lastToken = tokens2[tokens2.length - 1];
             if (lastToken && lastToken.type === "text") {
-              lastToken.raw += token.raw;
-              lastToken.text += token.text;
+              lastToken.raw += token2.raw;
+              lastToken.text += token2.text;
             } else {
-              tokens2.push(token);
+              tokens2.push(token2);
             }
             continue;
           }
@@ -29855,18 +29855,18 @@ var marked = { exports: {} };
         if (top === void 0) {
           top = true;
         }
-        var out = "", i2, j2, k2, l2, l3, row, cell, header, body2, token, ordered, start, loose, itemBody, item, checked2, task, checkbox, ret;
+        var out = "", i2, j2, k2, l2, l3, row, cell, header, body2, token2, ordered, start, loose, itemBody, item, checked2, task, checkbox, ret;
         var l4 = tokens2.length;
         for (i2 = 0; i2 < l4; i2++) {
-          token = tokens2[i2];
-          if (this.options.extensions && this.options.extensions.renderers && this.options.extensions.renderers[token.type]) {
-            ret = this.options.extensions.renderers[token.type].call(this, token);
-            if (ret !== false || !["space", "hr", "heading", "code", "table", "blockquote", "list", "html", "paragraph", "text"].includes(token.type)) {
+          token2 = tokens2[i2];
+          if (this.options.extensions && this.options.extensions.renderers && this.options.extensions.renderers[token2.type]) {
+            ret = this.options.extensions.renderers[token2.type].call(this, token2);
+            if (ret !== false || !["space", "hr", "heading", "code", "table", "blockquote", "list", "html", "paragraph", "text"].includes(token2.type)) {
               out += ret || "";
               continue;
             }
           }
-          switch (token.type) {
+          switch (token2.type) {
             case "space": {
               continue;
             }
@@ -29875,34 +29875,34 @@ var marked = { exports: {} };
               continue;
             }
             case "heading": {
-              out += this.renderer.heading(this.parseInline(token.tokens), token.depth, unescape2(this.parseInline(token.tokens, this.textRenderer)), this.slugger);
+              out += this.renderer.heading(this.parseInline(token2.tokens), token2.depth, unescape2(this.parseInline(token2.tokens, this.textRenderer)), this.slugger);
               continue;
             }
             case "code": {
-              out += this.renderer.code(token.text, token.lang, token.escaped);
+              out += this.renderer.code(token2.text, token2.lang, token2.escaped);
               continue;
             }
             case "table": {
               header = "";
               cell = "";
-              l2 = token.header.length;
+              l2 = token2.header.length;
               for (j2 = 0; j2 < l2; j2++) {
-                cell += this.renderer.tablecell(this.parseInline(token.tokens.header[j2]), {
+                cell += this.renderer.tablecell(this.parseInline(token2.tokens.header[j2]), {
                   header: true,
-                  align: token.align[j2]
+                  align: token2.align[j2]
                 });
               }
               header += this.renderer.tablerow(cell);
               body2 = "";
-              l2 = token.cells.length;
+              l2 = token2.cells.length;
               for (j2 = 0; j2 < l2; j2++) {
-                row = token.tokens.cells[j2];
+                row = token2.tokens.cells[j2];
                 cell = "";
                 l3 = row.length;
                 for (k2 = 0; k2 < l3; k2++) {
                   cell += this.renderer.tablecell(this.parseInline(row[k2]), {
                     header: false,
-                    align: token.align[k2]
+                    align: token2.align[k2]
                   });
                 }
                 body2 += this.renderer.tablerow(cell);
@@ -29911,18 +29911,18 @@ var marked = { exports: {} };
               continue;
             }
             case "blockquote": {
-              body2 = this.parse(token.tokens);
+              body2 = this.parse(token2.tokens);
               out += this.renderer.blockquote(body2);
               continue;
             }
             case "list": {
-              ordered = token.ordered;
-              start = token.start;
-              loose = token.loose;
-              l2 = token.items.length;
+              ordered = token2.ordered;
+              start = token2.start;
+              loose = token2.loose;
+              l2 = token2.items.length;
               body2 = "";
               for (j2 = 0; j2 < l2; j2++) {
-                item = token.items[j2];
+                item = token2.items[j2];
                 checked2 = item.checked;
                 task = item.task;
                 itemBody = "";
@@ -29951,24 +29951,24 @@ var marked = { exports: {} };
               continue;
             }
             case "html": {
-              out += this.renderer.html(token.text);
+              out += this.renderer.html(token2.text);
               continue;
             }
             case "paragraph": {
-              out += this.renderer.paragraph(this.parseInline(token.tokens));
+              out += this.renderer.paragraph(this.parseInline(token2.tokens));
               continue;
             }
             case "text": {
-              body2 = token.tokens ? this.parseInline(token.tokens) : token.text;
+              body2 = token2.tokens ? this.parseInline(token2.tokens) : token2.text;
               while (i2 + 1 < l4 && tokens2[i2 + 1].type === "text") {
-                token = tokens2[++i2];
-                body2 += "\n" + (token.tokens ? this.parseInline(token.tokens) : token.text);
+                token2 = tokens2[++i2];
+                body2 += "\n" + (token2.tokens ? this.parseInline(token2.tokens) : token2.text);
               }
               out += top ? this.renderer.paragraph(body2) : body2;
               continue;
             }
             default: {
-              var errMsg = 'Token with "' + token.type + '" type was not found.';
+              var errMsg = 'Token with "' + token2.type + '" type was not found.';
               if (this.options.silent) {
                 console.error(errMsg);
                 return;
@@ -29982,44 +29982,44 @@ var marked = { exports: {} };
       };
       _proto.parseInline = function parseInline(tokens2, renderer) {
         renderer = renderer || this.renderer;
-        var out = "", i2, token, ret;
+        var out = "", i2, token2, ret;
         var l2 = tokens2.length;
         for (i2 = 0; i2 < l2; i2++) {
-          token = tokens2[i2];
-          if (this.options.extensions && this.options.extensions.renderers && this.options.extensions.renderers[token.type]) {
-            ret = this.options.extensions.renderers[token.type].call(this, token);
-            if (ret !== false || !["escape", "html", "link", "image", "strong", "em", "codespan", "br", "del", "text"].includes(token.type)) {
+          token2 = tokens2[i2];
+          if (this.options.extensions && this.options.extensions.renderers && this.options.extensions.renderers[token2.type]) {
+            ret = this.options.extensions.renderers[token2.type].call(this, token2);
+            if (ret !== false || !["escape", "html", "link", "image", "strong", "em", "codespan", "br", "del", "text"].includes(token2.type)) {
               out += ret || "";
               continue;
             }
           }
-          switch (token.type) {
+          switch (token2.type) {
             case "escape": {
-              out += renderer.text(token.text);
+              out += renderer.text(token2.text);
               break;
             }
             case "html": {
-              out += renderer.html(token.text);
+              out += renderer.html(token2.text);
               break;
             }
             case "link": {
-              out += renderer.link(token.href, token.title, this.parseInline(token.tokens, renderer));
+              out += renderer.link(token2.href, token2.title, this.parseInline(token2.tokens, renderer));
               break;
             }
             case "image": {
-              out += renderer.image(token.href, token.title, token.text);
+              out += renderer.image(token2.href, token2.title, token2.text);
               break;
             }
             case "strong": {
-              out += renderer.strong(this.parseInline(token.tokens, renderer));
+              out += renderer.strong(this.parseInline(token2.tokens, renderer));
               break;
             }
             case "em": {
-              out += renderer.em(this.parseInline(token.tokens, renderer));
+              out += renderer.em(this.parseInline(token2.tokens, renderer));
               break;
             }
             case "codespan": {
-              out += renderer.codespan(token.text);
+              out += renderer.codespan(token2.text);
               break;
             }
             case "br": {
@@ -30027,15 +30027,15 @@ var marked = { exports: {} };
               break;
             }
             case "del": {
-              out += renderer.del(this.parseInline(token.tokens, renderer));
+              out += renderer.del(this.parseInline(token2.tokens, renderer));
               break;
             }
             case "text": {
-              out += renderer.text(token.text);
+              out += renderer.text(token2.text);
               break;
             }
             default: {
-              var errMsg = 'Token with "' + token.type + '" type was not found.';
+              var errMsg = 'Token with "' + token2.type + '" type was not found.';
               if (this.options.silent) {
                 console.error(errMsg);
                 return;
@@ -30100,17 +30100,17 @@ var marked = { exports: {} };
         if (!tokens2.length)
           return done();
         var pending = 0;
-        marked2.walkTokens(tokens2, function(token) {
-          if (token.type === "code") {
+        marked2.walkTokens(tokens2, function(token2) {
+          if (token2.type === "code") {
             pending++;
             setTimeout(function() {
-              highlight2(token.text, token.lang, function(err, code) {
+              highlight2(token2.text, token2.lang, function(err, code) {
                 if (err) {
                   return done(err);
                 }
-                if (code != null && code !== token.text) {
-                  token.text = code;
-                  token.escaped = true;
+                if (code != null && code !== token2.text) {
+                  token2.text = code;
+                  token2.escaped = true;
                 }
                 pending--;
                 if (pending === 0) {
@@ -30257,10 +30257,10 @@ var marked = { exports: {} };
         }
         if (pack.walkTokens) {
           var walkTokens = marked2.defaults.walkTokens;
-          opts.walkTokens = function(token) {
-            pack.walkTokens.call(_this, token);
+          opts.walkTokens = function(token2) {
+            pack.walkTokens.call(_this, token2);
             if (walkTokens) {
-              walkTokens(token);
+              walkTokens(token2);
             }
           };
         }
@@ -30272,15 +30272,15 @@ var marked = { exports: {} };
     };
     marked2.walkTokens = function(tokens2, callback) {
       var _loop3 = function _loop32() {
-        var token = _step.value;
-        callback(token);
-        switch (token.type) {
+        var token2 = _step.value;
+        callback(token2);
+        switch (token2.type) {
           case "table": {
-            for (var _iterator2 = _createForOfIteratorHelperLoose(token.tokens.header), _step2; !(_step2 = _iterator2()).done; ) {
+            for (var _iterator2 = _createForOfIteratorHelperLoose(token2.tokens.header), _step2; !(_step2 = _iterator2()).done; ) {
               var cell = _step2.value;
               marked2.walkTokens(cell, callback);
             }
-            for (var _iterator3 = _createForOfIteratorHelperLoose(token.tokens.cells), _step3; !(_step3 = _iterator3()).done; ) {
+            for (var _iterator3 = _createForOfIteratorHelperLoose(token2.tokens.cells), _step3; !(_step3 = _iterator3()).done; ) {
               var row = _step3.value;
               for (var _iterator4 = _createForOfIteratorHelperLoose(row), _step4; !(_step4 = _iterator4()).done; ) {
                 var _cell = _step4.value;
@@ -30290,16 +30290,16 @@ var marked = { exports: {} };
             break;
           }
           case "list": {
-            marked2.walkTokens(token.items, callback);
+            marked2.walkTokens(token2.items, callback);
             break;
           }
           default: {
-            if (marked2.defaults.extensions && marked2.defaults.extensions.childTokens && marked2.defaults.extensions.childTokens[token.type]) {
-              marked2.defaults.extensions.childTokens[token.type].forEach(function(childTokens) {
-                marked2.walkTokens(token[childTokens], callback);
+            if (marked2.defaults.extensions && marked2.defaults.extensions.childTokens && marked2.defaults.extensions.childTokens[token2.type]) {
+              marked2.defaults.extensions.childTokens[token2.type].forEach(function(childTokens) {
+                marked2.walkTokens(token2[childTokens], callback);
               });
-            } else if (token.tokens) {
-              marked2.walkTokens(token.tokens, callback);
+            } else if (token2.tokens) {
+              marked2.walkTokens(token2.tokens, callback);
             }
           }
         }
@@ -30603,12 +30603,12 @@ function XRegExp(pattern, flags3) {
         output += result2.output;
         pos += result2.matchLength || 1;
       } else {
-        const [token] = XRegExp.exec(appliedPattern, nativeTokens[scope], pos, "sticky");
-        output += token;
-        pos += token.length;
-        if (token === "[" && scope === defaultScope) {
+        const [token2] = XRegExp.exec(appliedPattern, nativeTokens[scope], pos, "sticky");
+        output += token2;
+        pos += token2.length;
+        if (token2 === "[" && scope === defaultScope) {
           scope = classScope;
-        } else if (token === "]" && scope === classScope) {
+        } else if (token2 === "]" && scope === classScope) {
           scope = defaultScope;
         }
       }
@@ -33965,17 +33965,17 @@ var prismCore = { exports: {} };
           root = root || _2.languages;
           var grammar = root[inside];
           var ret = {};
-          for (var token in grammar) {
-            if (grammar.hasOwnProperty(token)) {
-              if (token == before) {
+          for (var token2 in grammar) {
+            if (grammar.hasOwnProperty(token2)) {
+              if (token2 == before) {
                 for (var newToken in insert) {
                   if (insert.hasOwnProperty(newToken)) {
                     ret[newToken] = insert[newToken];
                   }
                 }
               }
-              if (!insert.hasOwnProperty(token)) {
-                ret[token] = grammar[token];
+              if (!insert.hasOwnProperty(token2)) {
+                ret[token2] = grammar[token2];
               }
             }
           }
@@ -34090,8 +34090,8 @@ var prismCore = { exports: {} };
       tokenize: function(text2, grammar) {
         var rest2 = grammar.rest;
         if (rest2) {
-          for (var token in rest2) {
-            grammar[token] = rest2[token];
+          for (var token2 in rest2) {
+            grammar[token2] = rest2[token2];
           }
           delete grammar.rest;
         }
@@ -34171,14 +34171,14 @@ var prismCore = { exports: {} };
       return match2;
     }
     function matchGrammar(text2, tokenList, grammar, startNode, startPos, rematch) {
-      for (var token in grammar) {
-        if (!grammar.hasOwnProperty(token) || !grammar[token]) {
+      for (var token2 in grammar) {
+        if (!grammar.hasOwnProperty(token2) || !grammar[token2]) {
           continue;
         }
-        var patterns2 = grammar[token];
+        var patterns2 = grammar[token2];
         patterns2 = Array.isArray(patterns2) ? patterns2 : [patterns2];
         for (var j2 = 0; j2 < patterns2.length; ++j2) {
-          if (rematch && rematch.cause == token + "," + j2) {
+          if (rematch && rematch.cause == token2 + "," + j2) {
             return;
           }
           var patternObj = patterns2[j2];
@@ -34249,14 +34249,14 @@ var prismCore = { exports: {} };
               pos += before.length;
             }
             removeRange(tokenList, removeFrom, removeCount);
-            var wrapped = new Token(token, inside ? _2.tokenize(matchStr, inside) : matchStr, alias2, matchStr);
+            var wrapped = new Token(token2, inside ? _2.tokenize(matchStr, inside) : matchStr, alias2, matchStr);
             currentNode = addAfter(tokenList, removeFrom, wrapped);
             if (after) {
               addAfter(tokenList, currentNode, after);
             }
             if (removeCount > 1) {
               var nestedRematch = {
-                cause: token + "," + j2,
+                cause: token2 + "," + j2,
                 reach
               };
               matchGrammar(text2, tokenList, grammar, currentNode.prev, pos, nestedRematch);
@@ -38312,11 +38312,11 @@ function markupTemplating(Prism2) {
               if (j2 >= keys3.length) {
                 break;
               }
-              var token = tokens2[i2];
-              if (typeof token === "string" || token.content && typeof token.content === "string") {
+              var token2 = tokens2[i2];
+              if (typeof token2 === "string" || token2.content && typeof token2.content === "string") {
                 var k2 = keys3[j2];
                 var t2 = env.tokenStack[k2];
-                var s2 = typeof token === "string" ? token : token.content;
+                var s2 = typeof token2 === "string" ? token2 : token2.content;
                 var placeholder = getPlaceholder(language, k2);
                 var index2 = s2.indexOf(placeholder);
                 if (index2 > -1) {
@@ -38332,14 +38332,14 @@ function markupTemplating(Prism2) {
                   if (after) {
                     replacement.push.apply(replacement, walkTokens([after]));
                   }
-                  if (typeof token === "string") {
+                  if (typeof token2 === "string") {
                     tokens2.splice.apply(tokens2, [i2, 1].concat(replacement));
                   } else {
-                    token.content = replacement;
+                    token2.content = replacement;
                   }
                 }
-              } else if (token.content) {
-                walkTokens(token.content);
+              } else if (token2.content) {
+                walkTokens(token2.content);
               }
             }
             return tokens2;
@@ -40548,8 +40548,8 @@ function graphql(Prism2) {
     if (env.language !== "graphql") {
       return;
     }
-    var validTokens = env.tokens.filter(function(token) {
-      return typeof token !== "string" && token.type !== "comment" && token.type !== "scalar";
+    var validTokens = env.tokens.filter(function(token2) {
+      return typeof token2 !== "string" && token2.type !== "comment" && token2.type !== "scalar";
     });
     var currentIndex = 0;
     function getToken2(offset2) {
@@ -40558,8 +40558,8 @@ function graphql(Prism2) {
     function isTokenType(types2, offset2) {
       offset2 = offset2 || 0;
       for (var i3 = 0; i3 < types2.length; i3++) {
-        var token = getToken2(i3 + offset2);
-        if (!token || token.type !== types2[i3]) {
+        var token2 = getToken2(i3 + offset2);
+        if (!token2 || token2.type !== types2[i3]) {
           return false;
         }
       }
@@ -40568,9 +40568,9 @@ function graphql(Prism2) {
     function findClosingBracket(open, close) {
       var stackHeight = 1;
       for (var i3 = currentIndex; i3 < validTokens.length; i3++) {
-        var token = validTokens[i3];
-        var content = token.content;
-        if (token.type === "punctuation" && typeof content === "string") {
+        var token2 = validTokens[i3];
+        var content = token2.content;
+        if (token2.type === "punctuation" && typeof content === "string") {
           if (open.test(content)) {
             stackHeight++;
           } else if (close.test(content)) {
@@ -40583,12 +40583,12 @@ function graphql(Prism2) {
       }
       return -1;
     }
-    function addAlias(token, alias2) {
-      var aliases = token.alias;
+    function addAlias(token2, alias2) {
+      var aliases = token2.alias;
       if (!aliases) {
-        token.alias = aliases = [];
+        token2.alias = aliases = [];
       } else if (!Array.isArray(aliases)) {
-        token.alias = aliases = [aliases];
+        token2.alias = aliases = [aliases];
       }
       aliases.push(alias2);
     }
@@ -41721,8 +41721,8 @@ function javadoclike(Prism2) {
       if (!grammar) {
         return;
       }
-      var token = grammar[tokenName];
-      if (!token) {
+      var token2 = grammar[tokenName];
+      if (!token2) {
         var definition = {};
         definition[tokenName] = {
           pattern: /(^|[^\\])\/\*\*[^/][\s\S]*?(?:\*\/|$)/,
@@ -41730,24 +41730,24 @@ function javadoclike(Prism2) {
           alias: "comment"
         };
         grammar = Prism3.languages.insertBefore(lang2, "comment", definition);
-        token = grammar[tokenName];
+        token2 = grammar[tokenName];
       }
-      if (token instanceof RegExp) {
-        token = grammar[tokenName] = {
-          pattern: token
+      if (token2 instanceof RegExp) {
+        token2 = grammar[tokenName] = {
+          pattern: token2
         };
       }
-      if (Array.isArray(token)) {
-        for (var i2 = 0, l2 = token.length; i2 < l2; i2++) {
-          if (token[i2] instanceof RegExp) {
-            token[i2] = {
-              pattern: token[i2]
+      if (Array.isArray(token2)) {
+        for (var i2 = 0, l2 = token2.length; i2 < l2; i2++) {
+          if (token2[i2] instanceof RegExp) {
+            token2[i2] = {
+              pattern: token2[i2]
             };
           }
-          callback(token[i2]);
+          callback(token2[i2]);
         }
       } else {
-        callback(token);
+        callback(token2);
       }
     }
     function addSupport(languages, docLanguage) {
@@ -42196,10 +42196,10 @@ function jsExtras(Prism2) {
       "property-access"
     ];
     for (var i2 = 0; i2 < maybeClassNameTokens.length; i2++) {
-      var token = maybeClassNameTokens[i2];
-      var value = Prism3.languages.javascript[token];
+      var token2 = maybeClassNameTokens[i2];
+      var value = Prism3.languages.javascript[token2];
       if (Prism3.util.type(value) === "RegExp") {
-        value = Prism3.languages.javascript[token] = {
+        value = Prism3.languages.javascript[token2] = {
           pattern: value
         };
       }
@@ -42282,11 +42282,11 @@ function jsTemplates(Prism2) {
       });
       var placeholderCounter = 0;
       var placeholderMap = {};
-      var embeddedCode = _tokens.map(function(token) {
-        if (typeof token === "string") {
-          return token;
+      var embeddedCode = _tokens.map(function(token2) {
+        if (typeof token2 === "string") {
+          return token2;
         } else {
-          var interpolationExpression = token.content;
+          var interpolationExpression = token2.content;
           var placeholder;
           while (code.indexOf(placeholder = getPlaceholder(placeholderCounter++, language)) !== -1) {
           }
@@ -42302,10 +42302,10 @@ function jsTemplates(Prism2) {
           if (placeholderCounter >= placeholders.length) {
             return;
           }
-          var token = tokens2[i2];
-          if (typeof token === "string" || typeof token.content === "string") {
+          var token2 = tokens2[i2];
+          if (typeof token2 === "string" || typeof token2.content === "string") {
             var placeholder = placeholders[placeholderCounter];
-            var s2 = typeof token === "string" ? token : token.content;
+            var s2 = typeof token2 === "string" ? token2 : token2.content;
             var index2 = s2.indexOf(placeholder);
             if (index2 !== -1) {
               ++placeholderCounter;
@@ -42322,15 +42322,15 @@ function jsTemplates(Prism2) {
                 walkTokens(afterTokens);
                 replacement.push.apply(replacement, afterTokens);
               }
-              if (typeof token === "string") {
+              if (typeof token2 === "string") {
                 tokens2.splice.apply(tokens2, [i2, 1].concat(replacement));
                 i2 += replacement.length - 1;
               } else {
-                token.content = replacement;
+                token2.content = replacement;
               }
             }
           } else {
-            var content = token.content;
+            var content = token2.content;
             if (Array.isArray(content)) {
               walkTokens(content);
             } else {
@@ -42356,18 +42356,18 @@ function jsTemplates(Prism2) {
       }
       function findTemplateStrings(tokens2) {
         for (var i2 = 0, l2 = tokens2.length; i2 < l2; i2++) {
-          var token = tokens2[i2];
-          if (typeof token === "string") {
+          var token2 = tokens2[i2];
+          if (typeof token2 === "string") {
             continue;
           }
-          var content = token.content;
+          var content = token2.content;
           if (!Array.isArray(content)) {
             if (typeof content !== "string") {
               findTemplateStrings([content]);
             }
             continue;
           }
-          if (token.type === "template-string") {
+          if (token2.type === "template-string") {
             var embedded = content[1];
             if (content.length === 3 && typeof embedded !== "string" && embedded.type === "embedded-code") {
               var code = stringContent(embedded);
@@ -42685,50 +42685,50 @@ function jsx(Prism2) {
         alias: "language-javascript"
       }
     }, Prism3.languages.jsx.tag);
-    var stringifyToken = function(token) {
-      if (!token) {
+    var stringifyToken = function(token2) {
+      if (!token2) {
         return "";
       }
-      if (typeof token === "string") {
-        return token;
+      if (typeof token2 === "string") {
+        return token2;
       }
-      if (typeof token.content === "string") {
-        return token.content;
+      if (typeof token2.content === "string") {
+        return token2.content;
       }
-      return token.content.map(stringifyToken).join("");
+      return token2.content.map(stringifyToken).join("");
     };
     var walkTokens = function(tokens2) {
       var openedTags = [];
       for (var i2 = 0; i2 < tokens2.length; i2++) {
-        var token = tokens2[i2];
+        var token2 = tokens2[i2];
         var notTagNorBrace = false;
-        if (typeof token !== "string") {
-          if (token.type === "tag" && token.content[0] && token.content[0].type === "tag") {
-            if (token.content[0].content[0].content === "</") {
-              if (openedTags.length > 0 && openedTags[openedTags.length - 1].tagName === stringifyToken(token.content[0].content[1])) {
+        if (typeof token2 !== "string") {
+          if (token2.type === "tag" && token2.content[0] && token2.content[0].type === "tag") {
+            if (token2.content[0].content[0].content === "</") {
+              if (openedTags.length > 0 && openedTags[openedTags.length - 1].tagName === stringifyToken(token2.content[0].content[1])) {
                 openedTags.pop();
               }
             } else {
-              if (token.content[token.content.length - 1].content === "/>")
+              if (token2.content[token2.content.length - 1].content === "/>")
                 ;
               else {
                 openedTags.push({
-                  tagName: stringifyToken(token.content[0].content[1]),
+                  tagName: stringifyToken(token2.content[0].content[1]),
                   openedBraces: 0
                 });
               }
             }
-          } else if (openedTags.length > 0 && token.type === "punctuation" && token.content === "{") {
+          } else if (openedTags.length > 0 && token2.type === "punctuation" && token2.content === "{") {
             openedTags[openedTags.length - 1].openedBraces++;
-          } else if (openedTags.length > 0 && openedTags[openedTags.length - 1].openedBraces > 0 && token.type === "punctuation" && token.content === "}") {
+          } else if (openedTags.length > 0 && openedTags[openedTags.length - 1].openedBraces > 0 && token2.type === "punctuation" && token2.content === "}") {
             openedTags[openedTags.length - 1].openedBraces--;
           } else {
             notTagNorBrace = true;
           }
         }
-        if (notTagNorBrace || typeof token === "string") {
+        if (notTagNorBrace || typeof token2 === "string") {
           if (openedTags.length > 0 && openedTags[openedTags.length - 1].openedBraces === 0) {
-            var plainText = stringifyToken(token);
+            var plainText = stringifyToken(token2);
             if (i2 < tokens2.length - 1 && (typeof tokens2[i2 + 1] === "string" || tokens2[i2 + 1].type === "plain-text")) {
               plainText += stringifyToken(tokens2[i2 + 1]);
               tokens2.splice(i2 + 1, 1);
@@ -42741,8 +42741,8 @@ function jsx(Prism2) {
             tokens2[i2] = new Prism3.Token("plain-text", plainText, null, plainText);
           }
         }
-        if (token.content && typeof token.content !== "string") {
-          walkTokens(token.content);
+        if (token2.content && typeof token2.content !== "string") {
+          walkTokens(token2.content);
         }
       }
     };
@@ -44410,10 +44410,10 @@ function markdown(Prism2) {
         }
       }
     });
-    ["url", "bold", "italic", "strike"].forEach(function(token) {
+    ["url", "bold", "italic", "strike"].forEach(function(token2) {
       ["url", "bold", "italic", "strike", "code-snippet"].forEach(function(inside) {
-        if (token !== inside) {
-          Prism3.languages.markdown[token].inside.content.inside[inside] = Prism3.languages.markdown[inside];
+        if (token2 !== inside) {
+          Prism3.languages.markdown[token2].inside.content.inside[inside] = Prism3.languages.markdown[inside];
         }
       });
     });
@@ -44426,13 +44426,13 @@ function markdown(Prism2) {
           return;
         }
         for (var i2 = 0, l2 = tokens2.length; i2 < l2; i2++) {
-          var token = tokens2[i2];
-          if (token.type !== "code") {
-            walkTokens(token.content);
+          var token2 = tokens2[i2];
+          if (token2.type !== "code") {
+            walkTokens(token2.content);
             continue;
           }
-          var codeLang = token.content[1];
-          var codeBlock = token.content[3];
+          var codeLang = token2.content[1];
+          var codeBlock = token2.content[3];
           if (codeLang && codeBlock && codeLang.type === "code-language" && codeBlock.type === "code-block" && typeof codeLang.content === "string") {
             var lang2 = codeLang.content.replace(/\b#/g, "sharp").replace(/\b\+\+/g, "pp");
             lang2 = (/[a-z][\w-]*/i.exec(lang2) || [""])[0].toLowerCase();
@@ -45274,12 +45274,12 @@ function naniscript(Prism2) {
     Prism3.languages.nani = Prism3.languages["naniscript"];
     Prism3.hooks.add("after-tokenize", function(env) {
       var tokens2 = env.tokens;
-      tokens2.forEach(function(token) {
-        if (typeof token !== "string" && token.type === "generic-text") {
-          var content = getTextContent(token);
+      tokens2.forEach(function(token2) {
+        if (typeof token2 !== "string" && token2.type === "generic-text") {
+          var content = getTextContent(token2);
           if (!isBracketsBalanced(content)) {
-            token.type = "bad-line";
-            token.content = content;
+            token2.type = "bad-line";
+            token2.content = content;
           }
         }
       });
@@ -45300,13 +45300,13 @@ function naniscript(Prism2) {
       }
       return stack.length === 0;
     }
-    function getTextContent(token) {
-      if (typeof token === "string") {
-        return token;
-      } else if (Array.isArray(token)) {
-        return token.map(getTextContent).join("");
+    function getTextContent(token2) {
+      if (typeof token2 === "string") {
+        return token2;
+      } else if (Array.isArray(token2)) {
+        return token2.map(getTextContent).join("");
       } else {
-        return getTextContent(token.content);
+        return getTextContent(token2.content);
       }
     }
   })(Prism2);
@@ -47973,8 +47973,8 @@ function robotframework(Prism2) {
         pattern: /^ ?\*{3}.+?\*{3}/,
         alias: "keyword"
       };
-      for (var token in inside) {
-        extendecInside[token] = inside[token];
+      for (var token2 in inside) {
+        extendecInside[token2] = inside[token2];
       }
       extendecInside["tag"] = {
         pattern: /([\r\n](?: {2}|\t)[ \t]*)\[[-\w]+\]/,
@@ -51259,47 +51259,47 @@ function xquery(Prism2) {
       inside: Prism3.languages.xquery,
       alias: "language-xquery"
     };
-    var stringifyToken = function(token) {
-      if (typeof token === "string") {
-        return token;
+    var stringifyToken = function(token2) {
+      if (typeof token2 === "string") {
+        return token2;
       }
-      if (typeof token.content === "string") {
-        return token.content;
+      if (typeof token2.content === "string") {
+        return token2.content;
       }
-      return token.content.map(stringifyToken).join("");
+      return token2.content.map(stringifyToken).join("");
     };
     var walkTokens = function(tokens2) {
       var openedTags = [];
       for (var i2 = 0; i2 < tokens2.length; i2++) {
-        var token = tokens2[i2];
+        var token2 = tokens2[i2];
         var notTagNorBrace = false;
-        if (typeof token !== "string") {
-          if (token.type === "tag" && token.content[0] && token.content[0].type === "tag") {
-            if (token.content[0].content[0].content === "</") {
-              if (openedTags.length > 0 && openedTags[openedTags.length - 1].tagName === stringifyToken(token.content[0].content[1])) {
+        if (typeof token2 !== "string") {
+          if (token2.type === "tag" && token2.content[0] && token2.content[0].type === "tag") {
+            if (token2.content[0].content[0].content === "</") {
+              if (openedTags.length > 0 && openedTags[openedTags.length - 1].tagName === stringifyToken(token2.content[0].content[1])) {
                 openedTags.pop();
               }
             } else {
-              if (token.content[token.content.length - 1].content === "/>")
+              if (token2.content[token2.content.length - 1].content === "/>")
                 ;
               else {
                 openedTags.push({
-                  tagName: stringifyToken(token.content[0].content[1]),
+                  tagName: stringifyToken(token2.content[0].content[1]),
                   openedBraces: 0
                 });
               }
             }
-          } else if (openedTags.length > 0 && token.type === "punctuation" && token.content === "{" && (!tokens2[i2 + 1] || tokens2[i2 + 1].type !== "punctuation" || tokens2[i2 + 1].content !== "{") && (!tokens2[i2 - 1] || tokens2[i2 - 1].type !== "plain-text" || tokens2[i2 - 1].content !== "{")) {
+          } else if (openedTags.length > 0 && token2.type === "punctuation" && token2.content === "{" && (!tokens2[i2 + 1] || tokens2[i2 + 1].type !== "punctuation" || tokens2[i2 + 1].content !== "{") && (!tokens2[i2 - 1] || tokens2[i2 - 1].type !== "plain-text" || tokens2[i2 - 1].content !== "{")) {
             openedTags[openedTags.length - 1].openedBraces++;
-          } else if (openedTags.length > 0 && openedTags[openedTags.length - 1].openedBraces > 0 && token.type === "punctuation" && token.content === "}") {
+          } else if (openedTags.length > 0 && openedTags[openedTags.length - 1].openedBraces > 0 && token2.type === "punctuation" && token2.content === "}") {
             openedTags[openedTags.length - 1].openedBraces--;
-          } else if (token.type !== "comment") {
+          } else if (token2.type !== "comment") {
             notTagNorBrace = true;
           }
         }
-        if (notTagNorBrace || typeof token === "string") {
+        if (notTagNorBrace || typeof token2 === "string") {
           if (openedTags.length > 0 && openedTags[openedTags.length - 1].openedBraces === 0) {
-            var plainText = stringifyToken(token);
+            var plainText = stringifyToken(token2);
             if (i2 < tokens2.length - 1 && (typeof tokens2[i2 + 1] === "string" || tokens2[i2 + 1].type === "plain-text")) {
               plainText += stringifyToken(tokens2[i2 + 1]);
               tokens2.splice(i2 + 1, 1);
@@ -51316,8 +51316,8 @@ function xquery(Prism2) {
             }
           }
         }
-        if (token.content && typeof token.content !== "string") {
-          walkTokens(token.content);
+        if (token2.content && typeof token2.content !== "string") {
+          walkTokens(token2.content);
         }
       }
     };
@@ -62638,8 +62638,8 @@ const tslib_1$l = require$$0$4;
 const getCurrentUserEmail_1$1 = (0, tslib_1$l.__importDefault)(getCurrentUserEmail$1);
 const getToken_1$1 = (0, tslib_1$l.__importDefault)(getToken$1);
 const getAuthorizationHeader = (service) => {
-  const token = (0, getToken_1$1.default)();
-  return token ? `Bearer ${window.btoa(`${(0, getCurrentUserEmail_1$1.default)()}:${(0, getToken_1$1.default)()}`)}` : (0, getToken_1$1.default)(service);
+  const token2 = (0, getToken_1$1.default)();
+  return token2 ? `Bearer ${window.btoa(`${(0, getCurrentUserEmail_1$1.default)()}:${(0, getToken_1$1.default)()}`)}` : (0, getToken_1$1.default)(service);
 };
 getAuthorizationHeader$1.default = getAuthorizationHeader;
 Object.defineProperty(ConfigPage$1, "__esModule", { value: true });
@@ -64127,13 +64127,13 @@ var TokenDialog = {};
   const localStorageSet_12 = (0, tslib_12.__importDefault)(localStorageSet);
   const writes_12 = writes;
   const TokenDialog2 = ({ onClose }) => {
-    const [token, setToken] = (0, react_12.useState)(getToken_12.default);
+    const [token2, setToken] = (0, react_12.useState)(getToken_12.default);
     const [useLocal, setUseLocal] = (0, react_12.useState)(true);
     const onSubmit = (0, react_12.useCallback)(() => {
       const pageUid = (0, queries_12.getPageUidByPageTitle)("roam/js/roamjs");
       return (pageUid ? Promise.resolve(pageUid) : (0, writes_12.createPage)({ title: "roam/js/roamjs", tree: [{ text: "token" }] })).then(() => {
         if (useLocal) {
-          (0, localStorageSet_12.default)(`token`, token);
+          (0, localStorageSet_12.default)(`token`, token2);
           (0, setInputSetting_1.default)({
             blockUid: pageUid,
             key: "token",
@@ -64144,18 +64144,18 @@ var TokenDialog = {};
           (0, setInputSetting_1.default)({
             blockUid: pageUid,
             key: "token",
-            value: token
+            value: token2
           });
         }
         onClose();
       });
-    }, [token, useLocal, onClose]);
+    }, [token2, useLocal, onClose]);
     const onKeyDown = (0, react_12.useCallback)((e2) => {
-      if (e2.key === "Enter" && !e2.shiftKey && !e2.altKey && !e2.metaKey && !e2.ctrlKey && token) {
+      if (e2.key === "Enter" && !e2.shiftKey && !e2.altKey && !e2.metaKey && !e2.ctrlKey && token2) {
         onSubmit();
       }
-    }, [onSubmit, token]);
-    return react_12.default.createElement(react_12.default.Fragment, null, react_12.default.createElement(core_12.Dialog, { isOpen: true, title: `Add RoamJS Token`, onClose, isCloseButtonShown: true, canOutsideClickClose: true, canEscapeKeyClose: true }, react_12.default.createElement("div", { className: core_12.Classes.DIALOG_BODY, onKeyDown: (e2) => e2.stopPropagation() }, react_12.default.createElement(core_12.Label, null, "RoamJS Token", react_12.default.createElement(core_12.InputGroup, { value: token, onChange: (e2) => setToken(e2.target.value), onKeyDown, type: "password" })), react_12.default.createElement(core_12.Checkbox, { label: "Store Locally", checked: useLocal, onChange: (e2) => setUseLocal(e2.target.checked) })), react_12.default.createElement("div", { className: core_12.Classes.DIALOG_FOOTER }, react_12.default.createElement("div", { className: core_12.Classes.DIALOG_FOOTER_ACTIONS }, react_12.default.createElement(core_12.Button, { text: "Cancel", onClick: onClose }), react_12.default.createElement(core_12.Button, { text: "Save", intent: core_12.Intent.PRIMARY, onClick: onSubmit })))));
+    }, [onSubmit, token2]);
+    return react_12.default.createElement(react_12.default.Fragment, null, react_12.default.createElement(core_12.Dialog, { isOpen: true, title: `Add RoamJS Token`, onClose, isCloseButtonShown: true, canOutsideClickClose: true, canEscapeKeyClose: true }, react_12.default.createElement("div", { className: core_12.Classes.DIALOG_BODY, onKeyDown: (e2) => e2.stopPropagation() }, react_12.default.createElement(core_12.Label, null, "RoamJS Token", react_12.default.createElement(core_12.InputGroup, { value: token2, onChange: (e2) => setToken(e2.target.value), onKeyDown, type: "password" })), react_12.default.createElement(core_12.Checkbox, { label: "Store Locally", checked: useLocal, onChange: (e2) => setUseLocal(e2.target.checked) })), react_12.default.createElement("div", { className: core_12.Classes.DIALOG_FOOTER }, react_12.default.createElement("div", { className: core_12.Classes.DIALOG_FOOTER_ACTIONS }, react_12.default.createElement(core_12.Button, { text: "Cancel", onClick: onClose }), react_12.default.createElement(core_12.Button, { text: "Save", intent: core_12.Intent.PRIMARY, onClick: onSubmit })))));
   };
   exports.render = (0, createOverlayRender_12.default)("token-dialog", TokenDialog2);
   const addTokenDialogCommand = () => window.roamAlphaAPI.ui.commandPalette.addCommand({
@@ -64338,8 +64338,8 @@ const getCurrentUserEmail_1 = (0, tslib_1$d.__importDefault)(getCurrentUserEmail
 const TokenDialog_1 = TokenDialog;
 const useRoamJSTokenWarning = () => {
   (0, react_1$1.useEffect)(() => {
-    const token = (0, getToken_1.default)();
-    if (!token) {
+    const token2 = (0, getToken_1.default)();
+    if (!token2) {
       axios_1$6.default.post(`https://lambda.roamjs.com/users`, {
         email: (0, getCurrentUserEmail_1.default)()
       }).then((r2) => {
@@ -69727,7 +69727,24 @@ const createLogger = (featureName) => {
     console.log(`<<<<<<<<< [roamist] ${featureName} >>>>>>>>>: `, log2);
   };
 };
-const api$2 = new dist.TodoistApi(window.TODOIST_TOKEN);
+const CONFIG = "roam/roamist";
+const DEFAULT_TAG_NAME = "Roamist";
+const getRoamistSetting = (key2) => {
+  const pageUid = roamjsComponents.getPageUidByPageTitle(CONFIG);
+  const config = roamjsComponents.getBasicTreeByParentUid(pageUid);
+  const settingValue = roamjsComponents.getSettingValueFromTree({ tree: config, key: key2 });
+  if (!settingValue) {
+    if (key2 === "token") {
+      return window.TODOIST_TOKEN;
+    }
+    if (key2 === "tag") {
+      return window.Roamist.TODOIST_TAG_NAME || DEFAULT_TAG_NAME;
+    }
+  }
+  return settingValue;
+};
+const token$2 = getRoamistSetting("token");
+const api$2 = new dist.TodoistApi(token$2);
 const logger$3 = createLogger("complete-task");
 const completeTask = async () => {
   try {
@@ -69836,7 +69853,8 @@ const createTodoistTaskString = ({
   if (task.due) {
     taskString = `${taskString} [[${convertToRoamDate(task.due.date)}]]`;
   }
-  taskString = `${taskString} #[[${project.name}]] #${window.Roamist.TODOIST_TAG_NAME}`;
+  const tagName = getRoamistSetting("tag");
+  taskString = `${taskString} #[[${project.name}]] #${tagName}`;
   return `{{[[TODO]]}} ${taskString} `;
 };
 async function createDescriptionBlock({
@@ -69857,13 +69875,14 @@ async function createDescriptionBlock({
   }
 }
 const getAllTodoistBlocksFromPageTitle = async (pageTitle) => {
+  const tagName = getRoamistSetting("tag");
   const rule = "[[(ancestor ?b ?a)[?a :block/children ?b]][(ancestor ?b ?a)[?parent :block/children ?b ](ancestor ?parent ?a) ]]";
   const query = `[:find  (pull ?block [:block/uid :block/string])
                                   :in $ ?page_title %
                                   :where
                                   [?page :node/title ?page_title]
                                   [?block :block/string ?contents]
-                                  [(clojure.string/includes? ?contents "#${window.Roamist.TODOIST_TAG_NAME}")]
+                                  [(clojure.string/includes? ?contents "#${tagName}")]
                                   (ancestor ?block ?page)]`;
   const results = await window.roamAlphaAPI.q(query, pageTitle, rule);
   return results;
@@ -69885,7 +69904,8 @@ async function dedupTaskList(taskList) {
   });
   return newTaskList;
 }
-const api$1 = new dist.TodoistApi(window.TODOIST_TOKEN);
+const token$1 = getRoamistSetting("token");
+const api$1 = new dist.TodoistApi(token$1);
 const logger$1 = createLogger("pull-tasks");
 let projects = void 0;
 api$1.getProjects().then((res) => {
@@ -69960,7 +69980,7 @@ const getCompletedBlockUIds = (activeTodoistIds, todoistBlocks) => {
   return completedBlocks;
 };
 const getTodoBlocksReferringToRoamist = async () => {
-  const title = window.Roamist.TODOIST_TAG_NAME;
+  const title = getRoamistSetting("tag");
   const blocks = await window.roamAlphaAPI.q(`
         [:find (pull ?refs [:block/string :block/uid {:block/children ...}])
           :where [?refs :block/refs ?title][?refs :block/refs ?todoTitle][?todoTitle :node/title "TODO"][?title :node/title "${title}"]]`);
@@ -69981,7 +70001,8 @@ const getTodoBlocksWithTodoistId = async () => {
     });
   });
 };
-const api = new dist.TodoistApi(window.TODOIST_TOKEN);
+const token = getRoamistSetting("token");
+const api = new dist.TodoistApi(token);
 const logger = createLogger("sync-completed");
 const syncCompleted = async () => {
   try {
@@ -70000,7 +70021,6 @@ const syncCompleted = async () => {
   }
 };
 window.Roamist = window.Roamist || {};
-window.Roamist.TODOIST_TAG_NAME = window.Roamist.TODOIST_TAG_NAME || "Roamist";
 window.Roamist = __spreadProps(__spreadValues(__spreadValues({}, window.RTI), window.Roamist), {
   completeTask,
   pullTasks,
@@ -70022,7 +70042,7 @@ roamjsComponents.createConfigObserver({
           {
             type: "text",
             title: "token",
-            description: "todoist's token"
+            description: "todoist's token. Get in todoist.com/prefs/integrations."
           },
           {
             type: "text",
@@ -70031,8 +70051,17 @@ roamjsComponents.createConfigObserver({
           },
           {
             type: "flag",
-            title: "show date",
-            description: "show date"
+            title: "[Not Implemented] show date",
+            description: "[Not Implemented] show date"
+          },
+          {
+            type: "select",
+            title: "[Not Implemented] sorter",
+            description: "[Not Implemented] sorter",
+            options: {
+              items: ["priority", "date", "title"]
+            },
+            defaultValue: "priority"
           }
         ]
       }
