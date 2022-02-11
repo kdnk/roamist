@@ -31,7 +31,8 @@ createConfigObserver({
           {
             type: "text",
             title: "token",
-            description: "todoist's token",
+            description:
+              "todoist's token. Get in todoist.com/prefs/integrations.",
           },
           {
             type: "text",
