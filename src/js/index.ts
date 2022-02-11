@@ -44,14 +44,15 @@ createConfigObserver({
             title: "[Not Implemented] show date",
             description: "[Not Implemented] show date",
           },
+        ],
+      },
+      {
+        id: "pull-tasks",
+        fields: [
           {
-            type: "select",
-            title: "[Not Implemented] sorter",
-            description: "[Not Implemented] sorter",
-            options: {
-              items: ["priority", "date", "title"],
-            },
-            defaultValue: "priority",
+            type: "block",
+            title: "filters",
+            description: "Todoist's filters",
           },
         ],
       },
