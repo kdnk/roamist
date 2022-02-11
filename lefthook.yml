@@ -1,0 +1,9 @@
+pre-commit:
+  parallel: true
+  commands:
+    linter:
+      glob: "*.{js,ts,d.ts}"
+      run: npm run eslint
+    tsc:
+      glob: "*.{js,ts,d.ts}"
+      run: npm run tsc

@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "watch": "vite build --watch",
+    "preview": "vite preview",
+    "eslint": "eslint './src'",
+    "tsc": "./node_modules/.bin/tsc --noEmit"
   },
   "repository": {
     "type": "git",
@@ -19,6 +22,7 @@
   },
   "homepage": "https://github.com/kdnk/roamist#readme",
   "devDependencies": {
+    "@arkweid/lefthook": "^0.7.7",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.11.0",
     "eslint": "^8.8.0",
@@ -32,6 +36,6 @@
     "@doist/todoist-api-typescript": "^1.5.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "roamjs-components": "^0.30.0"
+    "roamjs-components": "^0.44.0"
   }
 }
