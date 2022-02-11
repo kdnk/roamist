@@ -7,6 +7,8 @@ import { CONFIG } from "../constants";
 
 type Key = "token" | "tag";
 
+const DEFAULT_TAG_NAME = "Roamist";
+
 export const getRoamistSetting = (key: Key) => {
   const pageUid = getPageUidByPageTitle(CONFIG);
   const config = getBasicTreeByParentUid(pageUid);
@@ -17,7 +19,7 @@ export const getRoamistSetting = (key: Key) => {
       return window.TODOIST_TOKEN;
     }
     if (key === "tag") {
-      return window.Roamist.TODOIST_TAG_NAME;
+      return window.Roamist.TODOIST_TAG_NAME || DEFAULT_TAG_NAME;
     }
   }
   return settingValue;

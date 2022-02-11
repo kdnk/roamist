@@ -1,5 +1,6 @@
 import { Project, Task } from "@doist/todoist-api-typescript";
 import { convertToRoamDate } from "./convert-date-to-roam";
+import { getRoamistSetting } from "./get-roamist-setting";
 import { getTodoistId } from "./get-todoist-id-from-url";
 
 export const createTodoistTaskString = ({
@@ -70,7 +71,8 @@ export const createTodoistTaskString = ({
   }
 
   // project tag
-  taskString = `${taskString} #[[${project.name}]] #${window.Roamist.TODOIST_TAG_NAME}`;
+  const tagName = getRoamistSetting("tag");
+  taskString = `${taskString} #[[${project.name}]] #${tagName}`;
 
   return `{{[[TODO]]}} ${taskString} `;
 };
