@@ -70112,7 +70112,7 @@ const createRoamistWorkflows = () => {
     }
   ];
   const getJs = (args) => {
-    return `<%JAVASCRIPTASYNC:\`\`\`javascript (async function () { await window.Roamist.pullTasks({ todoistFilter: "${args.todoistFilter}", onlydiff: ${args.onlydiff} }); })(); \`\`\`%>"`;
+    return `<%JAVASCRIPTASYNC:\`\`\`javascript (async function () { await window.Roamist.pullTasks({ todoistFilter: "${args.todoistFilter}", onlydiff: ${args.onlydiff} }); })(); \`\`\`%>`;
   };
   const getTitle = (name, diff2) => `Roamist - pull ${name}${diff2 ? " (only diff)" : ""}`;
   const configs = getPullTasksConfig("filters");
