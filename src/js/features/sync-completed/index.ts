@@ -1,10 +1,12 @@
 import { TodoistApi } from "@doist/todoist-api-typescript";
 import { updateBlock } from "roamjs-components";
 import { createLogger } from "../../utils/create-loagger";
+import { getRoamistSetting } from "../../utils/get-roamist-setting";
 import { getCompletedBlockUIds } from "./get-completed-block-uids";
 import { getTodoBlocksWithTodoistId } from "./get-todo-blocks-with-todoist-id";
 
-const api = new TodoistApi(window.TODOIST_TOKEN);
+const token = getRoamistSetting("token");
+const api = new TodoistApi(token);
 const logger = createLogger("sync-completed");
 
 export const syncCompleted = async () => {

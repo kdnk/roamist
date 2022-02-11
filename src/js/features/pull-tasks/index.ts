@@ -2,10 +2,13 @@ import { Project, Task, TodoistApi } from "@doist/todoist-api-typescript";
 import { createBlock, getActiveUids } from "roamjs-components";
 import { createLogger } from "../../utils/create-loagger";
 import { createTodoistTaskString } from "../../utils/create-todoist-task-string";
+import { getRoamistSetting } from "../../utils/get-roamist-setting";
 import { createDescriptionBlock } from "./create-description-block";
 import { dedupTaskList } from "./dedup-tasks";
 
-const api = new TodoistApi(window.TODOIST_TOKEN);
+const token = getRoamistSetting("token");
+const api = new TodoistApi(token);
+
 const logger = createLogger("pull-tasks");
 let projects: Project[] | undefined = undefined;
 

@@ -1,9 +1,9 @@
+import { createConfigObserver } from "roamjs-components";
 import { completeTask } from "./features/complete-task";
 import { pullTasks } from "./features/pull-tasks";
 import { syncCompleted } from "./features/sync-completed";
 
 window.Roamist = window.Roamist || {};
-window.Roamist.TODOIST_TAG_NAME = window.Roamist.TODOIST_TAG_NAME || "Roamist";
 
 window.Roamist = {
   ...window.RTI,
@@ -20,4 +20,43 @@ window.RTI = {
 };
 
 console.log("<<< roamist >>> window.Roamist: ", window.Roamist);
+
+createConfigObserver({
+  title: "roam/roamist",
+  config: {
+    tabs: [
+      {
+        id: "home",
+        fields: [
+          {
+            type: "text",
+            title: "token",
+            description:
+              "todoist's token. Get in todoist.com/prefs/integrations.",
+          },
+          {
+            type: "text",
+            title: "tag",
+            description: "tag",
+          },
+          {
+            type: "flag",
+            title: "[Not Implemented] show date",
+            description: "[Not Implemented] show date",
+          },
+          {
+            type: "select",
+            title: "[Not Implemented] sorter",
+            description: "[Not Implemented] sorter",
+            options: {
+              items: ["priority", "date", "title"],
+            },
+            defaultValue: "priority",
+          },
+        ],
+      },
+    ],
+  },
+});
+
 console.log("<<< roamist >>> setup compoleted.");

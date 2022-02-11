@@ -6,8 +6,10 @@ import {
 } from "roamjs-components";
 
 import { createLogger } from "../../utils/create-loagger";
+import { getRoamistSetting } from "../../utils/get-roamist-setting";
 
-const api = new TodoistApi(window.TODOIST_TOKEN);
+const token = getRoamistSetting("token");
+const api = new TodoistApi(token);
 
 const logger = createLogger("complete-task");
 
