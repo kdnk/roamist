@@ -111,7 +111,7 @@ if (!existing) {
 
 - This workflow will sync completion status from Todoist to Roam Research.
 - I recommend you use this workflow as a button in `[[Roamist]]` as follows.
-  - `{{Sync todoist completed:42SmartBlock:todoist - sync completed:button=true,42RemoveButton=false}}`
+  - `{{Sync todoist completed:42SmartBlock:Roamist - sync completed:button=true,42RemoveButton=false}}`
   - ![CleanShot 2022-01-22 at 00 00 59](https://user-images.githubusercontent.com/15260226/150549391-3d993f6d-2edd-4e8f-bc8b-e7440a4e2236.png)
 - If there are blocks which are already completed in Todoist, `{{[[TODO]]}}` part in Roam Research will be changed to `{{[[DONE]]}}` automatically just pressing this button.
 
