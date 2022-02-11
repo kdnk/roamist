@@ -69883,12 +69883,18 @@ async function dedupTaskList(taskList) {
 }
 const api$1 = new dist$2.TodoistApi(window.TODOIST_TOKEN);
 const logger$1 = createLogger("pull-tasks");
+let projects = void 0;
+api$1.getProjects().then((res) => {
+  projects = res;
+});
 const pullTasks = async ({
   todoistFilter,
   onlyDiff
 }) => {
+  if (projects === void 0) {
+    projects = await api$1.getProjects();
+  }
   try {
-    const projects = await api$1.getProjects();
     const tasks = await api$1.getTasks({ filter: todoistFilter });
     let taskList = tasks.filter((task) => !task.parentId);
     if (onlyDiff) {

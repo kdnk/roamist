@@ -7,6 +7,11 @@ import { dedupTaskList } from "./dedup-tasks";
 
 const api = new TodoistApi(window.TODOIST_TOKEN);
 const logger = createLogger("pull-tasks");
+let projects: Project[] | undefined = undefined;
+
+api.getProjects().then((res) => {
+  projects = res;
+});
 
 export const pullTasks = async ({
   todoistFilter,
@@ -15,8 +20,10 @@ export const pullTasks = async ({
   todoistFilter: string;
   onlyDiff: boolean;
 }) => {
+  if (projects === undefined) {
+    projects = await api.getProjects()
+  }
   try {
-    const projects: Project[] = await api.getProjects();
     const tasks = await api.getTasks({ filter: todoistFilter });
     let taskList = tasks.filter((task: Task) => !task.parentId);
     if (onlyDiff) {
