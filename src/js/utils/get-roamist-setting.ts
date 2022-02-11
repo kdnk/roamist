@@ -7,7 +7,7 @@ import { CONFIG } from "../constants";
 
 type Key = "token" | "tag";
 
-export const getTodoistToken = (key: Key) => {
+export const getRoamistSetting = (key: Key) => {
   const pageUid = getPageUidByPageTitle(CONFIG);
   const config = getBasicTreeByParentUid(pageUid);
   const settingValue = getSettingValueFromTree({ tree: config, key });
