@@ -13,8 +13,7 @@ export async function dedupTaskList(taskList: Task[]) {
   const existingBlocks = await getAllTodoistBlocksFromPageTitle(
     currentpageTitle
   );
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const existingTodoistIds = existingBlocks.map((item: any) => {
+  const existingTodoistIds = existingBlocks.map((item) => {
     const block = item[0];
     const todoistId = getTodoistId(block.string);
     return todoistId;

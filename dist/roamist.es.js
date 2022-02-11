@@ -69773,7 +69773,11 @@ const convertToRoamDate = (dateString) => {
 };
 const getTodoistId = (url) => {
   try {
-    const todoistId = url.match(/\d{10}/)[0];
+    const matched = url.match(/\d{10}/);
+    if (!matched) {
+      return "";
+    }
+    const todoistId = matched[0];
     return todoistId;
   } catch (e2) {
     console.warn(e2);
@@ -69949,28 +69953,29 @@ const pullTasks = async ({
     logger$1(e2);
   }
 };
-const getCompletedBlockUIds = (activeTodoistIds, roamTodoist) => {
-  const completedBlocks = roamTodoist.filter(({ todoistId }) => {
+const getCompletedBlockUIds = (activeTodoistIds, todoistBlocks) => {
+  const completedBlocks = todoistBlocks.filter(({ todoistId }) => {
     return !activeTodoistIds.includes(Number(todoistId));
   });
   return completedBlocks;
 };
-const getTodoBlocksReferringToCurrentPage = async (title) => {
-  try {
-    return await window.roamAlphaAPI.q(`
+const getTodoBlocksReferringToRoamist = async () => {
+  const title = window.Roamist.TODOIST_TAG_NAME;
+  const blocks = await window.roamAlphaAPI.q(`
         [:find (pull ?refs [:block/string :block/uid {:block/children ...}])
           :where [?refs :block/refs ?title][?refs :block/refs ?todoTitle][?todoTitle :node/title "TODO"][?title :node/title "${title}"]]`);
-  } catch (e2) {
-    console.log("error in getTodoBlocksReferringToCurrentPage: ", e2);
-    return [];
-  }
+  return blocks;
 };
 const getTodoBlocksWithTodoistId = async () => {
-  const roamTodoBlocks = await getTodoBlocksReferringToCurrentPage(window.Roamist.TODOIST_TAG_NAME);
+  const roamTodoBlocks = await getTodoBlocksReferringToRoamist();
   return roamTodoBlocks.map((item) => {
     const block = item[0];
     const { string: string2 } = block;
-    const todoistId = string2.match(/\d{10}/)[0];
+    const matched = string2.match(/\d{10}/);
+    if (!matched) {
+      throw "no match (getTodoBlocksWithTodoistId).";
+    }
+    const todoistId = matched[0];
     return __spreadProps(__spreadValues({}, block), {
       todoistId
     });
@@ -69982,8 +69987,8 @@ const syncCompleted = async () => {
   try {
     const tasks = await api.getTasks();
     const activeTodoistIds = tasks.map((task) => task.id);
-    const roamTodoist = await getTodoBlocksWithTodoistId();
-    const completedBlocks = getCompletedBlockUIds(activeTodoistIds, roamTodoist);
+    const todoistBlocks = await getTodoBlocksWithTodoistId();
+    const completedBlocks = getCompletedBlockUIds(activeTodoistIds, todoistBlocks);
     for (const block of completedBlocks) {
       const newContent = block.string.replace("{{[[TODO]]}}", "{{[[DONE]]}}");
       await roamjsComponents.updateBlock({ text: newContent, uid: block.uid });

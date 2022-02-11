@@ -1,15 +1,11 @@
-// eslint-disable @typescript-eslint/no-explicit-any
+import { Block } from "../../type";
+
 export const getTodoBlocksReferringToRoamist = async () => {
   const title = window.Roamist.TODOIST_TAG_NAME;
-  try {
-    const blocks = await window.roamAlphaAPI.q(`
+  const blocks = await window.roamAlphaAPI.q(`
         [:find (pull ?refs [:block/string :block/uid {:block/children ...}])
           :where [?refs :block/refs ?title][?refs :block/refs ?todoTitle][?todoTitle :node/title "TODO"][?title :node/title "${title}"]]`);
-    return blocks as { string: string; uid: string }[][];
-  } catch (e) {
-    console.log("error in getTodoBlocksReferringToRoamist: ", e);
-    return [];
-  }
+  return blocks as Block[][];
 };
 
 export const getTodoBlocksWithTodoistId = async () => {

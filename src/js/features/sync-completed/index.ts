@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { TodoistApi } from "@doist/todoist-api-typescript";
 import { updateBlock } from "roamjs-components";
 import { createLogger } from "../../utils/create-loagger";
@@ -12,11 +10,11 @@ const logger = createLogger("sync-completed");
 export const syncCompleted = async () => {
   try {
     const tasks = await api.getTasks();
-    const activeTodoistIds = tasks.map((task: any) => task.id);
-    const roamTodoist = await getTodoBlocksWithTodoistId();
+    const activeTodoistIds = tasks.map((task) => task.id);
+    const todoistBlocks = await getTodoBlocksWithTodoistId();
     const completedBlocks = getCompletedBlockUIds(
       activeTodoistIds,
-      roamTodoist
+      todoistBlocks
     );
 
     for (const block of completedBlocks) {

@@ -1,3 +1,5 @@
+import { Block } from "../type";
+
 export const getAllTodoistBlocksFromPageTitle = async (pageTitle: string) => {
   const rule =
     "[[(ancestor ?b ?a)[?a :block/children ?b]][(ancestor ?b ?a)[?parent :block/children ?b ](ancestor ?parent ?a) ]]";
@@ -11,5 +13,5 @@ export const getAllTodoistBlocksFromPageTitle = async (pageTitle: string) => {
                                   (ancestor ?block ?page)]`;
 
   const results = await window.roamAlphaAPI.q(query, pageTitle, rule);
-  return results;
+  return results as Block[][];
 };

@@ -21,7 +21,7 @@ export const pullTasks = async ({
   onlyDiff: boolean;
 }) => {
   if (projects === undefined) {
-    projects = await api.getProjects()
+    projects = await api.getProjects();
   }
   try {
     const tasks = await api.getTasks({ filter: todoistFilter });
@@ -36,8 +36,7 @@ export const pullTasks = async ({
 
     const { parentUid } = getActiveUids();
     for (const [taskIndex, task] of taskList.entries()) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const project = projects.find((p: any) => {
+      const project = projects.find((p) => {
         return p.id === task.projectId;
       });
 

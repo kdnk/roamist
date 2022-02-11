@@ -1,9 +1,10 @@
+import { getTodoBlocksWithTodoistId } from "./get-todo-blocks-with-todoist-id";
+
 export const getCompletedBlockUIds = (
   activeTodoistIds: number[],
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  roamTodoist: any[]
+  todoistBlocks: Awaited<ReturnType<typeof getTodoBlocksWithTodoistId>>
 ) => {
-  const completedBlocks = roamTodoist.filter(({ todoistId }) => {
+  const completedBlocks = todoistBlocks.filter(({ todoistId }) => {
     return !activeTodoistIds.includes(Number(todoistId));
   });
   return completedBlocks;
