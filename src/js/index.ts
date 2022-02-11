@@ -102,7 +102,7 @@ const createRoamistWorkflows = () => {
     onlydiff: "true" | "false";
     todoistFilter: string;
   }) => {
-    return `<%JAVASCRIPTASYNC:\`\`\`javascript (async function () { await window.Roamist.pullTasks({ todoistFilter: "${args.todoistFilter}", onlydiff: ${args.onlydiff} }); })(); \`\`\`%>"`;
+    return `<%JAVASCRIPTASYNC:\`\`\`javascript (async function () { await window.Roamist.pullTasks({ todoistFilter: "${args.todoistFilter}", onlydiff: ${args.onlydiff} }); })(); \`\`\`%>`;
   };
   const getTitle = (name: string, diff: boolean) =>
     `Roamist - pull ${name}${diff ? " (only diff)" : ""}`;
