@@ -41,8 +41,8 @@ This Roamist is one way to make this possible. With this integration, you can co
 
 ## Setup
 
-- Create a block with `{{roam/js}}` and put the code below as a child block.
-  - If you're not familiar with `{{roam/js}}`, see https://roamresearch.com/#/app/help/page/nBCwjGuI7.
+1. Create a block with `{{[[roam/js]]}}` and put the code below as a child block.
+  - If you're not familiar with `{{[[roam/js]]}}`, see https://roamresearch.com/#/app/help/page/nBCwjGuI7.
 
 ```javascript
 const ID = "roamist";
@@ -61,6 +61,10 @@ if (!existing) {
 > **This tag is essential because this integration uses the tag to recognize which blocks come from Todoist.**  
 > **I recommend you don’t change it once you set this tag.**  
 > **See also [workflows section](https://github.com/kdnk/roamist/blob/main/README.md#workflows) for more details**.
+
+1. Set up `Todoist Token` and `tag` in `[[roam/roamist]]`
+
+ 
 
 ## Add workflows for SmartBlocks
 
