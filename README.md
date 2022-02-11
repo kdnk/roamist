@@ -45,7 +45,7 @@ This Roamist is one way to make this possible. With this integration, you can co
 
 ### Load Roamist
 
-1. Create a block with `{{[[roam/js]]}}` and put the code below as a child block.
+- Create a block with `{{[[roam/js]]}}` and put the code below as a child block.
   - If you're not familiar with `{{[[roam/js]]}}`, see https://roamresearch.com/#/app/help/page/nBCwjGuI7.
 
 ```javascript
