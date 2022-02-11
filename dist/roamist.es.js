@@ -70020,6 +70020,30 @@ const syncCompleted = async () => {
     logger(e2);
   }
 };
+const CONFIG_KEY = "pull-tasks";
+const getSettingBlocksFromTree = (key2) => {
+  var _a2, _b2;
+  const pageUid = roamjsComponents.getPageUidByPageTitle(CONFIG);
+  const tree = roamjsComponents.getBasicTreeByParentUid(pageUid);
+  const partialTree = (_b2 = (_a2 = tree.find((node) => {
+    return node.text === CONFIG_KEY;
+  })) == null ? void 0 : _a2.children.find((node) => {
+    return node.text === key2;
+  })) == null ? void 0 : _b2.children;
+  if (!partialTree) {
+    return [];
+  }
+  const config = partialTree.map((node) => {
+    var _a3;
+    const name2 = node.text;
+    const filter = (_a3 = node.children[0]) == null ? void 0 : _a3.text;
+    return {
+      name: name2,
+      filter
+    };
+  });
+  return config;
+};
 window.Roamist = window.Roamist || {};
 window.Roamist = __spreadProps(__spreadValues(__spreadValues({}, window.RTI), window.Roamist), {
   completeTask,
@@ -70053,19 +70077,21 @@ roamjsComponents.createConfigObserver({
             type: "flag",
             title: "[Not Implemented] show date",
             description: "[Not Implemented] show date"
-          },
+          }
+        ]
+      },
+      {
+        id: "pull-tasks",
+        fields: [
           {
-            type: "select",
-            title: "[Not Implemented] sorter",
-            description: "[Not Implemented] sorter",
-            options: {
-              items: ["priority", "date", "title"]
-            },
-            defaultValue: "priority"
+            type: "block",
+            title: "filters",
+            description: "Todoist's filters"
           }
         ]
       }
     ]
   }
 });
+getSettingBlocksFromTree("filters");
 console.log("<<< roamist >>> setup compoleted.");

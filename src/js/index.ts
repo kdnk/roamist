@@ -2,6 +2,7 @@ import { createConfigObserver } from "roamjs-components";
 import { completeTask } from "./features/complete-task";
 import { pullTasks } from "./features/pull-tasks";
 import { syncCompleted } from "./features/sync-completed";
+import { getSettingBlocksFromTree } from "./utils/get-pull-tasks-config-from-tree";
 
 window.Roamist = window.Roamist || {};
 
@@ -59,5 +60,7 @@ createConfigObserver({
     ],
   },
 });
+
+getSettingBlocksFromTree("filters");
 
 console.log("<<< roamist >>> setup compoleted.");
