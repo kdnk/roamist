@@ -52,7 +52,7 @@ const ID = "roamist";
 const existing = document.getElementById(ID);
 if (!existing) {
   const script = document.createElement("script");
-  script.src = "https://kdnk.github.io/roamist/dist/roamist.umd.js";
+  script.src = "https://kdnk.github.io/roamist/roamist.umd.js";
   script.id = ID;
   script.defer = true;
   script.type = "text/javascript";
