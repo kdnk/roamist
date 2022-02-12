@@ -1,18 +1,20 @@
 import { Task, TodoistApi } from "@doist/todoist-api-typescript";
 import {
-  createBlock,
+  deleteBlock,
   getActiveUids,
   getBasicTreeByParentUid,
   getPageUidByPageTitle,
 } from "roamjs-components";
 import { CONFIG } from "../../constants";
+import { convertToRoamDate } from "../../utils/convert-date-to-roam";
 import { createDescriptionBlock } from "../../utils/create-description-block";
 import { createLogger } from "../../utils/create-loagger";
+import { createSiblingBlock } from "../../utils/createSiblingBlock";
 import { getRoamistSetting } from "../../utils/get-roamist-setting";
 
 const token = getRoamistSetting("token");
 const api = new TodoistApi(token);
-const tagName = getRoamistSetting("tag");
+const tagName = getTag();
 
 const logger = createLogger("quick-capture");
 
@@ -26,14 +28,16 @@ export const pullQuickCapture = async () => {
     }
     const tasks = await api.getTasks({ filter });
 
-    const { parentUid } = getActiveUids();
+    const { blockUid } = getActiveUids();
+    let taskBlockUid: string = blockUid;
     for (const [index, task] of tasks.entries()) {
-      const taskBlockUid = await createBlock({
-        parentUid,
-        order: index,
-        node: { text: createTaskString(task) },
+      taskBlockUid = await createSiblingBlock({
+        fromUid: taskBlockUid,
+        text: createTaskString(task),
       });
-
+      if (index === 0) {
+        await deleteBlock(blockUid);
+      }
       // add description
       if (task.description) {
         await createDescriptionBlock({
@@ -58,7 +62,6 @@ export const pullQuickCapture = async () => {
 function getFilter() {
   const pageUid = getPageUidByPageTitle(CONFIG);
   const config = getBasicTreeByParentUid(pageUid);
-  console.log("[index.ts:19] config: ", config);
   const filter = config
     .find((node) => {
       return node.text === "quick-capture";
@@ -69,12 +72,28 @@ function getFilter() {
   return filter;
 }
 
+function getTag() {
+  const pageUid = getPageUidByPageTitle(CONFIG);
+  const config = getBasicTreeByParentUid(pageUid);
+  const tag = config
+    .find((node) => {
+      return node.text === "quick-capture";
+    })
+    ?.children.find((node) => {
+      return node.text === "tag";
+    })?.children[0]?.text;
+  return tag;
+}
+
 function createTaskString(task: Task) {
-  const date = task.created.split("T")[0];
+  const date = convertToRoamDate(task.created.split("T")[0]);
   let taskString = task.content;
   if (date) {
-    taskString += ` ${date}`;
+    taskString += ` [[${date}]]`;
   }
-  taskString += `#[[${tagName}]]`;
+  if (tagName) {
+    taskString += ` #[[tagName]]`;
+  }
+  taskString += ` #[[Quick Capture]]`;
   return taskString;
 }

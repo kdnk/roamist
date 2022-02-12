@@ -76,6 +76,11 @@ createConfigObserver({
             title: "filter",
             description: "Todoist's filter",
           },
+          {
+            type: "text",
+            title: "tag",
+            description: "Tag for Quick Capture",
+          },
         ],
       },
     ],
