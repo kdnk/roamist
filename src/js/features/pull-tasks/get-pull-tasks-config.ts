@@ -2,7 +2,7 @@ import {
   getBasicTreeByParentUid,
   getPageUidByPageTitle,
 } from "roamjs-components";
-import { CONFIG } from "../constants";
+import { CONFIG } from "../../constants";
 
 type Key = "filters";
 const CONFIG_KEY = "pull-tasks";

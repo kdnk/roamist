@@ -9,8 +9,9 @@ import {
 } from "roamjs-components";
 import { completeTask } from "./features/complete-task";
 import { pullTasks } from "./features/pull-tasks";
+import { getPullTasksConfig } from "./features/pull-tasks/get-pull-tasks-config";
+import { pullQuickCapture } from "./features/quick-capture";
 import { syncCompleted } from "./features/sync-completed";
-import { getPullTasksConfig } from "./utils/get-pull-tasks-config";
 
 window.Roamist = window.Roamist || {};
 
@@ -20,12 +21,14 @@ window.Roamist = {
   completeTask,
   pullTasks,
   syncCompleted,
+  pullQuickCapture,
 };
 
 window.RTI = {
   completeTask,
   pullTasks,
   syncCompleted,
+  pullQuickCapture,
 };
 
 console.log("<<< roamist >>> window.Roamist: ", window.Roamist);
@@ -65,6 +68,16 @@ createConfigObserver({
           },
         ],
       },
+      {
+        id: "quick-capture",
+        fields: [
+          {
+            type: "text",
+            title: "filter",
+            description: "Todoist's filter",
+          },
+        ],
+      },
     ],
   },
 });
@@ -85,16 +98,23 @@ export const getExistingWorkflows: () => { name: string; uid: string }[] = () =>
 const createRoamistWorkflows = () => {
   const completeTaskWorkflows: { title: string; content: string }[] = [
     {
-      title: "Roamist - complete task",
+      title: "Roamist - complete-task",
       content:
         "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(); })(); ```%>",
     },
   ];
   const syncCompletedWorkflows: { title: string; content: string }[] = [
     {
-      title: "Roamist - sync completed",
+      title: "Roamist - sync-completed",
       content:
         "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.syncCompleted(); })(); ```%><%NOBLOCKOUTPUT%>",
+    },
+  ];
+  const pullQuickCaptureWorkflows: { title: string; content: string }[] = [
+    {
+      title: "Roamist - quick-capture",
+      content:
+        "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.pullQuickCapture(); })(); ```%>",
     },
   ];
 
@@ -124,6 +144,7 @@ const createRoamistWorkflows = () => {
     ...completeTaskWorkflows,
     ...syncCompletedWorkflows,
     ...pullTasksWorkflows,
+    ...pullQuickCaptureWorkflows,
   ];
 };
 

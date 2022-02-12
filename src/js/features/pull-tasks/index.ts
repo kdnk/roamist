@@ -1,9 +1,9 @@
 import { Project, Task, TodoistApi } from "@doist/todoist-api-typescript";
 import { createBlock, getActiveUids } from "roamjs-components";
+import { createDescriptionBlock } from "../../utils/create-description-block";
 import { createLogger } from "../../utils/create-loagger";
 import { createTodoistTaskString } from "../../utils/create-todoist-task-string";
 import { getRoamistSetting } from "../../utils/get-roamist-setting";
-import { createDescriptionBlock } from "./create-description-block";
 import { dedupTaskList } from "./dedup-tasks";
 
 const token = getRoamistSetting("token");
