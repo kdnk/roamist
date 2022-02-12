@@ -69902,6 +69902,19 @@ const getAllTodoistBlocksFromPageTitle = async (pageTitle) => {
   const results = await window.roamAlphaAPI.q(query, pageTitle, rule);
   return results;
 };
+const getTodoistIdFromBlock = (text2) => {
+  try {
+    const matched = text2.match(/#Todoist\/\d{10}/);
+    if (!matched) {
+      return "";
+    }
+    const todoistId = matched[0].replace("#Todoist/", "");
+    return todoistId;
+  } catch (e2) {
+    console.warn(e2);
+    return "";
+  }
+};
 const logger$3 = createLogger("pull-tasks");
 async function dedupTaskList(taskList) {
   const currentPageUid = roamjsComponents.getCurrentPageUid();
@@ -69910,7 +69923,7 @@ async function dedupTaskList(taskList) {
   const existingBlocks = await getAllTodoistBlocksFromPageTitle(currentpageTitle);
   const existingTodoistIds = existingBlocks.map((item) => {
     const block = item[0];
-    const todoistId = getTodoistIdFromUrl(block.string);
+    const todoistId = getTodoistIdFromBlock(block.string);
     return todoistId;
   });
   const newTaskList = taskList.filter((task) => {
