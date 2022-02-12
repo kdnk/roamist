@@ -1,4 +1,4 @@
-export const getTodoistId = (url: string) => {
+export const getTodoistIdFromUrl = (url: string) => {
   try {
     const matched = url.match(/\d{10}/);
     if (!matched) {

@@ -1,7 +1,7 @@
 import { Project, Task } from "@doist/todoist-api-typescript";
 import { convertToRoamDate } from "./convert-date-to-roam";
 import { getRoamistSetting } from "./get-roamist-setting";
-import { getTodoistId } from "./get-todoist-id-from-url";
+import { getTodoistIdFromUrl } from "./get-todoist-id-from-url";
 
 export const createTodoistTaskString = ({
   task,
@@ -60,7 +60,7 @@ export const createTodoistTaskString = ({
   taskString = `#priority/${priority} ${taskString}`;
 
   // add id
-  const taskId = getTodoistId(task.url);
+  const taskId = getTodoistIdFromUrl(task.url);
   if (taskId) {
     taskString = `${taskString} #Todoist/${taskId}`;
   }
