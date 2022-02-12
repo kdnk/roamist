@@ -11,16 +11,18 @@ https://user-images.githubusercontent.com/15260226/150548599-69e6f82a-15e8-43fc-
 
 ## Table of Contents
 
+* [Table of Contents](#table-of-contents)
 * [Motivation](#motivation)
 * [Prerequires](#prerequires)
 * [Setup](#setup)
   * [Load Roamist](#load-roamist)
   * [Configuration](#configuration)
 * [Workflows](#workflows)
-  * [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> pull tasks](#<img-width="24px"-src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png"-/>-pull-tasks)
-  * [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> sync completed](#<img-width="24px"-src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png"-/>-sync-completed)
-  * [<img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> complete task](#<img-width="24px"-src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png"-/>-complete-task)
+  * [pull-tasks](#pull-tasks)
+  * [sync-completed](#sync-completed)
+  * [complete-task](#complete-task)
 * [`roam/css` for priority](#`roam/css`-for-priority)
+  * [quick-capture](#quick-capture)
 * [Inspired](#inspired)
 
 ## Motivation
