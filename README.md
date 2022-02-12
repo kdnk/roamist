@@ -124,6 +124,7 @@ if (!existing) {
 
 ### quick-capture
 
+![CleanShot 2022-02-12 at 17 47 01](https://user-images.githubusercontent.com/15260226/153704393-56d07cb1-4942-49f6-a07c-e36c6dafdcee.png)
 
 ## Inspired
 
