@@ -79,7 +79,7 @@ if (!existing) {
 > **You must NOT remove this tag.**  
 > **If you do, this integration won't work as intended.**
 
-### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> pull tasks
+### pull-tasks
 
 - This workflow will pull tasks with the [Todoist's Filters](https://todoist.com/help/articles/introduction-to-filters).
   - You can set your filter in `[[roam/roamist]]`
@@ -93,7 +93,7 @@ if (!existing) {
   - `onlyDiff`
     - If you pass `true`, this workflow pulls only tasks which don't exist in the current page.
 
-### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> sync completed
+### sync-completed
 
 > :warning: **I assume we use this workflow in `[[Roamist]]` page or the page you set via `[[roam/roamist]]`.**
 
@@ -103,7 +103,7 @@ if (!existing) {
   - ![CleanShot 2022-01-22 at 00 00 59](https://user-images.githubusercontent.com/15260226/150549391-3d993f6d-2edd-4e8f-bc8b-e7440a4e2236.png)
 - If there are blocks which are already completed in Todoist, `{{[[TODO]]}}` part in Roam Research will be changed to `{{[[DONE]]}}` automatically just pressing this button.
 
-### <img width="24px" src="https://user-images.githubusercontent.com/15260226/150349798-b326f4fa-7d66-48ed-bdca-ee6bd1885765.png" /> complete task
+### complete-task
 
 - This workflow will complete a task under your cursor.
   - After running this workflow, `{{[[TODO]]}}` will turn into `{{[[DONE]]}}` automatically.
@@ -119,6 +119,9 @@ if (!existing) {
     @import url('https://kdnk.github.io/roamist/src/css/priority.css');
     ```
 ````
+
+### quick-capture
+
 
 ## Inspired
 
