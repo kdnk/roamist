@@ -70209,19 +70209,19 @@ const getExistingWorkflows = () => window.roamAlphaAPI.q(`[:find ?s ?u :where [?
 const createRoamistWorkflows = () => {
   const completeTaskWorkflows = [
     {
-      title: "Roamist - complete-task",
+      title: "Roamist - complete task",
       content: "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(); })(); ```%>"
     }
   ];
   const syncCompletedWorkflows = [
     {
-      title: "Roamist - sync-completed",
+      title: "Roamist - sync completed",
       content: "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.syncCompleted(); })(); ```%><%NOBLOCKOUTPUT%>"
     }
   ];
   const pullQuickCaptureWorkflows = [
     {
-      title: "Roamist - quick-capture",
+      title: "Roamist - quick capture",
       content: "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.pullQuickCapture(); })(); ```%>"
     }
   ];
