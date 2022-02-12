@@ -1,7 +1,9 @@
 import { TodoistApi } from "@doist/todoist-api-typescript";
 import { updateBlock } from "roamjs-components";
+
 import { createLogger } from "../../utils/create-loagger";
 import { getRoamistSetting } from "../../utils/get-roamist-setting";
+
 import { getCompletedBlockUIds } from "./get-completed-block-uids";
 import { getTodoBlocksWithTodoistId } from "./get-todo-blocks-with-todoist-id";
 

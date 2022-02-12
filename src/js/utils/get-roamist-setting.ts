@@ -3,6 +3,7 @@ import {
   getPageUidByPageTitle,
   getSettingValueFromTree,
 } from "roamjs-components";
+
 import { CONFIG } from "../constants";
 
 type Key = "token" | "tag";
