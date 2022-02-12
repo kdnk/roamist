@@ -198,10 +198,11 @@ const installWorkflow = async () => {
       },
     });
   }
+
+  console.log(
+    "<<<<<<<<<<<<<<<<<<<<< roamist >>>>>>>>>>>>>>>>>>>>> setup finished."
+  );
 };
 
-await installWorkflow();
+installWorkflow();
 
-console.log(
-  "<<<<<<<<<<<<<<<<<<<<< roamist >>>>>>>>>>>>>>>>>>>>> setup finished."
-);
