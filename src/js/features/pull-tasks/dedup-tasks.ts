@@ -2,6 +2,7 @@ import { Task } from "@doist/todoist-api-typescript";
 import { getCurrentPageUid, getPageTitleByPageUid } from "roamjs-components";
 import { createLogger } from "../../utils/create-loagger";
 import { getAllTodoistBlocksFromPageTitle } from "../../utils/get-all-todoist-blocks-from-page-title";
+import { getTodoistIdFromBlock } from "../../utils/get-todoist-id-from-block";
 import { getTodoistIdFromUrl } from "../../utils/get-todoist-id-from-url";
 
 const logger = createLogger("pull-tasks");
@@ -15,7 +16,7 @@ export async function dedupTaskList(taskList: Task[]) {
   );
   const existingTodoistIds = existingBlocks.map((item) => {
     const block = item[0];
-    const todoistId = getTodoistIdFromUrl(block.string);
+    const todoistId = getTodoistIdFromBlock(block.string);
     return todoistId;
   });
   const newTaskList = taskList.filter((task: Task) => {
