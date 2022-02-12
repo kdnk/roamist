@@ -31,7 +31,10 @@ window.RTI = {
   pullQuickCapture,
 };
 
-console.log("<<< roamist >>> window.Roamist: ", window.Roamist);
+console.log(
+  "<<<<<<<<<<<<<<<<<<<<< roamist >>>>>>>>>>>>>>>>>>>>> window.Roamist: ",
+  window.Roamist
+);
 
 createConfigObserver({
   title: "roam/roamist",
@@ -197,4 +200,8 @@ const installWorkflow = async () => {
   }
 };
 
-installWorkflow();
+await installWorkflow();
+
+console.log(
+  "<<<<<<<<<<<<<<<<<<<<< roamist >>>>>>>>>>>>>>>>>>>>> setup finished."
+);
