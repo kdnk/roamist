@@ -2904,16 +2904,16 @@ function isReactNodeEmpty(node, skipArray) {
 function isReactChildrenElementOrElements(children) {
   return !isReactNodeEmpty(children, true) && children !== true;
 }
-function ensureElement(child, tagName) {
-  if (tagName === void 0) {
-    tagName = "span";
+function ensureElement(child, tagName2) {
+  if (tagName2 === void 0) {
+    tagName2 = "span";
   }
   if (child == null || typeof child === "boolean") {
     return void 0;
   } else if (typeof child === "string") {
-    return child.trim().length > 0 ? react$1.exports.createElement(tagName, {}, child) : void 0;
+    return child.trim().length > 0 ? react$1.exports.createElement(tagName2, {}, child) : void 0;
   } else if (typeof child === "number" || typeof child.type === "symbol" || Array.isArray(child)) {
-    return react$1.exports.createElement(tagName, {}, child);
+    return react$1.exports.createElement(tagName2, {}, child);
   } else if (isReactElement(child)) {
     return child;
   } else {
@@ -16337,12 +16337,12 @@ var Icon = function(_super) {
     } else if (typeof icon2 !== "string") {
       return icon2;
     }
-    var _a2 = this.props, className = _a2.className, color2 = _a2.color, htmlTitle = _a2.htmlTitle, iconSize = _a2.iconSize, intent = _a2.intent, _b2 = _a2.size, size = _b2 === void 0 ? iconSize !== null && iconSize !== void 0 ? iconSize : IconSize.STANDARD : _b2, title = _a2.title, _c2 = _a2.tagName, tagName = _c2 === void 0 ? "span" : _c2, htmlprops = __rest(_a2, ["className", "color", "htmlTitle", "iconSize", "intent", "size", "title", "tagName"]);
+    var _a2 = this.props, className = _a2.className, color2 = _a2.color, htmlTitle = _a2.htmlTitle, iconSize = _a2.iconSize, intent = _a2.intent, _b2 = _a2.size, size = _b2 === void 0 ? iconSize !== null && iconSize !== void 0 ? iconSize : IconSize.STANDARD : _b2, title = _a2.title, _c2 = _a2.tagName, tagName2 = _c2 === void 0 ? "span" : _c2, htmlprops = __rest(_a2, ["className", "color", "htmlTitle", "iconSize", "intent", "size", "title", "tagName"]);
     var pixelGridSize = size >= IconSize.LARGE ? IconSize.LARGE : IconSize.STANDARD;
     var paths = this.renderSvgPaths(pixelGridSize, icon2);
     var classes2 = classNames$1(ICON, iconClass(icon2), intentClass(intent), className);
     var viewBox = "0 0 " + pixelGridSize + " " + pixelGridSize;
-    return react$1.exports.createElement(tagName, __assign$9(__assign$9({}, htmlprops), { "aria-hidden": title ? void 0 : true, className: classes2, title: htmlTitle }), react$1.exports.createElement("svg", { fill: color2, "data-icon": icon2, width: size, height: size, viewBox }, title && react$1.exports.createElement("desc", null, title), paths));
+    return react$1.exports.createElement(tagName2, __assign$9(__assign$9({}, htmlprops), { "aria-hidden": title ? void 0 : true, className: classes2, title: htmlTitle }), react$1.exports.createElement("svg", { fill: color2, "data-icon": icon2, width: size, height: size, viewBox }, title && react$1.exports.createElement("desc", null, title), paths));
   };
   Icon2.prototype.renderSvgPaths = function(pathsSize, iconName) {
     var svgPathsRecord = pathsSize === IconSize.STANDARD ? IconSvgPaths16 : IconSvgPaths20;
@@ -16386,15 +16386,15 @@ var Spinner = function(_super) {
   };
   Spinner2.prototype.render = function() {
     var _a2;
-    var _b2 = this.props, className = _b2.className, intent = _b2.intent, value = _b2.value, _c2 = _b2.tagName, tagName = _c2 === void 0 ? "div" : _c2;
+    var _b2 = this.props, className = _b2.className, intent = _b2.intent, value = _b2.value, _c2 = _b2.tagName, tagName2 = _c2 === void 0 ? "div" : _c2;
     var size = this.getSize();
     var classes2 = classNames$1(SPINNER, intentClass(intent), (_a2 = {}, _a2[SPINNER_NO_SPIN] = value != null, _a2), className);
     var strokeWidth = Math.min(MIN_STROKE_WIDTH, STROKE_WIDTH * SpinnerSize.LARGE / size);
     var strokeOffset = PATH_LENGTH - PATH_LENGTH * (value == null ? 0.25 : clamp$2(value, 0, 1));
-    return react$1.exports.createElement(tagName, {
+    return react$1.exports.createElement(tagName2, {
       className: classes2,
       role: "progressbar"
-    }, react$1.exports.createElement(tagName, { className: SPINNER_ANIMATION }, react$1.exports.createElement("svg", { width: size, height: size, strokeWidth: strokeWidth.toFixed(2), viewBox: this.getViewBox(strokeWidth) }, react$1.exports.createElement("path", { className: SPINNER_TRACK$1, d: SPINNER_TRACK }), react$1.exports.createElement("path", { className: SPINNER_HEAD, d: SPINNER_TRACK, pathLength: PATH_LENGTH, strokeDasharray: PATH_LENGTH + " " + PATH_LENGTH, strokeDashoffset: strokeOffset }))));
+    }, react$1.exports.createElement(tagName2, { className: SPINNER_ANIMATION }, react$1.exports.createElement("svg", { width: size, height: size, strokeWidth: strokeWidth.toFixed(2), viewBox: this.getViewBox(strokeWidth) }, react$1.exports.createElement("path", { className: SPINNER_TRACK$1, d: SPINNER_TRACK }), react$1.exports.createElement("path", { className: SPINNER_HEAD, d: SPINNER_TRACK, pathLength: PATH_LENGTH, strokeDasharray: PATH_LENGTH + " " + PATH_LENGTH, strokeDashoffset: strokeOffset }))));
   };
   Spinner2.prototype.validateProps = function(_a2) {
     var _b2 = _a2.className, className = _b2 === void 0 ? "" : _b2, size = _a2.size;
@@ -16535,10 +16535,10 @@ var AnchorButton = function(_super) {
   AnchorButton2.displayName = DISPLAYNAME_PREFIX + ".AnchorButton";
   return AnchorButton2;
 }(AbstractButton);
-function htmlElement(tagName, tagClassName) {
+function htmlElement(tagName2, tagClassName) {
   return function(props) {
     var className = props.className, elementRef = props.elementRef, htmlProps = __rest(props, ["className", "elementRef"]);
-    return react$1.exports.createElement(tagName, __assign$9(__assign$9({}, htmlProps), { className: classNames$1(tagClassName, className), ref: elementRef }));
+    return react$1.exports.createElement(tagName2, __assign$9(__assign$9({}, htmlProps), { className: classNames$1(tagClassName, className), ref: elementRef }));
   };
 }
 var H1 = htmlElement("h1", HEADING);
@@ -16692,9 +16692,9 @@ var Text = function(_super) {
   Text2.prototype.render = function() {
     var _a2;
     var _this = this;
-    var _b2 = this.props, children = _b2.children, className = _b2.className, ellipsize = _b2.ellipsize, _c2 = _b2.tagName, tagName = _c2 === void 0 ? "div" : _c2, title = _b2.title, htmlProps = __rest(_b2, ["children", "className", "ellipsize", "tagName", "title"]);
+    var _b2 = this.props, children = _b2.children, className = _b2.className, ellipsize = _b2.ellipsize, _c2 = _b2.tagName, tagName2 = _c2 === void 0 ? "div" : _c2, title = _b2.title, htmlProps = __rest(_b2, ["children", "className", "ellipsize", "tagName", "title"]);
     var classes2 = classNames$1(className, (_a2 = {}, _a2[TEXT_OVERFLOW_ELLIPSIS] = ellipsize, _a2));
-    return react$1.exports.createElement(tagName, __assign$9(__assign$9({}, htmlProps), { className: classes2, ref: function(ref) {
+    return react$1.exports.createElement(tagName2, __assign$9(__assign$9({}, htmlProps), { className: classes2, ref: function(ref) {
       return _this.textRef = ref;
     }, title: title !== null && title !== void 0 ? title : this.state.isContentOverflowing ? this.state.textContent : void 0 }), children);
   };
@@ -16729,11 +16729,11 @@ var MenuItem = function(_super) {
     _c2.labelClassName;
     var labelElement = _c2.labelElement, multiline = _c2.multiline;
     _c2.popoverProps;
-    var shouldDismissPopover = _c2.shouldDismissPopover, text2 = _c2.text, textClassName = _c2.textClassName, _d2 = _c2.tagName, tagName = _d2 === void 0 ? "a" : _d2, htmlTitle = _c2.htmlTitle, htmlProps = __rest(_c2, ["active", "className", "children", "disabled", "icon", "intent", "labelClassName", "labelElement", "multiline", "popoverProps", "shouldDismissPopover", "text", "textClassName", "tagName", "htmlTitle"]);
+    var shouldDismissPopover = _c2.shouldDismissPopover, text2 = _c2.text, textClassName = _c2.textClassName, _d2 = _c2.tagName, tagName2 = _d2 === void 0 ? "a" : _d2, htmlTitle = _c2.htmlTitle, htmlProps = __rest(_c2, ["active", "className", "children", "disabled", "icon", "intent", "labelClassName", "labelElement", "multiline", "popoverProps", "shouldDismissPopover", "text", "textClassName", "tagName", "htmlTitle"]);
     var hasSubmenu = children != null;
     var intentClass$1 = intentClass(intent);
     var anchorClasses = classNames$1(MENU_ITEM, intentClass$1, (_a2 = {}, _a2[ACTIVE] = active, _a2[INTENT_PRIMARY] = active && intentClass$1 == null, _a2[DISABLED] = disabled, _a2[POPOVER_DISMISS] = shouldDismissPopover && !disabled && !hasSubmenu, _a2), className);
-    var target = react$1.exports.createElement(tagName, __assign$9(__assign$9(__assign$9({ tabIndex: 0 }, htmlProps), disabled ? DISABLED_PROPS : {}), { className: anchorClasses }), react$1.exports.createElement(Icon, { icon: icon2 }), react$1.exports.createElement(Text, { className: classNames$1(FILL, textClassName), ellipsize: !multiline, title: htmlTitle }, text2), this.maybeRenderLabel(labelElement), hasSubmenu ? react$1.exports.createElement(Icon, { title: "Open sub menu", icon: "caret-right" }) : void 0);
+    var target = react$1.exports.createElement(tagName2, __assign$9(__assign$9(__assign$9({ tabIndex: 0 }, htmlProps), disabled ? DISABLED_PROPS : {}), { className: anchorClasses }), react$1.exports.createElement(Icon, { icon: icon2 }), react$1.exports.createElement(Text, { className: classNames$1(FILL, textClassName), ellipsize: !multiline, title: htmlTitle }, text2), this.maybeRenderLabel(labelElement), hasSubmenu ? react$1.exports.createElement(Icon, { title: "Open sub menu", icon: "caret-right" }) : void 0);
     var liClasses = classNames$1((_b2 = {}, _b2[MENU_SUBMENU] = hasSubmenu, _b2));
     return react$1.exports.createElement("li", { className: liClasses }, this.maybeRenderPopover(target, children));
   };
@@ -16858,9 +16858,9 @@ var OverflowList = function(_super) {
   };
   OverflowList2.prototype.render = function() {
     var _this = this;
-    var _a2 = this.props, className = _a2.className, collapseFrom = _a2.collapseFrom, observeParents = _a2.observeParents, style2 = _a2.style, _b2 = _a2.tagName, tagName = _b2 === void 0 ? "div" : _b2, visibleItemRenderer = _a2.visibleItemRenderer;
+    var _a2 = this.props, className = _a2.className, collapseFrom = _a2.collapseFrom, observeParents = _a2.observeParents, style2 = _a2.style, _b2 = _a2.tagName, tagName2 = _b2 === void 0 ? "div" : _b2, visibleItemRenderer = _a2.visibleItemRenderer;
     var overflow = this.maybeRenderOverflow();
-    var list = react$1.exports.createElement(tagName, {
+    var list = react$1.exports.createElement(tagName2, {
       className: classNames$1(OVERFLOW_LIST, className),
       style: style2
     }, collapseFrom === Boundary.START ? overflow : null, this.state.visible.map(visibleItemRenderer), collapseFrom === Boundary.END ? overflow : null, react$1.exports.createElement("div", { className: OVERFLOW_LIST_SPACER, ref: function(ref) {
@@ -17406,9 +17406,9 @@ var Divider = function(_super) {
     return _super !== null && _super.apply(this, arguments) || this;
   }
   Divider2.prototype.render = function() {
-    var _a2 = this.props, className = _a2.className, _b2 = _a2.tagName, tagName = _b2 === void 0 ? "div" : _b2, htmlProps = __rest(_a2, ["className", "tagName"]);
+    var _a2 = this.props, className = _a2.className, _b2 = _a2.tagName, tagName2 = _b2 === void 0 ? "div" : _b2, htmlProps = __rest(_a2, ["className", "tagName"]);
     var classes2 = classNames$1(DIVIDER, className);
-    return react$1.exports.createElement(tagName, __assign$9(__assign$9({}, htmlProps), { className: classes2 }));
+    return react$1.exports.createElement(tagName2, __assign$9(__assign$9({}, htmlProps), { className: classes2 }));
   };
   Divider2.displayName = DISPLAYNAME_PREFIX + ".Divider";
   Divider2 = __decorate([
@@ -17773,9 +17773,9 @@ var ControlGroup = function(_super) {
 }(AbstractPureComponent2);
 var Control = function(_a2) {
   var _b2;
-  var alignIndicator = _a2.alignIndicator, children = _a2.children, className = _a2.className, indicatorChildren = _a2.indicatorChildren, inline = _a2.inline, inputRef = _a2.inputRef, label = _a2.label, labelElement = _a2.labelElement, large = _a2.large, style2 = _a2.style, type = _a2.type, typeClassName = _a2.typeClassName, _c2 = _a2.tagName, tagName = _c2 === void 0 ? "label" : _c2, htmlProps = __rest(_a2, ["alignIndicator", "children", "className", "indicatorChildren", "inline", "inputRef", "label", "labelElement", "large", "style", "type", "typeClassName", "tagName"]);
+  var alignIndicator = _a2.alignIndicator, children = _a2.children, className = _a2.className, indicatorChildren = _a2.indicatorChildren, inline = _a2.inline, inputRef = _a2.inputRef, label = _a2.label, labelElement = _a2.labelElement, large = _a2.large, style2 = _a2.style, type = _a2.type, typeClassName = _a2.typeClassName, _c2 = _a2.tagName, tagName2 = _c2 === void 0 ? "label" : _c2, htmlProps = __rest(_a2, ["alignIndicator", "children", "className", "indicatorChildren", "inline", "inputRef", "label", "labelElement", "large", "style", "type", "typeClassName", "tagName"]);
   var classes2 = classNames$1(CONTROL, typeClassName, (_b2 = {}, _b2[DISABLED] = htmlProps.disabled, _b2[INLINE] = inline, _b2[LARGE] = large, _b2), alignmentClass(alignIndicator), className);
-  return react$1.exports.createElement(tagName, { className: classes2, style: style2 }, react$1.exports.createElement("input", __assign$9({}, htmlProps, { ref: inputRef, type })), react$1.exports.createElement("span", { className: CONTROL_INDICATOR }, indicatorChildren), label, labelElement, children);
+  return react$1.exports.createElement(tagName2, { className: classes2, style: style2 }, react$1.exports.createElement("input", __assign$9({}, htmlProps, { ref: inputRef, type })), react$1.exports.createElement("span", { className: CONTROL_INDICATOR }, indicatorChildren), label, labelElement, children);
 };
 var Switch = function(_super) {
   __extends$3(Switch2, _super);
@@ -33175,16 +33175,16 @@ function factory$1(schema2, defaultTagName, caseSensitive) {
 function isChildren(value, node) {
   return typeof value === "string" || "length" in value || isNode(node.tagName, value);
 }
-function isNode(tagName, value) {
+function isNode(tagName2, value) {
   var type = value.type;
-  if (tagName === "input" || !type || typeof type !== "string") {
+  if (tagName2 === "input" || !type || typeof type !== "string") {
     return false;
   }
   if (typeof value.children === "object" && "length" in value.children) {
     return true;
   }
   type = type.toLowerCase();
-  if (tagName === "button") {
+  if (tagName2 === "button") {
     return type !== "menu" && type !== "submit" && type !== "reset" && type !== "button";
   }
   return "value" in value;
@@ -34438,7 +34438,7 @@ function markup$1(Prism2) {
     }
   });
   Object.defineProperty(Prism2.languages.markup.tag, "addInlined", {
-    value: function addInlined(tagName, lang2) {
+    value: function addInlined(tagName2, lang2) {
       var includedCdataInside = {};
       includedCdataInside["language-" + lang2] = {
         pattern: /(^<!\[CDATA\[)[\s\S]+?(?=\]\]>$)/i,
@@ -34457,9 +34457,9 @@ function markup$1(Prism2) {
         inside: Prism2.languages[lang2]
       };
       var def = {};
-      def[tagName] = {
+      def[tagName2] = {
         pattern: RegExp(/(<__[^>]*>)(?:<!\[CDATA\[(?:[^\]]|\](?!\]>))*\]\]>|(?!<!\[CDATA\[)[\s\S])*?(?=<\/__>)/.source.replace(/__/g, function() {
-          return tagName;
+          return tagName2;
         }), "i"),
         lookbehind: true,
         greedy: true,
@@ -52333,8 +52333,8 @@ function any(tests2) {
   }
 }
 function tagNameFactory(test) {
-  return tagName;
-  function tagName(node) {
+  return tagName2;
+  function tagName2(node) {
     return element$3(node) && node.tagName === test;
   }
 }
@@ -69743,31 +69743,48 @@ const getRoamistSetting = (key2) => {
   }
   return settingValue;
 };
-const token$2 = getRoamistSetting("token");
-const api$2 = new dist.TodoistApi(token$2);
-const logger$3 = createLogger("complete-task");
+const token$3 = getRoamistSetting("token");
+const api$3 = new dist.TodoistApi(token$3);
+const logger$4 = createLogger("complete-task");
 const completeTask = async () => {
   try {
     const { blockUid } = roamjsComponents.getActiveUids();
     const text2 = roamjsComponents.getTextByBlockUid(blockUid);
     const matched = text2.match(/\d{10}/);
-    logger$3(`matched: ${matched}}`);
+    logger$4(`matched: ${matched}}`);
     if (!matched) {
-      logger$3(`text: ${text2}`);
-      logger$3(`This block (${blockUid}) hasn't todoist id.`);
+      logger$4(`text: ${text2}`);
+      logger$4(`This block (${blockUid}) hasn't todoist id.`);
       return;
     }
     const todoistId = matched[0];
-    await api$2.closeTask(Number(todoistId));
+    await api$3.closeTask(Number(todoistId));
     const newContent = text2.replace("{{[[TODO]]}}", "{{[[DONE]]}}");
     await roamjsComponents.updateBlock({ text: newContent, uid: blockUid });
-    logger$3("succeeded.");
+    logger$4("succeeded.");
   } catch (e2) {
-    logger$3("failed.");
-    logger$3(e2);
+    logger$4("failed.");
+    logger$4(e2);
     throw e2;
   }
 };
+async function createDescriptionBlock({
+  description: description2,
+  taskBlockUid
+}) {
+  const descParentUid = await roamjsComponents.createBlock({
+    parentUid: taskBlockUid,
+    node: { text: `desc::` }
+  });
+  const descList = description2.split(/\r?\n/);
+  for (const [descIndex, desc] of descList.entries()) {
+    await roamjsComponents.createBlock({
+      parentUid: descParentUid,
+      order: descIndex,
+      node: { text: desc }
+    });
+  }
+}
 const convertToRoamDate = (dateString) => {
   const [year, month, day] = dateString.split("-").map((v2) => Number(v2));
   const months2 = [
@@ -69853,44 +69870,27 @@ const createTodoistTaskString = ({
   if (task.due) {
     taskString = `${taskString} [[${convertToRoamDate(task.due.date)}]]`;
   }
-  const tagName = getRoamistSetting("tag");
-  taskString = `${taskString} #[[${project.name}]] #${tagName}`;
+  const tagName2 = getRoamistSetting("tag");
+  taskString = `${taskString} #[[${project.name}]] #${tagName2}`;
   return `{{[[TODO]]}} ${taskString} `;
 };
-async function createDescriptionBlock({
-  description: description2,
-  taskBlockUid
-}) {
-  const descParentUid = await roamjsComponents.createBlock({
-    parentUid: taskBlockUid,
-    node: { text: `desc::` }
-  });
-  const descList = description2.split(/\r?\n/);
-  for (const [descIndex, desc] of descList.entries()) {
-    await roamjsComponents.createBlock({
-      parentUid: descParentUid,
-      order: descIndex,
-      node: { text: desc }
-    });
-  }
-}
 const getAllTodoistBlocksFromPageTitle = async (pageTitle) => {
-  const tagName = getRoamistSetting("tag");
+  const tagName2 = getRoamistSetting("tag");
   const rule = "[[(ancestor ?b ?a)[?a :block/children ?b]][(ancestor ?b ?a)[?parent :block/children ?b ](ancestor ?parent ?a) ]]";
   const query = `[:find  (pull ?block [:block/uid :block/string])
                                   :in $ ?page_title %
                                   :where
                                   [?page :node/title ?page_title]
                                   [?block :block/string ?contents]
-                                  [(clojure.string/includes? ?contents "#${tagName}")]
+                                  [(clojure.string/includes? ?contents "#${tagName2}")]
                                   (ancestor ?block ?page)]`;
   const results = await window.roamAlphaAPI.q(query, pageTitle, rule);
   return results;
 };
-const logger$2 = createLogger("pull-tasks");
+const logger$3 = createLogger("pull-tasks");
 async function dedupTaskList(taskList) {
   const currentPageUid = roamjsComponents.getCurrentPageUid();
-  logger$2(`currentPageUid: ${currentPageUid}`);
+  logger$3(`currentPageUid: ${currentPageUid}`);
   const currentpageTitle = roamjsComponents.getPageTitleByPageUid(currentPageUid);
   const existingBlocks = await getAllTodoistBlocksFromPageTitle(currentpageTitle);
   const existingTodoistIds = existingBlocks.map((item) => {
@@ -69904,11 +69904,11 @@ async function dedupTaskList(taskList) {
   });
   return newTaskList;
 }
-const token$1 = getRoamistSetting("token");
-const api$1 = new dist.TodoistApi(token$1);
-const logger$1 = createLogger("pull-tasks");
+const token$2 = getRoamistSetting("token");
+const api$2 = new dist.TodoistApi(token$2);
+const logger$2 = createLogger("pull-tasks");
 let projects = void 0;
-api$1.getProjects().then((res) => {
+api$2.getProjects().then((res) => {
   projects = res;
 });
 const pullTasks = async ({
@@ -69916,10 +69916,10 @@ const pullTasks = async ({
   onlyDiff
 }) => {
   if (projects === void 0) {
-    projects = await api$1.getProjects();
+    projects = await api$2.getProjects();
   }
   try {
-    const tasks = await api$1.getTasks({ filter: todoistFilter });
+    const tasks = await api$2.getTasks({ filter: todoistFilter });
     let taskList = tasks.filter((task) => !task.parentId);
     if (onlyDiff) {
       taskList = await dedupTaskList(taskList);
@@ -69967,12 +69967,94 @@ const pullTasks = async ({
         }
       }
     }
-    logger$1("succeeded.");
+    logger$2("succeeded.");
   } catch (e2) {
-    logger$1("failed.");
+    logger$2("failed.");
+    logger$2(e2);
+  }
+};
+const CONFIG_KEY = "pull-tasks";
+const getPullTasksConfig = (key2) => {
+  var _a2, _b2;
+  const pageUid = roamjsComponents.getPageUidByPageTitle(CONFIG);
+  const tree = roamjsComponents.getBasicTreeByParentUid(pageUid);
+  const partialTree = (_b2 = (_a2 = tree.find((node) => {
+    return node.text === CONFIG_KEY;
+  })) == null ? void 0 : _a2.children.find((node) => {
+    return node.text === key2;
+  })) == null ? void 0 : _b2.children;
+  if (!partialTree) {
+    return [];
+  }
+  const config = partialTree[0].children.map((node) => {
+    var _a3;
+    const name = node.text;
+    const filter = (_a3 = node.children[0]) == null ? void 0 : _a3.text;
+    return {
+      name,
+      filter
+    };
+  });
+  console.log("filter config: ", config);
+  return config;
+};
+const token$1 = getRoamistSetting("token");
+const api$1 = new dist.TodoistApi(token$1);
+const tagName = getRoamistSetting("tag");
+const logger$1 = createLogger("quick-capture");
+const pullQuickCapture = async () => {
+  try {
+    console.log("[index.ts:15] tagName: ", tagName);
+    const filter = getFilter();
+    if (!filter) {
+      logger$1("no filter");
+      return;
+    }
+    const tasks = await api$1.getTasks({ filter });
+    const { parentUid } = roamjsComponents.getActiveUids();
+    for (const [index2, task] of tasks.entries()) {
+      const taskBlockUid = await roamjsComponents.createBlock({
+        parentUid,
+        order: index2,
+        node: { text: createTaskString(task) }
+      });
+      if (task.description) {
+        await createDescriptionBlock({
+          description: task.description,
+          taskBlockUid
+        });
+      }
+    }
+    await Promise.all(tasks.map((task) => {
+      return api$1.closeTask(task.id);
+    }));
+    logger$1("succeeded");
+  } catch (e2) {
+    logger$1("failed");
     logger$1(e2);
   }
 };
+function getFilter() {
+  var _a2, _b2, _c2;
+  const pageUid = roamjsComponents.getPageUidByPageTitle(CONFIG);
+  const config = roamjsComponents.getBasicTreeByParentUid(pageUid);
+  console.log("[index.ts:19] config: ", config);
+  const filter = (_c2 = (_b2 = (_a2 = config.find((node) => {
+    return node.text === "quick-capture";
+  })) == null ? void 0 : _a2.children.find((node) => {
+    return node.text === "filter";
+  })) == null ? void 0 : _b2.children[0]) == null ? void 0 : _c2.text;
+  return filter;
+}
+function createTaskString(task) {
+  const date2 = task.created.split("T")[0];
+  let taskString = task.content;
+  if (date2) {
+    taskString += ` ${date2}`;
+  }
+  taskString += `#[[${tagName}]]`;
+  return taskString;
+}
 const getCompletedBlockUIds = (activeTodoistIds, todoistBlocks) => {
   const completedBlocks = todoistBlocks.filter(({ todoistId }) => {
     return !activeTodoistIds.includes(Number(todoistId));
@@ -70020,41 +70102,18 @@ const syncCompleted = async () => {
     logger(e2);
   }
 };
-const CONFIG_KEY = "pull-tasks";
-const getPullTasksConfig = (key2) => {
-  var _a2, _b2;
-  const pageUid = roamjsComponents.getPageUidByPageTitle(CONFIG);
-  const tree = roamjsComponents.getBasicTreeByParentUid(pageUid);
-  const partialTree = (_b2 = (_a2 = tree.find((node) => {
-    return node.text === CONFIG_KEY;
-  })) == null ? void 0 : _a2.children.find((node) => {
-    return node.text === key2;
-  })) == null ? void 0 : _b2.children;
-  if (!partialTree) {
-    return [];
-  }
-  const config = partialTree[0].children.map((node) => {
-    var _a3;
-    const name = node.text;
-    const filter = (_a3 = node.children[0]) == null ? void 0 : _a3.text;
-    return {
-      name,
-      filter
-    };
-  });
-  console.log("filter config: ", config);
-  return config;
-};
 window.Roamist = window.Roamist || {};
 window.Roamist = __spreadProps(__spreadValues(__spreadValues({}, window.RTI), window.Roamist), {
   completeTask,
   pullTasks,
-  syncCompleted
+  syncCompleted,
+  pullQuickCapture
 });
 window.RTI = {
   completeTask,
   pullTasks,
-  syncCompleted
+  syncCompleted,
+  pullQuickCapture
 };
 console.log("<<< roamist >>> window.Roamist: ", window.Roamist);
 roamjsComponents.createConfigObserver({
@@ -70090,6 +70149,16 @@ roamjsComponents.createConfigObserver({
             description: "Todoist's filters"
           }
         ]
+      },
+      {
+        id: "quick-capture",
+        fields: [
+          {
+            type: "text",
+            title: "filter",
+            description: "Todoist's filter"
+          }
+        ]
       }
     ]
   }
@@ -70101,14 +70170,20 @@ const getExistingWorkflows = () => window.roamAlphaAPI.q(`[:find ?s ?u :where [?
 const createRoamistWorkflows = () => {
   const completeTaskWorkflows = [
     {
-      title: "Roamist - complete task",
+      title: "Roamist - complete-task",
       content: "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(); })(); ```%>"
     }
   ];
   const syncCompletedWorkflows = [
     {
-      title: "Roamist - sync completed",
+      title: "Roamist - sync-completed",
       content: "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.syncCompleted(); })(); ```%><%NOBLOCKOUTPUT%>"
+    }
+  ];
+  const pullQuickCaptureWorkflows = [
+    {
+      title: "Roamist - quick-capture",
+      content: "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.pullQuickCapture(); })(); ```%>"
     }
   ];
   const getJs = (args) => {
@@ -70131,7 +70206,8 @@ const createRoamistWorkflows = () => {
   return [
     ...completeTaskWorkflows,
     ...syncCompletedWorkflows,
-    ...pullTasksWorkflows
+    ...pullTasksWorkflows,
+    ...pullQuickCaptureWorkflows
   ];
 };
 const WORKFLOW_SECTION_NAME = "workflows";
