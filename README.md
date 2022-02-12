@@ -60,6 +60,14 @@ if (!existing) {
 }
 ```
 
+
+### Configuration
+
+- Set up `Token` and `Tag` in `[[roam/roamist]]`
+  - You should already have `[[roam/roamist]]`, if you follow [Load Roamist](#load-roamist) properly.
+
+<img width="500px" src="https://user-images.githubusercontent.com/15260226/153557453-fd92289b-b418-44dc-8d45-b297ab422f76.png" />
+
 > :warning: **All tasks pulled from Todoist should have a specific tag you set in `[[roam/roamist]]`.**  
 > **This tag is essential because this integration uses the tag to recognize which blocks come from Todoist.**  
 > **I recommend you don’t change it once you set this tag.**  
