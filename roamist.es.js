@@ -69874,6 +69874,21 @@ const createTodoistTaskString = ({
   taskString = `${taskString} #[[${project.name}]] #${tagName2}`;
   return `{{[[TODO]]}} ${taskString} `;
 };
+const createSiblingBlock = async ({
+  fromUid,
+  text: text2
+}) => {
+  const parentUid = roamjsComponents.getParentUidByBlockUid(fromUid);
+  const order = roamjsComponents.getOrderByBlockUid(parentUid);
+  const uid = await roamjsComponents.createBlock({
+    parentUid,
+    order: order + 1,
+    node: {
+      text: text2
+    }
+  });
+  return uid;
+};
 const getAllTodoistBlocksFromPageTitle = async (pageTitle) => {
   const tagName2 = getRoamistSetting("tag");
   const rule = "[[(ancestor ?b ?a)[?a :block/children ?b]][(ancestor ?b ?a)[?parent :block/children ?b ](ancestor ?parent ?a) ]]";
@@ -69928,7 +69943,8 @@ const pullTasks = async ({
       return b2.priority - a2.priority;
     });
     const subTaskList = tasks.filter((task) => task.parentId);
-    const { parentUid } = roamjsComponents.getActiveUids();
+    const { blockUid } = roamjsComponents.getActiveUids();
+    let taskBlockUid = blockUid;
     for (const [taskIndex, task] of taskList.entries()) {
       const project = projects.find((p2) => {
         return p2.id === task.projectId;
@@ -69936,11 +69952,13 @@ const pullTasks = async ({
       if (!project) {
         return;
       }
-      const taskBlockUid = await roamjsComponents.createBlock({
-        parentUid,
-        order: taskIndex,
-        node: { text: createTodoistTaskString({ task, project }) }
+      taskBlockUid = await createSiblingBlock({
+        fromUid: taskBlockUid,
+        text: createTodoistTaskString({ task, project })
       });
+      if (taskIndex === 0) {
+        await roamjsComponents.deleteBlock(blockUid);
+      }
       if (task.description) {
         await createDescriptionBlock({
           description: task.description,
