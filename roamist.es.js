@@ -70018,7 +70018,7 @@ const getPullTasksConfig = (key2) => {
 };
 const token$1 = getRoamistSetting("token");
 const api$1 = new dist.TodoistApi(token$1);
-const tagName = getRoamistSetting("tag");
+const tagName = getTag();
 const logger$1 = createLogger("quick-capture");
 const pullQuickCapture = async () => {
   try {
@@ -70029,13 +70029,16 @@ const pullQuickCapture = async () => {
       return;
     }
     const tasks = await api$1.getTasks({ filter });
-    const { parentUid } = roamjsComponents.getActiveUids();
+    const { blockUid } = roamjsComponents.getActiveUids();
+    let taskBlockUid = blockUid;
     for (const [index2, task] of tasks.entries()) {
-      const taskBlockUid = await roamjsComponents.createBlock({
-        parentUid,
-        order: index2,
-        node: { text: createTaskString(task) }
+      taskBlockUid = await createSiblingBlock({
+        fromUid: taskBlockUid,
+        text: createTaskString(task)
       });
+      if (index2 === 0) {
+        await roamjsComponents.deleteBlock(blockUid);
+      }
       if (task.description) {
         await createDescriptionBlock({
           description: task.description,
@@ -70056,7 +70059,6 @@ function getFilter() {
   var _a2, _b2, _c2;
   const pageUid = roamjsComponents.getPageUidByPageTitle(CONFIG);
   const config = roamjsComponents.getBasicTreeByParentUid(pageUid);
-  console.log("[index.ts:19] config: ", config);
   const filter = (_c2 = (_b2 = (_a2 = config.find((node) => {
     return node.text === "quick-capture";
   })) == null ? void 0 : _a2.children.find((node) => {
@@ -70064,13 +70066,27 @@ function getFilter() {
   })) == null ? void 0 : _b2.children[0]) == null ? void 0 : _c2.text;
   return filter;
 }
+function getTag() {
+  var _a2, _b2, _c2;
+  const pageUid = roamjsComponents.getPageUidByPageTitle(CONFIG);
+  const config = roamjsComponents.getBasicTreeByParentUid(pageUid);
+  const tag = (_c2 = (_b2 = (_a2 = config.find((node) => {
+    return node.text === "quick-capture";
+  })) == null ? void 0 : _a2.children.find((node) => {
+    return node.text === "tag";
+  })) == null ? void 0 : _b2.children[0]) == null ? void 0 : _c2.text;
+  return tag;
+}
 function createTaskString(task) {
-  const date2 = task.created.split("T")[0];
+  const date2 = convertToRoamDate(task.created.split("T")[0]);
   let taskString = task.content;
   if (date2) {
-    taskString += ` ${date2}`;
+    taskString += ` [[${date2}]]`;
   }
-  taskString += `#[[${tagName}]]`;
+  if (tagName) {
+    taskString += ` #[[tagName]]`;
+  }
+  taskString += ` #[[Quick Capture]]`;
   return taskString;
 }
 const getCompletedBlockUIds = (activeTodoistIds, todoistBlocks) => {
@@ -70175,6 +70191,11 @@ roamjsComponents.createConfigObserver({
             type: "text",
             title: "filter",
             description: "Todoist's filter"
+          },
+          {
+            type: "text",
+            title: "tag",
+            description: "Tag for Quick Capture"
           }
         ]
       }
