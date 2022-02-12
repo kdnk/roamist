@@ -70149,7 +70149,7 @@ window.RTI = {
   syncCompleted,
   pullQuickCapture
 };
-console.log("<<< roamist >>> window.Roamist: ", window.Roamist);
+console.log("<<<<<<<<<<<<<<<<<<<<< roamist >>>>>>>>>>>>>>>>>>>>> window.Roamist: ", window.Roamist);
 roamjsComponents.createConfigObserver({
   title: "roam/roamist",
   config: {
@@ -70289,6 +70289,7 @@ const installWorkflow = async () => {
       }
     });
   }
+  console.log("<<<<<<<<<<<<<<<<<<<<< roamist >>>>>>>>>>>>>>>>>>>>> setup finished.");
 };
 installWorkflow();
 export { getExistingWorkflows };
