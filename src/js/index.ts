@@ -103,21 +103,21 @@ export const getExistingWorkflows: () => { name: string; uid: string }[] = () =>
 const createRoamistWorkflows = () => {
   const completeTaskWorkflows: { title: string; content: string }[] = [
     {
-      title: "Roamist - complete-task",
+      title: "Roamist - complete task",
       content:
         "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(); })(); ```%>",
     },
   ];
   const syncCompletedWorkflows: { title: string; content: string }[] = [
     {
-      title: "Roamist - sync-completed",
+      title: "Roamist - sync completed",
       content:
         "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.syncCompleted(); })(); ```%><%NOBLOCKOUTPUT%>",
     },
   ];
   const pullQuickCaptureWorkflows: { title: string; content: string }[] = [
     {
-      title: "Roamist - quick-capture",
+      title: "Roamist - quick capture",
       content:
         "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.pullQuickCapture(); })(); ```%>",
     },
