@@ -9,7 +9,9 @@
     "watch": "vite build --watch",
     "preview": "vite preview",
     "eslint": "eslint './src'",
-    "tsc": "./node_modules/.bin/tsc --noEmit"
+    "tsc": "./node_modules/.bin/tsc --noEmit",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -23,10 +25,15 @@
   "homepage": "https://github.com/kdnk/roamist#readme",
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.7",
+    "@babel/preset-env": "^7.16.11",
+    "@types/jest": "^27.4.0",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.11.0",
+    "babel-jest": "^27.5.1",
     "eslint": "^8.8.0",
+    "jest": "^27.5.1",
     "prettier": "^2.5.1",
+    "ts-jest": "^27.1.3",
     "typescript": "^4.5.4",
     "vite": "^2.8.0"
   },
