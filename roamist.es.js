@@ -69805,7 +69805,7 @@ const convertToRoamDate = (dateString) => {
   const suffix = day >= 4 && day <= 20 || day >= 24 && day <= 30 ? "th" : ["st", "nd", "rd"][day % 10 - 1];
   return `${monthName} ${day}${suffix}, ${year}`;
 };
-const getTodoistId = (url) => {
+const getTodoistIdFromUrl = (url) => {
   try {
     const matched = url.match(/\d{10}/);
     if (!matched) {
@@ -69863,7 +69863,7 @@ const createTodoistTaskString = ({
     priority = "p4";
   }
   taskString = `#priority/${priority} ${taskString}`;
-  const taskId = getTodoistId(task.url);
+  const taskId = getTodoistIdFromUrl(task.url);
   if (taskId) {
     taskString = `${taskString} #Todoist/${taskId}`;
   }
@@ -69910,11 +69910,11 @@ async function dedupTaskList(taskList) {
   const existingBlocks = await getAllTodoistBlocksFromPageTitle(currentpageTitle);
   const existingTodoistIds = existingBlocks.map((item) => {
     const block = item[0];
-    const todoistId = getTodoistId(block.string);
+    const todoistId = getTodoistIdFromUrl(block.string);
     return todoistId;
   });
   const newTaskList = taskList.filter((task) => {
-    const taskId = getTodoistId(task.url);
+    const taskId = getTodoistIdFromUrl(task.url);
     return !existingTodoistIds.includes(taskId);
   });
   return newTaskList;
