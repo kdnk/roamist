@@ -69879,7 +69879,7 @@ const createSiblingBlock = async ({
   text: text2
 }) => {
   const parentUid = roamjsComponents.getParentUidByBlockUid(fromUid);
-  const order = roamjsComponents.getOrderByBlockUid(parentUid);
+  const order = roamjsComponents.getOrderByBlockUid(fromUid);
   const uid = await roamjsComponents.createBlock({
     parentUid,
     order: order + 1,
