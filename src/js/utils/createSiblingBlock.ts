@@ -12,7 +12,7 @@ export const createSiblingBlock = async ({
   text: string;
 }) => {
   const parentUid = getParentUidByBlockUid(fromUid);
-  const order = getOrderByBlockUid(parentUid);
+  const order = getOrderByBlockUid(fromUid);
 
   const uid = await createBlock({
     parentUid,
