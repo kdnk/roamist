@@ -128,10 +128,10 @@ const createRoamistWorkflows = () => {
   ];
 
   const getJs = (args: {
-    onlydiff: "true" | "false";
+    onlyDiff: "true" | "false";
     todoistFilter: string;
   }) => {
-    return `<%JAVASCRIPTASYNC:\`\`\`javascript (async function () { await window.Roamist.pullTasks({ todoistFilter: "${args.todoistFilter}", onlydiff: ${args.onlydiff} }); })(); \`\`\`%>`;
+    return `<%JAVASCRIPTASYNC:\`\`\`javascript (async function () { await window.Roamist.pullTasks({ todoistFilter: "${args.todoistFilter}", onlyDiff: ${args.onlyDiff} }); })(); \`\`\`%>`;
   };
   const getTitle = (name: string, diff: boolean) =>
     `Roamist - pull ${name}${diff ? " (only diff)" : ""}`;
@@ -141,11 +141,11 @@ const createRoamistWorkflows = () => {
       return [
         {
           title: getTitle(config.name, false),
-          content: getJs({ onlydiff: "false", todoistFilter: config.filter }),
+          content: getJs({ onlyDiff: "false", todoistFilter: config.filter }),
         },
         {
           title: getTitle(config.name, true),
-          content: getJs({ onlydiff: "true", todoistFilter: config.filter }),
+          content: getJs({ onlyDiff: "true", todoistFilter: config.filter }),
         },
       ];
     });
