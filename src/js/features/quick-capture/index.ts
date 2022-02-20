@@ -90,7 +90,7 @@ function createTaskString(task: Task) {
   const date = convertToRoamDate(task.created.split("T")[0]);
   let taskString = task.content;
   if (date) {
-    taskString += ` [[${date}]]`;
+    taskString += ` created_at:: [[${date}]]`;
   }
   if (tagName) {
     taskString += ` #[[tagName]]`;
