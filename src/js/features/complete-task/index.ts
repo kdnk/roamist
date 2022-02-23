@@ -7,6 +7,7 @@ import {
 
 import { createLogger } from "../../utils/create-loagger";
 import { getRoamistSetting } from "../../utils/get-roamist-setting";
+import { getTodoistIdFromBlock } from "../../utils/get-todoist-id-from-block";
 
 const token = getRoamistSetting("token");
 const api = new TodoistApi(token);
@@ -16,19 +17,15 @@ const logger = createLogger("complete-task");
 export const completeTask = async () => {
   try {
     const { blockUid } = getActiveUids();
-    const text = getTextByBlockUid(blockUid);
-    const matched = text.match(/\d{10}/);
-    logger(`matched: ${matched}}`);
-    if (!matched) {
-      logger(`text: ${text}`);
-      logger(`This block (${blockUid}) hasn't todoist id.`);
-      return;
-    }
+    logger(`blockUid: ${blockUid}`);
 
-    const todoistId = matched[0];
+    const text = getTextByBlockUid(blockUid);
+    const todoistId = getTodoistIdFromBlock(text);
     await api.closeTask(Number(todoistId));
+
     const newContent = text.replace("{{[[TODO]]}}", "{{[[DONE]]}}");
     await updateBlock({ text: newContent, uid: blockUid });
+
     logger("succeeded.");
   } catch (e) {
     logger("failed.");
