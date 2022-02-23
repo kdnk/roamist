@@ -69743,21 +69743,31 @@ const getRoamistSetting = (key2) => {
   }
   return settingValue;
 };
+const logger$5 = createLogger("get-todoist-id-from-block");
+const getTodoistIdFromBlock = (text2) => {
+  try {
+    const matched = text2.match(/#Todoist\/\d{10}/);
+    logger$5(`matched: ${matched}`);
+    if (!matched) {
+      logger$5(`TodoistId is not found.`);
+      return "";
+    }
+    const todoistId = matched[0].replace("#Todoist/", "");
+    return todoistId;
+  } catch (e2) {
+    console.warn(e2);
+    return "";
+  }
+};
 const token$3 = getRoamistSetting("token");
 const api$3 = new dist.TodoistApi(token$3);
 const logger$4 = createLogger("complete-task");
 const completeTask = async () => {
   try {
     const { blockUid } = roamjsComponents.getActiveUids();
+    logger$4(`blockUid: ${blockUid}`);
     const text2 = roamjsComponents.getTextByBlockUid(blockUid);
-    const matched = text2.match(/\d{10}/);
-    logger$4(`matched: ${matched}}`);
-    if (!matched) {
-      logger$4(`text: ${text2}`);
-      logger$4(`This block (${blockUid}) hasn't todoist id.`);
-      return;
-    }
-    const todoistId = matched[0];
+    const todoistId = getTodoistIdFromBlock(text2);
     await api$3.closeTask(Number(todoistId));
     const newContent = text2.replace("{{[[TODO]]}}", "{{[[DONE]]}}");
     await roamjsComponents.updateBlock({ text: newContent, uid: blockUid });
@@ -69901,19 +69911,6 @@ const getAllTodoistBlocksFromPageTitle = async (pageTitle) => {
                                   (ancestor ?block ?page)]`;
   const results = await window.roamAlphaAPI.q(query, pageTitle, rule);
   return results;
-};
-const getTodoistIdFromBlock = (text2) => {
-  try {
-    const matched = text2.match(/#Todoist\/\d{10}/);
-    if (!matched) {
-      return "";
-    }
-    const todoistId = matched[0].replace("#Todoist/", "");
-    return todoistId;
-  } catch (e2) {
-    console.warn(e2);
-    return "";
-  }
 };
 const logger$3 = createLogger("pull-tasks");
 async function dedupTaskList(taskList) {
