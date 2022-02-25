@@ -70236,7 +70236,7 @@ const createRoamistWorkflows = () => {
   const completeTaskFromButtonWorkflows = [
     {
       title: "Roamist - complete task button",
-      contents: ["<%IFTRUE:<%HAS:tUid%>!=true%><%TRIGGERREF:tUid,false%><%NOBLOCKOUTPUT%>", "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(tUid); })(); ```%>"]
+      contents: ["<%IFTRUE:<%HAS:tUid%>!=true%><%TRIGGERREF:tUid,false%><%NOBLOCKOUTPUT%>", "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(tUid); })(); ```%><%NOBLOCKOUTPUT%>"]
     }
   ];
   const syncCompletedWorkflows = [
