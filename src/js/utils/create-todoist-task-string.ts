@@ -75,5 +75,5 @@ export const createTodoistTaskString = ({
   const tagName = getRoamistSetting("tag");
   taskString = `${taskString} #[[${project.name}]] #${tagName}`;
 
-  return `{{[[TODO]]}} ${taskString} `;
+  return `{{[[TODO]]}} ${taskString} {{✅:42SmartBlock:Roamist - complete task button:button=true,42RemoveButton=false}} `;
 };
