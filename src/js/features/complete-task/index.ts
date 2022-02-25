@@ -14,9 +14,9 @@ const api = new TodoistApi(token);
 
 const logger = createLogger("complete-task");
 
-export const completeTask = async () => {
+export const completeTask = async (targetUid?: string) => {
   try {
-    const { todoistId, text, blockUid } = getBlockInfo()
+    const { todoistId, text, blockUid } = getBlockInfo(targetUid)
     await api.closeTask(Number(todoistId));
 
     const newContent = text.replace("{{[[TODO]]}}", "{{[[DONE]]}}");
@@ -30,9 +30,15 @@ export const completeTask = async () => {
   }
 };
 
-function getBlockInfo(): {todoistId: string, text: string, blockUid: string} {
-    const { blockUid } = getActiveUids();
-    logger(`blockUid: ${blockUid}`);
+function getBlockInfo(targetUid?: string): {todoistId: string, text: string, blockUid: string} {
+    let blockUid = "";
+    if (targetUid) {
+      blockUid = targetUid
+      logger(`targetUid: ${targetUid}`);
+    } else {
+      const { blockUid } = getActiveUids();
+      logger(`blockUid: ${blockUid}`);
+    }
 
     const text = getTextByBlockUid(blockUid);
     const todoistId = getTodoistIdFromBlock(text);
