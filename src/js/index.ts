@@ -118,7 +118,7 @@ const createRoamistWorkflows = () => {
       title: "Roamist - complete task button",
       // https://roamresearch.com/#/app/Roam-En-Francais/page/LI60Siwa_
       contents:
-        ["<%IFTRUE:<%HAS:tUid%>!=true%><%TRIGGERREF:tUid,false%><%NOBLOCKOUTPUT%>", "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(tUid); })(); ```%>"],
+        ["<%IFTRUE:<%HAS:tUid%>!=true%><%TRIGGERREF:tUid,false%><%NOBLOCKOUTPUT%>", "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(tUid); })(); ```%><%NOBLOCKOUTPUT%>"],
     },
   ];
   const syncCompletedWorkflows: RoamistWorkflow[] = [
