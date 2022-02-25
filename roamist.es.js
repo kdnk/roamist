@@ -69762,12 +69762,9 @@ const getTodoistIdFromBlock = (text2) => {
 const token$3 = getRoamistSetting("token");
 const api$3 = new dist.TodoistApi(token$3);
 const logger$4 = createLogger("complete-task");
-const completeTask = async () => {
+const completeTask = async (targetUid) => {
   try {
-    const { blockUid } = roamjsComponents.getActiveUids();
-    logger$4(`blockUid: ${blockUid}`);
-    const text2 = roamjsComponents.getTextByBlockUid(blockUid);
-    const todoistId = getTodoistIdFromBlock(text2);
+    const { todoistId, text: text2, blockUid } = getBlockInfo(targetUid);
     await api$3.closeTask(Number(todoistId));
     const newContent = text2.replace("{{[[TODO]]}}", "{{[[DONE]]}}");
     await roamjsComponents.updateBlock({ text: newContent, uid: blockUid });
@@ -69778,6 +69775,19 @@ const completeTask = async () => {
     throw e2;
   }
 };
+function getBlockInfo(targetUid) {
+  let blockUid = "";
+  if (targetUid) {
+    blockUid = targetUid;
+    logger$4(`targetUid: ${targetUid}`);
+  } else {
+    const { blockUid: blockUid2 } = roamjsComponents.getActiveUids();
+    logger$4(`blockUid: ${blockUid2}`);
+  }
+  const text2 = roamjsComponents.getTextByBlockUid(blockUid);
+  const todoistId = getTodoistIdFromBlock(text2);
+  return { todoistId, text: text2, blockUid };
+}
 async function createDescriptionBlock({
   description: description2,
   taskBlockUid
@@ -69882,7 +69892,7 @@ const createTodoistTaskString = ({
   }
   const tagName2 = getRoamistSetting("tag");
   taskString = `${taskString} #[[${project.name}]] #${tagName2}`;
-  return `{{[[TODO]]}} ${taskString} `;
+  return `{{[[TODO]]}} ${taskString} {{\u2705:42SmartBlock:Roamist - complete task button:button=true,42RemoveButton=false}} `;
 };
 const createSiblingBlock = async ({
   fromUid,
@@ -70220,19 +70230,25 @@ const createRoamistWorkflows = () => {
   const completeTaskWorkflows = [
     {
       title: "Roamist - complete task",
-      content: "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(); })(); ```%>"
+      contents: ["<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(); })(); ```%>"]
+    }
+  ];
+  const completeTaskFromButtonWorkflows = [
+    {
+      title: "Roamist - complete task button",
+      contents: ["<%IFTRUE:<%HAS:tUid%>!=true%><%TRIGGERREF:tUid,false%><%NOBLOCKOUTPUT%>", "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(tUid); })(); ```%>"]
     }
   ];
   const syncCompletedWorkflows = [
     {
       title: "Roamist - sync completed",
-      content: "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.syncCompleted(); })(); ```%><%NOBLOCKOUTPUT%>"
+      contents: ["<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.syncCompleted(); })(); ```%><%NOBLOCKOUTPUT%>"]
     }
   ];
   const pullQuickCaptureWorkflows = [
     {
       title: "Roamist - quick capture",
-      content: "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.pullQuickCapture(); })(); ```%>"
+      contents: ["<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.pullQuickCapture(); })(); ```%>"]
     }
   ];
   const getJs = (args) => {
@@ -70244,16 +70260,17 @@ const createRoamistWorkflows = () => {
     return [
       {
         title: getTitle(config.name, false),
-        content: getJs({ onlyDiff: "false", todoistFilter: config.filter })
+        contents: [getJs({ onlyDiff: "false", todoistFilter: config.filter })]
       },
       {
         title: getTitle(config.name, true),
-        content: getJs({ onlyDiff: "true", todoistFilter: config.filter })
+        contents: [getJs({ onlyDiff: "true", todoistFilter: config.filter })]
       }
     ];
   });
   return [
     ...completeTaskWorkflows,
+    ...completeTaskFromButtonWorkflows,
     ...syncCompletedWorkflows,
     ...pullTasksWorkflows,
     ...pullQuickCaptureWorkflows
@@ -70292,12 +70309,15 @@ const installWorkflow = async () => {
     await Promise.all(roamjsComponents.getShallowTreeByParentUid(workflowTitleUid).map(({ uid: childUid }) => {
       return roamjsComponents.deleteBlock(childUid);
     }));
-    await roamjsComponents.createBlock({
-      parentUid: workflowTitleUid,
-      node: {
-        text: workflow.content
-      }
-    });
+    for (const [index2, content] of workflow.contents.entries()) {
+      await roamjsComponents.createBlock({
+        parentUid: workflowTitleUid,
+        node: {
+          text: content
+        },
+        order: index2
+      });
+    }
   }
   console.log("<<<<<<<<<<<<<<<<<<<<< roamist >>>>>>>>>>>>>>>>>>>>> setup finished.");
 };
