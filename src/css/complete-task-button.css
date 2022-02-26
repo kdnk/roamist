@@ -1,6 +1,11 @@
 .bp3-button.bp3-small.dont-focus-block.rm-xparser-default-✅ {
   padding-right: 3px;
   padding-left: 7px;
+  padding-top: 7px;
+  min-height: unset;
+  min-width: unset;
+  height: 15px;
+  width: 15px;
 }
 
 .bp3-button.bp3-small.dont-focus-block.rm-xparser-default-✅ > img {
