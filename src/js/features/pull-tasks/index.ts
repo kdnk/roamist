@@ -70,7 +70,9 @@ export const pullTasks = async ({
       // add subtask
       const subtasks = subTaskList.filter(
         (subtask: Task) => subtask.parentId === task.id
-      );
+      ).sort((a, b) => {
+        return a.order - b.order
+      });
       for (const [subtaskIndex, subtask] of subtasks.entries()) {
         const subTaskBlockUid = await createBlock({
           parentUid: taskBlockUid,
