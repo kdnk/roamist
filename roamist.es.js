@@ -69985,7 +69985,9 @@ const pullTasks = async ({
           taskBlockUid
         });
       }
-      const subtasks = subTaskList.filter((subtask) => subtask.parentId === task.id);
+      const subtasks = subTaskList.filter((subtask) => subtask.parentId === task.id).sort((a2, b2) => {
+        return a2.order - b2.order;
+      });
       for (const [subtaskIndex, subtask] of subtasks.entries()) {
         const subTaskBlockUid = await roamjsComponents.createBlock({
           parentUid: taskBlockUid,
