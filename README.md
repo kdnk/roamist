@@ -32,7 +32,7 @@ I still think that Roam Research is the best note-taking tool, but Todoist is mo
 
 Since I started using Roam Research, I've wondered if it would be possible to use Todoist for task management but take detailed notes for each task in Roam Research.
 
-This Roamist is one way to make this possible. With this integration, you can copy tasks from Todoist to Roam Research, complete Todoist tasks from within Roam Reasearch, and synchronize task completion status between Todoist and Roam Reserach.
+Roamist is one way to make this possible. With this integration, you can copy tasks from Todoist to Roam Research, complete Todoist tasks from within Roam Reasearch, and synchronize task completion status between Todoist and Roam Reserach.
 
 ## Prerequires
 
@@ -44,10 +44,10 @@ This Roamist is one way to make this possible. With this integration, you can co
 
 ## Setup
 
-### Load Roamist
+### 1. Load Roamist
 
-- Create a block with `{{[[roam/js]]}}` and put the code below as a child block.
-  - If you're not familiar with `{{[[roam/js]]}}`, see https://roamresearch.com/#/app/help/page/nBCwjGuI7.
+- Create a block with `{roam/js]}}` and place the following code as a child block.
+  - If you are not familiar with `{{[[roam/js]]}}`, please refer to https://roamresearch.com/#/app/help/page/nBCwjGuI7.
 
 ```javascript
 const ID = "roamist";
@@ -62,18 +62,62 @@ if (!existing) {
 }
 ```
 
+### 2. Reload and nagivate to [[roamm/roamist]].
 
-### Configuration
+- Reloading automatically creates [[roam/roamist]].
 
-- Set up `Token` and `Tag` in `[[roam/roamist]]`
-  - You should already have `[[roam/roamist]]`, if you follow [Load Roamist](#load-roamist) properly.
+### 3. Set up a Todoist filter on the `[[roam/roamist]]` page.
 
-<img width="500px" src="https://user-images.githubusercontent.com/15260226/153557453-fd92289b-b418-44dc-8d45-b297ab422f76.png" />
+On the `Pull Tasks` tab in `[[roam/roamist]]`, you can set the Todoist filters you want to use.  
+Roamist will import tasks from Todoist based on these filters.  
 
-> :warning: **All tasks pulled from Todoist should have a specific tag you set in `[[roam/roamist]]`.**  
-> **This tag is essential because this integration uses the tag to recognize which blocks come from Todoist.**  
-> **I recommend you don’t change it once you set this tag.**  
-> **See also [workflows section](https://github.com/kdnk/roamist/blob/main/README.md#workflows) for more details**.
+Follow the format below.  
+
+```
+- filters
+  - Any name you like to give it
+    - filter of Todoist
+```
+
+The first layer should literally be `filters`.  
+The second layer is the name of the filter. Use whatever you like.  
+The third layer is the Todoist filter. If you are not familiar with it, please refer to https://todoist.com/help/articles/introduction-to-filters.  
+
+Once you have set up your filters, reload again.   
+Some smartblocks will be automatically added to the block called `workflows` in `[[roam/roamist]]`.  
+
+For example, if you reload with the following settings, you can use the smartblocks `Roamist - pull today` and `Roamist - pull today (only diff)`.  
+
+```
+- filters
+  - today
+    - today
+```
+
+`Roamist - pull today (only diff)` is designed to ignore blocks that already exist on the page where smartblock is executed.  
+This is useful if you only want to bring tasks that are newly added to Todoist into Roam.  
+
+You can edit, add or remove filters at any time.  
+Roamist will do its best to automatically reflect them, but if you have problems, first try removing the `workflows` block on the `[[roam/roamist]]` page and then reload Roam.  
+
+### 4. Run `Roamist - pull ...` smartblocks
+
+Run smartblocks on any page you like.  
+If you have set it up properly so far, you should be able to run smartblocks with a name like `Roamist - pull ...`.  
+If there are no tasks in Todoist, nothing will be imported, so make sure you have tasks in Todoist.  
+
+### 5. Place a button on the `[[Roamist]]` page.
+
+Have you been able to import tasks from Todoist?  
+The block you have imported will be labeled `#Roamist`. Let's navigate to this page.  
+In the first block on `[[Roamist]]` page, enter a block like this.  
+
+```
+- `{{Sync todoist completed:42SmartBlock:Roamist - sync completed:button=true,42RemoveButton=false}}`
+```
+
+You can use this button to reflect the completion status of Todoist tasks into Roam.
+There is no need to change each TODO to DONE on Roam.
 
 ## Workflows
 
@@ -88,43 +132,34 @@ if (!existing) {
     - ![CleanShot 2022-02-12 at 02 46 41](https://user-images.githubusercontent.com/15260226/153642825-b1afc320-2204-4783-ba60-a52fa64115a5.png)
 - Block will look like this.
   - ![image](https://user-images.githubusercontent.com/15260226/150467089-d564ebe3-cded-4bfe-860e-c6e032b93cd2.png)
-- This command should work in any pages.
-- arguments
-  - `todoistFilter`
-    - You can pass your filter here.
-  - `onlyDiff`
-    - If you pass `true`, this workflow pulls only tasks which don't exist in the current page.
 
 ### sync-completed
-
-> :warning: **I assume we use this workflow in `[[Roamist]]` page or the page you set via `[[roam/roamist]]`.**
 
 - This workflow will sync completion status from Todoist to Roam Research.
 - I recommend you use this workflow as a button in `[[Roamist]]` as follows.
   - `{{Sync todoist completed:42SmartBlock:Roamist - sync completed:button=true,42RemoveButton=false}}`
   - ![CleanShot 2022-01-22 at 00 00 59](https://user-images.githubusercontent.com/15260226/150549391-3d993f6d-2edd-4e8f-bc8b-e7440a4e2236.png)
-- If there are blocks which are already completed in Todoist, `{{[[TODO]]}}` part in Roam Research will be changed to `{{[[DONE]]}}` automatically just pressing this button.
 
 ### complete-task
 
 - This workflow will complete a task under your cursor.
   - After running this workflow, `{{[[TODO]]}}` will turn into `{{[[DONE]]}}` automatically.
 
+### quick-capture (unstable)
+
+![CleanShot 2022-02-12 at 17 47 01](https://user-images.githubusercontent.com/15260226/153704393-56d07cb1-4942-49f6-a07c-e36c6dafdcee.png)
+
 ## `roam/css` for priority
 
 - I recommend you set css for todoist's priority.
   - ref. https://roamresearch.com/#/app/help/page/RA1UXmzp0
 
-````css
+```css
 - #priority/p1 #priority/p2 #priority/p3 #priority/p4
     - ```css
     @import url('https://kdnk.github.io/roamist/src/css/priority.css');
     ```
-````
-
-### quick-capture
-
-![CleanShot 2022-02-12 at 17 47 01](https://user-images.githubusercontent.com/15260226/153704393-56d07cb1-4942-49f6-a07c-e36c6dafdcee.png)
+```
 
 ## Inspired
 
