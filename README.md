@@ -62,7 +62,7 @@ if (!existing) {
 }
 ````
 
-### 2. Rload and view [[roamm/roamist]].
+### 2. Reload and nagivate to [[roamm/roamist]].
 
 - Reloading automatically creates [[roam/roamist]].
 
