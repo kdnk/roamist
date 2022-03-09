@@ -100,8 +100,6 @@ This is useful if you only want to bring tasks that are newly added to Todoist i
 You can edit, add or remove filters at any time.  
 Roamist will do its best to automatically reflect them, but if you have problems, first try removing the `workflows` block on the `[[roam/roamist]]` page and then reload Roam.  
 
-
-
 ### 4. Run `Roamist - pull ...` smartblocks
 
 Run smartblocks on any page you like.  
@@ -146,6 +144,10 @@ There is no need to change each TODO to DONE on Roam.
 
 - This workflow will complete a task under your cursor.
 
+### quick-capture
+
+![CleanShot 2022-02-12 at 17 47 01](https://user-images.githubusercontent.com/15260226/153704393-56d07cb1-4942-49f6-a07c-e36c6dafdcee.png)
+
 ## `roam/css` for priority
 
 - I recommend you set css for todoist's priority.
@@ -157,10 +159,6 @@ There is no need to change each TODO to DONE on Roam.
     @import url('https://kdnk.github.io/roamist/src/css/priority.css');
     ```
 ````
-
-### quick-capture
-
-![CleanShot 2022-02-12 at 17 47 01](https://user-images.githubusercontent.com/15260226/153704393-56d07cb1-4942-49f6-a07c-e36c6dafdcee.png)
 
 ## Inspired
 
