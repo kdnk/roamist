@@ -143,6 +143,7 @@ There is no need to change each TODO to DONE on Roam.
 ### complete-task
 
 - This workflow will complete a task under your cursor.
+  - After running this workflow, `{{[[TODO]]}}` will turn into `{{[[DONE]]}}` automatically.
 
 ### quick-capture (unstable)
 
