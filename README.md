@@ -68,14 +68,10 @@ if (!existing) {
 
 ### 3. Set up a Todoist filter on the `[[roam/roamist]]` page.
 
-On the tab `Pull Tasks` in `[[roam/roamist]]` you can set the Todoist filters you want to use.  
+On the `Pull Tasks` tab in `[[roam/roamist]]`, you can set the Todoist filters you want to use.  
 Roamist will import tasks from Todoist based on these filters.  
 
 Follow the format below.  
-
-The first layer should literally be `filters`.  
-The second layer is the name of the filter. Use whatever you like.  
-The third layer is the Todoist filter. If you are not familiar with it, please refer to https://todoist.com/help/articles/introduction-to-filters.  
 
 ````
 - filters
@@ -83,10 +79,12 @@ The third layer is the Todoist filter. If you are not familiar with it, please r
     - filter of Todoist
 ````
 
+The first layer should literally be `filters`.  
+The second layer is the name of the filter. Use whatever you like.  
+The third layer is the Todoist filter. If you are not familiar with it, please refer to https://todoist.com/help/articles/introduction-to-filters.  
+
 Once you have set up your filters, reload again.   
 Some smartblocks will be automatically added to the block called `workflows` in `[[roam/roamist]]`.  
-You can edit, add or remove filters at any time.  
-Roamist will do its best to automatically reflect them, but if you have problems, first try removing the `workflows` block on the `[[roam/roamist]]` page and then reload Roam.  
 
 For example, if you reload with the following settings, you can use the smartblocks `Roamist - pull today` and `Roamist - pull today (only diff)`.  
 
@@ -99,24 +97,28 @@ For example, if you reload with the following settings, you can use the smartblo
 `Roamist - pull today (only diff)` is designed to ignore blocks that already exist on the page where smartblock is executed.  
 This is useful if you only want to bring tasks that are newly added to Todoist into Roam.  
 
+You can edit, add or remove filters at any time.  
+Roamist will do its best to automatically reflect them, but if you have problems, first try removing the `workflows` block on the `[[roam/roamist]]` page and then reload Roam.  
+
+
 
 ### Run `Roamist -pull ...` smartblocks
 
 Run smartblocks on any page you like.  
-If you have set it up properly so far, you can run `Roamist - pull ... `, you should be able to run smartblocks with a name like `Roamist - pull ...`.  
+If you have set it up properly so far, you should be able to run smartblocks with a name like `Roamist - pull ...`.  
 If there are no tasks in Todoist, nothing will be imported, so make sure you have tasks in Todoist.  
 
 ### 5. Place a button on the `[[Roamist]]` page.
 
 Have you been able to import tasks from Todoist?  
 The block you have imported will be labeled `#Roamist`. Let's navigate to this page.  
-In the first block on this page, enter a block like this.  
+In the first block on `[[Roamist]]` page, enter a block like this.  
 
 ```
 - `{{Sync todoist completed:42SmartBlock:Roamist - sync completed:button=true,42RemoveButton=false}}`
 ```
 
-You can use this button to reflect the completion status of the Todoist task in Roam.
+You can use this button to reflect the completion status of Todoist tasks into Roam.
 There is no need to change each TODO to DONE on Roam.
 
 ## Workflows
