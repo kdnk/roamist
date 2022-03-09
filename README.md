@@ -49,7 +49,7 @@ Roamist is one way to make this possible. With this integration, you can copy ta
 - Create a block with `{roam/js]}}` and place the following code as a child block.
   - If you are not familiar with `{{[[roam/js]]}}`, please refer to https://roamresearch.com/#/app/help/page/nBCwjGuI7.
 
-````javascript
+```javascript
 const ID = "roamist";
 const existing = document.getElementById(ID);
 if (!existing) {
@@ -60,7 +60,7 @@ if (!existing) {
   script.type = "text/javascript";
   document.getElementsByTagName("head")[0].appendChild(script);
 }
-````
+```
 
 ### 2. Reload and nagivate to [[roamm/roamist]].
 
@@ -73,11 +73,11 @@ Roamist will import tasks from Todoist based on these filters.
 
 Follow the format below.  
 
-````
+```
 - filters
   - Any name you like to give it
     - filter of Todoist
-````
+```
 
 The first layer should literally be `filters`.  
 The second layer is the name of the filter. Use whatever you like.  
@@ -153,12 +153,12 @@ There is no need to change each TODO to DONE on Roam.
 - I recommend you set css for todoist's priority.
   - ref. https://roamresearch.com/#/app/help/page/RA1UXmzp0
 
-````css
+```css
 - #priority/p1 #priority/p2 #priority/p3 #priority/p4
     - ```css
     @import url('https://kdnk.github.io/roamist/src/css/priority.css');
     ```
-````
+```
 
 ## Inspired
 
