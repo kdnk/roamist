@@ -102,7 +102,7 @@ Roamist will do its best to automatically reflect them, but if you have problems
 
 
 
-### Run `Roamist -pull ...` smartblocks
+### 4. Run `Roamist - pull ...` smartblocks
 
 Run smartblocks on any page you like.  
 If you have set it up properly so far, you should be able to run smartblocks with a name like `Roamist - pull ...`.  
