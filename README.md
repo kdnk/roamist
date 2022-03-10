@@ -66,7 +66,15 @@ if (!existing) {
 
 - Reloading automatically creates [[roam/roamist]].
 
-### 3. Set up a Todoist filter on the `[[roam/roamist]]` page.
+### 3. Set up a Todoist's token on the `[[roam/roamist]]` page.
+
+You can get it on https://todoist.com/prefs/integrations.
+Plese refer to https://github.com/kdnk/roamist#prerequires as well.
+
+![CleanShot 2022-03-10 at 10 28 51@2x](https://user-images.githubusercontent.com/15260226/157569379-3f05e315-aee3-448b-b9c4-fa3b257c1d55.png)
+
+
+### 4. Set up a Todoist filter on the `[[roam/roamist]]` page.
 
 On the `Pull Tasks` tab in `[[roam/roamist]]`, you can set the Todoist filters you want to use.  
 Roamist will import tasks from Todoist based on these filters.  
@@ -78,6 +86,22 @@ Follow the format below.
   - Any name you like to give it
     - filter query of Todoist
 ```
+
+<details>
+
+<summary>FYI: My config looks like below.</summary>
+
+<img width="766" alt="CleanShot 2022-03-10 at 10 33 03@2x" src="https://user-images.githubusercontent.com/15260226/157569686-07745f36-bc9e-4e6a-9feb-4976ea52a3a0.png">
+
+ ```
+  -  filters
+    - work
+        - #🔨Work & today & !@waiting
+    - daily
+        - (!#🔨Work & !#Inbox & !#Quick Capture & !#🧘Routine & !#🦒Personal) & today
+  ```
+
+</details>
 
 The first layer should literally be `filters`.  
 The second layer is a name of the filter. Use whatever you like.  
@@ -100,13 +124,13 @@ This is useful if you only want to bring tasks that are newly added to Todoist i
 You can edit, add or remove filters at any time.  
 Roamist will do its best to automatically reflect them, but if you have problems, first try removing the `workflows` block on the `[[roam/roamist]]` page and then reload Roam.  
 
-### 4. Run `Roamist - pull ...` smartblocks
+### 5. Run `Roamist - pull ...` smartblocks
 
 Run smartblocks on any page you like.  
 If you have set it up properly so far, you should be able to run smartblocks with a name like `Roamist - pull ...`.  
 If there are no tasks in Todoist, nothing will be imported, so make sure you have tasks in Todoist.  
 
-### 5. Place a button on the `[[Roamist]]` page.
+### 6. Place a button on the `[[Roamist]]` page.
 
 Have you been able to import tasks from Todoist?  
 The block you have imported will be labeled `#Roamist`. Let's navigate to this page.  
