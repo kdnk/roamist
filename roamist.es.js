@@ -26336,11 +26336,11 @@ function parse$5(dirtyDateString, dirtyFormatString, dirtyReferenceDate, dirtyOp
     return setter2.priority;
   }).sort(function(a2, b2) {
     return b2 - a2;
-  }).filter(function(priority, index2, array2) {
-    return array2.indexOf(priority) === index2;
-  }).map(function(priority) {
+  }).filter(function(priority2, index2, array2) {
+    return array2.indexOf(priority2) === index2;
+  }).map(function(priority2) {
     return setters.filter(function(setter2) {
-      return setter2.priority === priority;
+      return setter2.priority === priority2;
     }).sort(function(a2, b2) {
       return b2.subPriority - a2.subPriority;
     });
@@ -69872,17 +69872,17 @@ const createTodoistTaskString = ({
     }
   }
   let taskString = `${getParsedContent(task.content)} [\u{1F517}](${task.url})`;
-  let priority = "";
+  let priority2 = "";
   if (task.priority == 4) {
-    priority = "p1";
+    priority2 = "p1";
   } else if (task.priority == 3) {
-    priority = "p2";
+    priority2 = "p2";
   } else if (task.priority == 2) {
-    priority = "p3";
+    priority2 = "p3";
   } else if (task.priority == 1) {
-    priority = "p4";
+    priority2 = "p4";
   }
-  taskString = `#priority/${priority} ${taskString}`;
+  taskString = `#priority/${priority2} ${taskString}`;
   const taskId = getTodoistIdFromUrl(task.url);
   if (taskId) {
     taskString = `${taskString} #Todoist/${taskId}`;
@@ -70158,6 +70158,8 @@ const syncCompleted = async () => {
     logger(e2);
   }
 };
+var priority = "";
+var completeTaskButton = "";
 window.Roamist = window.Roamist || {};
 window.Roamist = __spreadProps(__spreadValues(__spreadValues({}, window.RTI), window.Roamist), {
   completeTask,
@@ -70232,25 +70234,34 @@ const createRoamistWorkflows = () => {
   const completeTaskWorkflows = [
     {
       title: "Roamist - complete task",
-      contents: ["<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(); })(); ```%>"]
+      contents: [
+        "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(); })(); ```%>"
+      ]
     }
   ];
   const completeTaskFromButtonWorkflows = [
     {
       title: "Roamist - complete task button",
-      contents: ["<%IFTRUE:<%HAS:tUid%>!=true%><%TRIGGERREF:tUid,false%><%NOBLOCKOUTPUT%>", "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(tUid); })(); ```%><%NOBLOCKOUTPUT%>"]
+      contents: [
+        "<%IFTRUE:<%HAS:tUid%>!=true%><%TRIGGERREF:tUid,false%><%NOBLOCKOUTPUT%>",
+        "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(tUid); })(); ```%><%NOBLOCKOUTPUT%>"
+      ]
     }
   ];
   const syncCompletedWorkflows = [
     {
       title: "Roamist - sync completed",
-      contents: ["<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.syncCompleted(); })(); ```%><%NOBLOCKOUTPUT%>"]
+      contents: [
+        "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.syncCompleted(); })(); ```%><%NOBLOCKOUTPUT%>"
+      ]
     }
   ];
   const pullQuickCaptureWorkflows = [
     {
       title: "Roamist - quick capture",
-      contents: ["<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.pullQuickCapture(); })(); ```%>"]
+      contents: [
+        "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.pullQuickCapture(); })(); ```%>"
+      ]
     }
   ];
   const getJs = (args) => {
@@ -70262,7 +70273,9 @@ const createRoamistWorkflows = () => {
     return [
       {
         title: getTitle(config.name, false),
-        contents: [getJs({ onlyDiff: "false", todoistFilter: config.filter })]
+        contents: [
+          getJs({ onlyDiff: "false", todoistFilter: config.filter })
+        ]
       },
       {
         title: getTitle(config.name, true),
