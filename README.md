@@ -181,7 +181,7 @@ There is no need to change each TODO to DONE on Roam.
 ```css
 - #priority/p1 #priority/p2 #priority/p3 #priority/p4
     - ```css
-    @import url('https://kdnk.github.io/roamist/src/css/priority.css');
+    @import url('https://kdnk.github.io/roamist/style.css');
     ```
 ```
 

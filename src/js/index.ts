@@ -14,6 +14,9 @@ import { getPullTasksConfig } from "./features/pull-tasks/get-pull-tasks-config"
 import { pullQuickCapture } from "./features/quick-capture";
 import { syncCompleted } from "./features/sync-completed";
 
+import "../css/priority.css";
+import "../css/complete-task-button.css";
+
 window.Roamist = window.Roamist || {};
 
 window.Roamist = {
@@ -104,35 +107,40 @@ export const getExistingWorkflows: () => { name: string; uid: string }[] = () =>
         .trim(),
     }));
 
-type RoamistWorkflow = { title: string; contents: string[] }
+type RoamistWorkflow = { title: string; contents: string[] };
 const createRoamistWorkflows = () => {
   const completeTaskWorkflows: RoamistWorkflow[] = [
     {
       title: "Roamist - complete task",
-      contents:
-        ["<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(); })(); ```%>",]
+      contents: [
+        "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(); })(); ```%>",
+      ],
     },
   ];
   const completeTaskFromButtonWorkflows: RoamistWorkflow[] = [
     {
       title: "Roamist - complete task button",
       // https://roamresearch.com/#/app/Roam-En-Francais/page/LI60Siwa_
-      contents:
-        ["<%IFTRUE:<%HAS:tUid%>!=true%><%TRIGGERREF:tUid,false%><%NOBLOCKOUTPUT%>", "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(tUid); })(); ```%><%NOBLOCKOUTPUT%>"],
+      contents: [
+        "<%IFTRUE:<%HAS:tUid%>!=true%><%TRIGGERREF:tUid,false%><%NOBLOCKOUTPUT%>",
+        "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(tUid); })(); ```%><%NOBLOCKOUTPUT%>",
+      ],
     },
   ];
   const syncCompletedWorkflows: RoamistWorkflow[] = [
     {
       title: "Roamist - sync completed",
-      contents:
-        ["<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.syncCompleted(); })(); ```%><%NOBLOCKOUTPUT%>"],
+      contents: [
+        "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.syncCompleted(); })(); ```%><%NOBLOCKOUTPUT%>",
+      ],
     },
   ];
   const pullQuickCaptureWorkflows: RoamistWorkflow[] = [
     {
       title: "Roamist - quick capture",
-      contents:
-        ["<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.pullQuickCapture(); })(); ```%>"],
+      contents: [
+        "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.pullQuickCapture(); })(); ```%>",
+      ],
     },
   ];
 
@@ -150,7 +158,9 @@ const createRoamistWorkflows = () => {
       return [
         {
           title: getTitle(config.name, false),
-          contents: [getJs({ onlyDiff: "false", todoistFilter: config.filter })],
+          contents: [
+            getJs({ onlyDiff: "false", todoistFilter: config.filter }),
+          ],
         },
         {
           title: getTitle(config.name, true),
