@@ -76,12 +76,12 @@ Follow the format below.
 ```
 - filters
   - Any name you like to give it
-    - filter of Todoist
+    - filter query of Todoist
 ```
 
 The first layer should literally be `filters`.  
-The second layer is the name of the filter. Use whatever you like.  
-The third layer is the Todoist filter. If you are not familiar with it, please refer to https://todoist.com/help/articles/introduction-to-filters.  
+The second layer is a name of the filter. Use whatever you like.  
+The third layer is a query of Todoist filter. If you are not familiar with it, please refer to https://todoist.com/help/articles/introduction-to-filters.  
 
 Once you have set up your filters, reload again.   
 Some smartblocks will be automatically added to the block called `workflows` in `[[roam/roamist]]`.  
