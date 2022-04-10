@@ -69769,9 +69769,21 @@ const completeTask = async (targetUid) => {
     const newContent = text2.replace("{{[[TODO]]}}", "{{[[DONE]]}}");
     await roamjsComponents.updateBlock({ text: newContent, uid: blockUid });
     logger$4("succeeded.");
+    roamjsComponents.renderToast({
+      id: "roamist-toast-complete-task",
+      content: "Success: complete-task",
+      timeout: 1e3,
+      intent: "success"
+    });
   } catch (e2) {
     logger$4("failed.");
     logger$4(e2);
+    roamjsComponents.renderToast({
+      id: "roamist-toast-complete-task",
+      content: "Failed: complete-task",
+      timeout: 1e3,
+      intent: "warning"
+    });
     throw e2;
   }
 };
@@ -70008,8 +70020,20 @@ const pullTasks = async ({
       }
     }
     logger$2("succeeded.");
+    roamjsComponents.renderToast({
+      id: "roamist-toast-complete-task",
+      content: "Success: pull-tasks",
+      timeout: 1e3,
+      intent: "success"
+    });
   } catch (e2) {
     logger$2("failed.");
+    roamjsComponents.renderToast({
+      id: "roamist-toast-complete-task",
+      content: "Failed: pull-tasks",
+      timeout: 1e3,
+      intent: "warning"
+    });
     logger$2(e2);
   }
 };
@@ -70072,9 +70096,21 @@ const pullQuickCapture = async () => {
       return api$1.closeTask(task.id);
     }));
     logger$1("succeeded");
+    roamjsComponents.renderToast({
+      id: "roamist-toast-complete-task",
+      content: "Success: quick-capture",
+      timeout: 1e3,
+      intent: "success"
+    });
   } catch (e2) {
     logger$1("failed");
     logger$1(e2);
+    roamjsComponents.renderToast({
+      id: "roamist-toast-complete-task",
+      content: "Failed: quick-capture",
+      timeout: 1e3,
+      intent: "warning"
+    });
   }
 };
 function getFilter() {
@@ -70153,9 +70189,21 @@ const syncCompleted = async () => {
       await roamjsComponents.updateBlock({ text: newContent, uid: block.uid });
     }
     logger("succeeded.");
+    roamjsComponents.renderToast({
+      id: "roamist-toast-complete-task",
+      content: "Success: sync-completed",
+      timeout: 1e3,
+      intent: "success"
+    });
   } catch (e2) {
     logger("failed.");
     logger(e2);
+    roamjsComponents.renderToast({
+      id: "roamist-toast-complete-task",
+      content: "Failed: sync-completed",
+      timeout: 1e3,
+      intent: "warning"
+    });
   }
 };
 var priority = "";
