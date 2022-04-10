@@ -4,6 +4,7 @@ import {
   getActiveUids,
   getBasicTreeByParentUid,
   getPageUidByPageTitle,
+  renderToast,
 } from "roamjs-components";
 
 import { CONFIG } from "../../constants";
@@ -54,9 +55,21 @@ export const pullQuickCapture = async () => {
       })
     );
     logger("succeeded");
+    renderToast({
+      id: "roamist-toast-complete-task",
+      content: "Success: quick-capture",
+      timeout: 1000,
+      intent: "success",
+    });
   } catch (e) {
     logger("failed");
     logger(e);
+    renderToast({
+      id: "roamist-toast-complete-task",
+      content: "Failed: quick-capture",
+      timeout: 1000,
+      intent: "warning",
+    });
   }
 };
 

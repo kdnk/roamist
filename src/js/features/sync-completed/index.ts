@@ -1,5 +1,5 @@
 import { TodoistApi } from "@doist/todoist-api-typescript";
-import { updateBlock } from "roamjs-components";
+import { renderToast, updateBlock } from "roamjs-components";
 
 import { createLogger } from "../../utils/create-loagger";
 import { getRoamistSetting } from "../../utils/get-roamist-setting";
@@ -26,8 +26,20 @@ export const syncCompleted = async () => {
       await updateBlock({ text: newContent, uid: block.uid });
     }
     logger("succeeded.");
+    renderToast({
+      id: "roamist-toast-complete-task",
+      content: "Success: sync-completed",
+      timeout: 1000,
+      intent: "success",
+    });
   } catch (e) {
     logger("failed.");
     logger(e);
+    renderToast({
+      id: "roamist-toast-complete-task",
+      content: "Failed: sync-completed",
+      timeout: 1000,
+      intent: "warning",
+    });
   }
 };

@@ -1,5 +1,10 @@
 import { Project, Task, TodoistApi } from "@doist/todoist-api-typescript";
-import { createBlock, deleteBlock, getActiveUids } from "roamjs-components";
+import {
+  createBlock,
+  deleteBlock,
+  getActiveUids,
+  renderToast,
+} from "roamjs-components";
 
 import { createDescriptionBlock } from "../../utils/create-description-block";
 import { createLogger } from "../../utils/create-loagger";
@@ -68,11 +73,11 @@ export const pullTasks = async ({
       }
 
       // add subtask
-      const subtasks = subTaskList.filter(
-        (subtask: Task) => subtask.parentId === task.id
-      ).sort((a, b) => {
-        return a.order - b.order
-      });
+      const subtasks = subTaskList
+        .filter((subtask: Task) => subtask.parentId === task.id)
+        .sort((a, b) => {
+          return a.order - b.order;
+        });
       for (const [subtaskIndex, subtask] of subtasks.entries()) {
         const subTaskBlockUid = await createBlock({
           parentUid: taskBlockUid,
@@ -96,8 +101,21 @@ export const pullTasks = async ({
     }
 
     logger("succeeded.");
+    renderToast({
+      id: "roamist-toast-complete-task",
+      content: "Success: pull-tasks",
+      timeout: 1000,
+      intent: "success",
+    });
   } catch (e) {
     logger("failed.");
+    renderToast({
+      id: "roamist-toast-complete-task",
+      content: "Failed: pull-tasks",
+      timeout: 1000,
+      intent: "warning",
+    });
+
     logger(e);
   }
 };
