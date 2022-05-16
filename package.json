@@ -39,7 +39,7 @@
     "vite": "^2.8.6"
   },
   "dependencies": {
-    "@blueprintjs/core": "^3.53.0",
+    "@blueprintjs/core": "^4.3.2",
     "@blueprintjs/select": "^3.18.12",
     "@doist/todoist-api-typescript": "^1.5.0",
     "react": "^17.0.2",
