@@ -69850,6 +69850,7 @@ const getTodoistIdFromUrl = (url) => {
     return "";
   }
 };
+const hidePriority = getPriorityVisibility();
 const createTodoistTaskString = ({
   task,
   project
@@ -69894,7 +69895,9 @@ const createTodoistTaskString = ({
   } else if (task.priority == 1) {
     priority2 = "p4";
   }
-  taskString = `#priority/${priority2} ${taskString}`;
+  if (!hidePriority) {
+    taskString = `#priority/${priority2} ${taskString}`;
+  }
   const taskId = getTodoistIdFromUrl(task.url);
   if (taskId) {
     taskString = `${taskString} #Todoist/${taskId}`;
@@ -69906,6 +69909,17 @@ const createTodoistTaskString = ({
   taskString = `${taskString} #[[${project.name}]] #${tagName2}`;
   return `{{[[TODO]]}} ${taskString} {{\u2705:42SmartBlock:Roamist - complete task button:button=true,42RemoveButton=false}} `;
 };
+function getPriorityVisibility() {
+  var _a2;
+  const pageUid = roamjsComponents.getPageUidByPageTitle(CONFIG);
+  const config = roamjsComponents.getBasicTreeByParentUid(pageUid);
+  const hidePriority2 = !!((_a2 = config.find((node) => {
+    return node.text === "pull-tasks";
+  })) == null ? void 0 : _a2.children.some((node) => {
+    return node.text === "Hide priority";
+  }));
+  return hidePriority2;
+}
 const createSiblingBlock = async ({
   fromUid,
   text: text2
@@ -70249,6 +70263,11 @@ roamjsComponents.createConfigObserver({
       {
         id: "pull-tasks",
         fields: [
+          {
+            type: "flag",
+            title: "Hide priority",
+            description: "Hide priority like #priority/p1 in block"
+          },
           {
             type: "block",
             title: "filters",
