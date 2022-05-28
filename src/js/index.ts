@@ -69,6 +69,11 @@ createConfigObserver({
         id: "pull-tasks",
         fields: [
           {
+            type: "flag",
+            title: "Hide priority",
+            description: "Hide priority like #priority/p1 in block",
+          },
+          {
             type: "block",
             title: "filters",
             description: "Todoist's filters",

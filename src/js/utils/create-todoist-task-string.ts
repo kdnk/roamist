@@ -1,8 +1,16 @@
 import { Project, Task } from "@doist/todoist-api-typescript";
+import {
+  getPageUidByPageTitle,
+  getBasicTreeByParentUid,
+} from "roamjs-components";
+
+import { CONFIG } from "../constants";
 
 import { convertToRoamDate } from "./convert-date-to-roam";
 import { getRoamistSetting } from "./get-roamist-setting";
 import { getTodoistIdFromUrl } from "./get-todoist-id-from-url";
+
+const hidePriority = getPriorityVisibility();
 
 export const createTodoistTaskString = ({
   task,
@@ -58,7 +66,9 @@ export const createTodoistTaskString = ({
   } else if (task.priority == 1) {
     priority = "p4";
   }
-  taskString = `#priority/${priority} ${taskString}`;
+  if (!hidePriority) {
+    taskString = `#priority/${priority} ${taskString}`;
+  }
 
   // add id
   const taskId = getTodoistIdFromUrl(task.url);
@@ -77,3 +87,16 @@ export const createTodoistTaskString = ({
 
   return `{{[[TODO]]}} ${taskString} {{✅:42SmartBlock:Roamist - complete task button:button=true,42RemoveButton=false}} `;
 };
+
+function getPriorityVisibility() {
+  const pageUid = getPageUidByPageTitle(CONFIG);
+  const config = getBasicTreeByParentUid(pageUid);
+  const hidePriority = !!config
+    .find((node) => {
+      return node.text === "pull-tasks";
+    })
+    ?.children.some((node) => {
+      return node.text === "Hide priority";
+    });
+  return hidePriority;
+}
