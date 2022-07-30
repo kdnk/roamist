@@ -175,9 +175,7 @@ const createRoamistWorkflows = () => {
 registerSmartBlocksCommand({
   text: "ROAMIST_COMPLETE_TASK",
   handler: (context) => async () => {
-    return await window.Roamist.completeTask({
-      targetUid: context.targetUid,
-    });
+    return await window.Roamist.completeTask(context.targetUid);
   },
 });
 registerSmartBlocksCommand({
@@ -189,9 +187,7 @@ registerSmartBlocksCommand({
 registerSmartBlocksCommand({
   text: "ROAMIST_QUICK_CAPTURE",
   handler: (context) => async () => {
-    return await window.Roamist.pullQuickCapture({
-      targetUid: context.targetUid,
-    });
+    return await window.Roamist.pullQuickCapture(context.targetUid);
   },
 });
 registerSmartBlocksCommand({

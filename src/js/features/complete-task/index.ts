@@ -2,7 +2,6 @@ import { TodoistApi } from "@doist/todoist-api-typescript";
 import { render as renderToast } from "roamjs-components/components/Toast";
 import updateBlock from "roamjs-components/writes/updateBlock";
 import getTextByBlockUid from "roamjs-components/queries/getTextByBlockUid";
-import getActiveUids from "roamjs-components/dom/getActiveUids";
 
 import { createLogger } from "../../utils/create-loagger";
 import { getRoamistSetting } from "../../utils/get-roamist-setting";
@@ -16,6 +15,8 @@ const logger = createLogger("complete-task");
 export const completeTask = async (targetUid: string) => {
   try {
     const { todoistId, text, blockUid } = getBlockInfo(targetUid);
+    // eslint-disable-next-line
+    console.log("[index.ts:20] todoistId: ", todoistId);
     await api.closeTask(Number(todoistId));
 
     const newContent = text.replace("{{[[TODO]]}}", "{{[[DONE]]}}");
@@ -41,21 +42,19 @@ export const completeTask = async (targetUid: string) => {
   }
 };
 
-function getBlockInfo(targetUid?: string): {
+function getBlockInfo(targetUid: string): {
   todoistId: string;
   text: string;
   blockUid: string;
 } {
-  let blockUid = "";
-  if (targetUid) {
-    blockUid = targetUid;
-    logger(`targetUid: ${targetUid}`);
-  } else {
-    const { blockUid } = getActiveUids();
-    logger(`blockUid: ${blockUid}`);
-  }
+  const blockUid = targetUid;
+  logger(`targetUid: ${targetUid}`);
 
   const text = getTextByBlockUid(blockUid);
+  // eslint-disable-next-line
+  console.log("[index.ts:55] text: ", text);
   const todoistId = getTodoistIdFromBlock(text);
+  // eslint-disable-next-line
+  console.log("[index.ts:58] todoistId: ", todoistId);
   return { todoistId, text, blockUid };
 }
