@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { Block } from "../type";
 
 import { getRoamistSetting } from "./get-roamist-setting";
@@ -12,7 +13,10 @@ export const getAllTodoistBlocksFromPageTitle = async (pageTitle: string) => {
                                   :where
                                   [?page :node/title ?page_title]
                                   [?block :block/string ?contents]
-                                  [(clojure.string/includes? ?contents "#${tagName}")]
+                                  [(or
+                                      [(clojure.string/includes? ?contents "#${tagName}")]
+                                      [(clojure.string/includes? ?contents "#\[\[${tagName}")]
+                                  )]
                                   (ancestor ?block ?page)]`;
 
   const results = await window.roamAlphaAPI.q(query, pageTitle, rule);
