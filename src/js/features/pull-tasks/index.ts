@@ -30,8 +30,6 @@ export const pullTasks = async ({
   onlyDiff: boolean;
   targetUid: string;
 }) => {
-  // eslint-disable-next-line
-  console.log("[index.ts:34] targetUid: ", targetUid);
   if (projects === undefined) {
     projects = await api.getProjects();
   }

@@ -15,8 +15,6 @@ const logger = createLogger("complete-task");
 export const completeTask = async (targetUid: string) => {
   try {
     const { todoistId, text, blockUid } = getBlockInfo(targetUid);
-    // eslint-disable-next-line
-    console.log("[index.ts:20] todoistId: ", todoistId);
     await api.closeTask(Number(todoistId));
 
     const newContent = text.replace("{{[[TODO]]}}", "{{[[DONE]]}}");
@@ -51,10 +49,6 @@ function getBlockInfo(targetUid: string): {
   logger(`targetUid: ${targetUid}`);
 
   const text = getTextByBlockUid(blockUid);
-  // eslint-disable-next-line
-  console.log("[index.ts:55] text: ", text);
   const todoistId = getTodoistIdFromBlock(text);
-  // eslint-disable-next-line
-  console.log("[index.ts:58] todoistId: ", todoistId);
   return { todoistId, text, blockUid };
 }
