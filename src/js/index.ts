@@ -257,6 +257,3 @@ const installWorkflow = async () => {
 };
 
 installWorkflow();
-
-installWorkflow();
-installWorkflow();
