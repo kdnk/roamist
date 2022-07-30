@@ -2,7 +2,6 @@ import { Project, Task, TodoistApi } from "@doist/todoist-api-typescript";
 import { render as renderToast } from "roamjs-components/components/Toast";
 import createBlock from "roamjs-components/writes/createBlock";
 import deleteBlock from "roamjs-components/writes/deleteBlock";
-import getActiveUids from "roamjs-components/dom/getActiveUids";
 
 import { createDescriptionBlock } from "../../utils/create-description-block";
 import { createLogger } from "../../utils/create-loagger";
@@ -25,10 +24,14 @@ api.getProjects().then((res) => {
 export const pullTasks = async ({
   todoistFilter,
   onlyDiff,
+  targetUid,
 }: {
   todoistFilter: string;
   onlyDiff: boolean;
+  targetUid: string;
 }) => {
+  // eslint-disable-next-line
+  console.log("[index.ts:34] targetUid: ", targetUid);
   if (projects === undefined) {
     projects = await api.getProjects();
   }
@@ -43,8 +46,7 @@ export const pullTasks = async ({
     });
     const subTaskList = tasks.filter((task: Task) => task.parentId);
 
-    const { blockUid } = getActiveUids();
-    let taskBlockUid: string = blockUid;
+    let taskBlockUid: string = targetUid;
     for (const [taskIndex, task] of taskList.entries()) {
       const project = projects.find((p) => {
         return p.id === task.projectId;
@@ -59,7 +61,7 @@ export const pullTasks = async ({
         text: createTodoistTaskString({ task, project }),
       });
       if (taskIndex === 0) {
-        await deleteBlock(blockUid);
+        await deleteBlock(targetUid);
       }
 
       // add description

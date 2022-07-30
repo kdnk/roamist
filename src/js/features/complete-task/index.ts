@@ -13,7 +13,7 @@ const api = new TodoistApi(token);
 
 const logger = createLogger("complete-task");
 
-export const completeTask = async (targetUid?: string) => {
+export const completeTask = async (targetUid: string) => {
   try {
     const { todoistId, text, blockUid } = getBlockInfo(targetUid);
     await api.closeTask(Number(todoistId));
