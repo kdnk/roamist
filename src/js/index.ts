@@ -1,12 +1,10 @@
-import {
-  createBlock,
-  createConfigObserver,
-  createTagRegex,
-  deleteBlock,
-  getBlockUidByTextOnPage,
-  getPageUidByPageTitle,
-  getShallowTreeByParentUid,
-} from "roamjs-components";
+import createBlock from "roamjs-components/writes/createBlock";
+import deleteBlock from "roamjs-components/writes/deleteBlock";
+import getBlockUidByTextOnPage from "roamjs-components/queries/getBlockUidByTextOnPage";
+import getShallowTreeByParentUid from "roamjs-components/queries/getShallowTreeByParentUid";
+import getPageUidByPageTitle from "roamjs-components/queries/getPageUidByPageTitle";
+import { createConfigObserver } from "roamjs-components/components/ConfigPage";
+import createTagRegex from "roamjs-components/util/createTagRegex";
 
 import { completeTask } from "./features/complete-task";
 import { pullTasks } from "./features/pull-tasks";
