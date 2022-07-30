@@ -143,7 +143,7 @@ const createRoamistWorkflows = () => {
     onlyDiff: "true" | "false";
     todoistFilter: string;
   }) => {
-    return `<%ROAMIST_PULL_TASKS: ${args.todoistFilter}, ${args.onlyDiff}%>`;
+    return `<%ROAMIST_PULL_TASKS: ${args.todoistFilter},${args.onlyDiff}%>`;
   };
   const getTitle = (name: string, diff: boolean) =>
     `Roamist - pull ${name}${diff ? " (only diff)" : ""}`;
@@ -175,28 +175,28 @@ const createRoamistWorkflows = () => {
 registerSmartBlocksCommand({
   text: "ROAMIST_COMPLETE_TASK",
   handler: (context) => async () => {
-    await window.Roamist.completeTask(context.targetUid);
+    await completeTask(context.targetUid);
     return "";
   },
 });
 registerSmartBlocksCommand({
   text: "ROAMIST_SYNC_COMPLETED",
   handler: () => async () => {
-    await window.Roamist.syncCompleted();
+    await syncCompleted();
     return "";
   },
 });
 registerSmartBlocksCommand({
   text: "ROAMIST_QUICK_CAPTURE",
   handler: (context) => async () => {
-    await window.Roamist.pullQuickCapture(context.targetUid);
+    await pullQuickCapture(context.targetUid);
     return "";
   },
 });
 registerSmartBlocksCommand({
   text: "ROAMIST_PULL_TASKS",
   handler: (context) => async (todoistFilter, onlyDiff) => {
-    await window.Roamist.pullTasks({
+    await pullTasks({
       todoistFilter,
       onlyDiff: onlyDiff === "true",
       targetUid: context.targetUid,
