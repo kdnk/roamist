@@ -35025,7 +35025,7 @@ const createRoamistWorkflows = () => {
     }
   ];
   const getJs = (args) => {
-    return `<%ROAMIST_PULL_TASKS: ${args.todoistFilter}, ${args.onlyDiff}%>`;
+    return `<%ROAMIST_PULL_TASKS: ${args.todoistFilter},${args.onlyDiff}%>`;
   };
   const getTitle = (name2, diff) => `Roamist - pull ${name2}${diff ? " (only diff)" : ""}`;
   const configs = getPullTasksConfig("filters");
@@ -35053,28 +35053,28 @@ const createRoamistWorkflows = () => {
 _default$5({
   text: "ROAMIST_COMPLETE_TASK",
   handler: (context) => async () => {
-    await window.Roamist.completeTask(context.targetUid);
+    await completeTask(context.targetUid);
     return "";
   }
 });
 _default$5({
   text: "ROAMIST_SYNC_COMPLETED",
   handler: () => async () => {
-    await window.Roamist.syncCompleted();
+    await syncCompleted();
     return "";
   }
 });
 _default$5({
   text: "ROAMIST_QUICK_CAPTURE",
   handler: (context) => async () => {
-    await window.Roamist.pullQuickCapture(context.targetUid);
+    await pullQuickCapture(context.targetUid);
     return "";
   }
 });
 _default$5({
   text: "ROAMIST_PULL_TASKS",
   handler: (context) => async (todoistFilter, onlyDiff) => {
-    await window.Roamist.pullTasks({
+    await pullTasks({
       todoistFilter,
       onlyDiff: onlyDiff === "true",
       targetUid: context.targetUid
