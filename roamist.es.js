@@ -34652,7 +34652,10 @@ const getAllTodoistBlocksFromPageTitle = async (pageTitle) => {
                                   :where
                                   [?page :node/title ?page_title]
                                   [?block :block/string ?contents]
-                                  [(clojure.string/includes? ?contents "#${tagName2}")]
+                                  [(or
+                                      [(clojure.string/includes? ?contents "#${tagName2}")]
+                                      [(clojure.string/includes? ?contents "#[[${tagName2}")]
+                                  )]
                                   (ancestor ?block ?page)]`;
   const results2 = await window.roamAlphaAPI.q(query, pageTitle, rule);
   return results2;
