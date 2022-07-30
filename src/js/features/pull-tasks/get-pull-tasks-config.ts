@@ -1,7 +1,5 @@
-import {
-  getBasicTreeByParentUid,
-  getPageUidByPageTitle,
-} from "roamjs-components";
+import getPageUidByPageTitle from "roamjs-components/queries/getPageUidByPageTitle";
+import getBasicTreeByParentUid from "roamjs-components/queries/getBasicTreeByParentUid";
 
 import { CONFIG } from "../../constants";
 

@@ -9,4 +9,9 @@ export default defineConfig({
       filename: (format) => `roamist.${format}.js`,
     },
   },
+  resolve: {
+    alias: {
+      "aws-sdk": "aws-sdk/dist/aws-sdk.min.js",
+    },
+  },
 });

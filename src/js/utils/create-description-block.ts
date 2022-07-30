@@ -1,4 +1,4 @@
-import { createBlock } from "roamjs-components";
+import createBlock from "roamjs-components/writes/createBlock";
 
 export async function createDescriptionBlock({
   description,

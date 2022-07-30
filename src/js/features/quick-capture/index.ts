@@ -1,11 +1,8 @@
 import { Task, TodoistApi } from "@doist/todoist-api-typescript";
-import {
-  deleteBlock,
-  getActiveUids,
-  getBasicTreeByParentUid,
-  getPageUidByPageTitle,
-  renderToast,
-} from "roamjs-components";
+import { render as renderToast } from "roamjs-components/components/Toast";
+import deleteBlock from "roamjs-components/writes/deleteBlock";
+import getPageUidByPageTitle from "roamjs-components/queries/getPageUidByPageTitle";
+import getBasicTreeByParentUid from "roamjs-components/queries/getBasicTreeByParentUid";
 
 import { CONFIG } from "../../constants";
 import { convertToRoamDate } from "../../utils/convert-date-to-roam";
@@ -20,7 +17,7 @@ const tagName = getTag();
 
 const logger = createLogger("quick-capture");
 
-export const pullQuickCapture = async () => {
+export const pullQuickCapture = async (targetUid: string) => {
   try {
     console.log("[index.ts:15] tagName: ", tagName);
     const filter = getFilter();
@@ -30,15 +27,14 @@ export const pullQuickCapture = async () => {
     }
     const tasks = await api.getTasks({ filter });
 
-    const { blockUid } = getActiveUids();
-    let taskBlockUid: string = blockUid;
+    let taskBlockUid: string = targetUid;
     for (const [index, task] of tasks.entries()) {
       taskBlockUid = await createSiblingBlock({
         fromUid: taskBlockUid,
         text: createTaskString(task),
       });
       if (index === 0) {
-        await deleteBlock(blockUid);
+        await deleteBlock(targetUid);
       }
       // add description
       if (task.description) {

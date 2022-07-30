@@ -1,5 +1,6 @@
 import { TodoistApi } from "@doist/todoist-api-typescript";
-import { renderToast, updateBlock } from "roamjs-components";
+import updateBlock from "roamjs-components/writes/updateBlock";
+import { render as renderToast } from "roamjs-components/components/Toast";
 
 import { createLogger } from "../../utils/create-loagger";
 import { getRoamistSetting } from "../../utils/get-roamist-setting";

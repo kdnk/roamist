@@ -1,8 +1,6 @@
 import { Project, Task } from "@doist/todoist-api-typescript";
-import {
-  getPageUidByPageTitle,
-  getBasicTreeByParentUid,
-} from "roamjs-components";
+import getPageUidByPageTitle from "roamjs-components/queries/getPageUidByPageTitle";
+import getBasicTreeByParentUid from "roamjs-components/queries/getBasicTreeByParentUid";
 
 import { CONFIG } from "../constants";
 
@@ -85,7 +83,7 @@ export const createTodoistTaskString = ({
   const tagName = getRoamistSetting("tag");
   taskString = `${taskString} #[[${project.name}]] #${tagName}`;
 
-  return `{{[[TODO]]}} ${taskString} {{✅:42SmartBlock:Roamist - complete task button:button=true,42RemoveButton=false}} `;
+  return `{{[[TODO]]}} ${taskString}`;
 };
 
 function getPriorityVisibility() {

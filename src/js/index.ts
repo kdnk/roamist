@@ -1,12 +1,18 @@
+import { createConfigObserver } from "roamjs-components/components/ConfigPage";
+import createBlock from "roamjs-components/writes/createBlock";
+import deleteBlock from "roamjs-components/writes/deleteBlock";
+import getBlockUidByTextOnPage from "roamjs-components/queries/getBlockUidByTextOnPage";
+import getShallowTreeByParentUid from "roamjs-components/queries/getShallowTreeByParentUid";
+import getPageUidByPageTitle from "roamjs-components/queries/getPageUidByPageTitle";
+import TextPanel from "roamjs-components/components/ConfigPanels/TextPanel";
+import FlagPanel from "roamjs-components/components/ConfigPanels/FlagPanel";
+import BlockPanel from "roamjs-components/components/ConfigPanels/BlockPanel";
+import createTagRegex from "roamjs-components/util/createTagRegex";
 import {
-  createBlock,
-  createConfigObserver,
-  createTagRegex,
-  deleteBlock,
-  getBlockUidByTextOnPage,
-  getPageUidByPageTitle,
-  getShallowTreeByParentUid,
-} from "roamjs-components";
+  FieldPanel,
+  UnionField,
+} from "roamjs-components/components/ConfigPanels/types";
+import registerSmartBlocksCommand from "roamjs-components/util/registerSmartBlocksCommand";
 
 import { completeTask } from "./features/complete-task";
 import { pullTasks } from "./features/pull-tasks";
@@ -48,20 +54,20 @@ createConfigObserver({
         id: "home",
         fields: [
           {
-            type: "text",
             title: "token",
             description:
               "todoist's token. Get in todoist.com/prefs/integrations.",
+            Panel: TextPanel as FieldPanel<UnionField>,
           },
           {
-            type: "text",
             title: "tag",
             description: "tag",
+            Panel: TextPanel as FieldPanel<UnionField>,
           },
           {
-            type: "flag",
             title: "[Not Implemented] show date",
             description: "[Not Implemented] show date",
+            Panel: FlagPanel as FieldPanel<UnionField>,
           },
         ],
       },
@@ -69,14 +75,14 @@ createConfigObserver({
         id: "pull-tasks",
         fields: [
           {
-            type: "flag",
             title: "Hide priority",
             description: "Hide priority like #priority/p1 in block",
+            Panel: FlagPanel as FieldPanel<UnionField>,
           },
           {
-            type: "block",
             title: "filters",
             description: "Todoist's filters",
+            Panel: BlockPanel as FieldPanel<UnionField>,
           },
         ],
       },
@@ -84,14 +90,14 @@ createConfigObserver({
         id: "quick-capture",
         fields: [
           {
-            type: "text",
             title: "filter",
             description: "Todoist's filter",
+            Panel: TextPanel as FieldPanel<UnionField>,
           },
           {
-            type: "text",
             title: "tag",
             description: "Tag for Quick Capture",
+            Panel: TextPanel as FieldPanel<UnionField>,
           },
         ],
       },
@@ -117,35 +123,19 @@ const createRoamistWorkflows = () => {
   const completeTaskWorkflows: RoamistWorkflow[] = [
     {
       title: "Roamist - complete task",
-      contents: [
-        "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(); })(); ```%>",
-      ],
-    },
-  ];
-  const completeTaskFromButtonWorkflows: RoamistWorkflow[] = [
-    {
-      title: "Roamist - complete task button",
-      // https://roamresearch.com/#/app/Roam-En-Francais/page/LI60Siwa_
-      contents: [
-        "<%IFTRUE:<%HAS:tUid%>!=true%><%TRIGGERREF:tUid,false%><%NOBLOCKOUTPUT%>",
-        "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.completeTask(tUid); })(); ```%><%NOBLOCKOUTPUT%>",
-      ],
+      contents: ["<%ROAMIST_COMPLETE_TASK%>"],
     },
   ];
   const syncCompletedWorkflows: RoamistWorkflow[] = [
     {
       title: "Roamist - sync completed",
-      contents: [
-        "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.syncCompleted(); })(); ```%><%NOBLOCKOUTPUT%>",
-      ],
+      contents: ["<%ROAMIST_SYNC_COMPLETED%>"],
     },
   ];
   const pullQuickCaptureWorkflows: RoamistWorkflow[] = [
     {
       title: "Roamist - quick capture",
-      contents: [
-        "<%JAVASCRIPTASYNC:```javascript (async function () { await window.Roamist.pullQuickCapture(); })(); ```%>",
-      ],
+      contents: ["<%ROAMIST_QUICK_CAPTURE%>"],
     },
   ];
 
@@ -153,7 +143,7 @@ const createRoamistWorkflows = () => {
     onlyDiff: "true" | "false";
     todoistFilter: string;
   }) => {
-    return `<%JAVASCRIPTASYNC:\`\`\`javascript (async function () { await window.Roamist.pullTasks({ todoistFilter: "${args.todoistFilter}", onlyDiff: ${args.onlyDiff} }); })(); \`\`\`%>`;
+    return `<%ROAMIST_PULL_TASKS: ${args.todoistFilter}, ${args.onlyDiff}%>`;
   };
   const getTitle = (name: string, diff: boolean) =>
     `Roamist - pull ${name}${diff ? " (only diff)" : ""}`;
@@ -175,12 +165,42 @@ const createRoamistWorkflows = () => {
     });
   return [
     ...completeTaskWorkflows,
-    ...completeTaskFromButtonWorkflows,
     ...syncCompletedWorkflows,
     ...pullTasksWorkflows,
     ...pullQuickCaptureWorkflows,
   ];
 };
+
+// register command
+registerSmartBlocksCommand({
+  text: "ROAMIST_COMPLETE_TASK",
+  handler: (context) => async () => {
+    return await window.Roamist.completeTask(context.targetUid);
+  },
+});
+registerSmartBlocksCommand({
+  text: "ROAMIST_SYNC_COMPLETED",
+  handler: () => async () => {
+    return await window.Roamist.syncCompleted();
+  },
+});
+registerSmartBlocksCommand({
+  text: "ROAMIST_QUICK_CAPTURE",
+  handler: (context) => async () => {
+    return await window.Roamist.pullQuickCapture(context.targetUid);
+  },
+});
+registerSmartBlocksCommand({
+  text: "ROAMIST_PULL_TASKS",
+  handler: (context) => async (todoistFilter, onlyDiff) => {
+    await window.Roamist.pullTasks({
+      todoistFilter,
+      onlyDiff: onlyDiff === "true",
+      targetUid: context.targetUid,
+    });
+    return "hello";
+  },
+});
 
 const WORKFLOW_SECTION_NAME = "workflows";
 const roamistWorkflows = createRoamistWorkflows();
