@@ -35128,6 +35128,4 @@ const installWorkflow = async () => {
   console.log("<<<<<<<<<<<<<<<<<<<<< roamist >>>>>>>>>>>>>>>>>>>>> setup finished.");
 };
 installWorkflow();
-installWorkflow();
-installWorkflow();
 export { getExistingWorkflows };
