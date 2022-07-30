@@ -4,7 +4,14 @@ import getBlockUidByTextOnPage from "roamjs-components/queries/getBlockUidByText
 import getShallowTreeByParentUid from "roamjs-components/queries/getShallowTreeByParentUid";
 import getPageUidByPageTitle from "roamjs-components/queries/getPageUidByPageTitle";
 import { createConfigObserver } from "roamjs-components/components/ConfigPage";
+import TextPanel from "roamjs-components/components/ConfigPanels/TextPanel";
+import FlagPanel from "roamjs-components/components/ConfigPanels/FlagPanel";
+import BlockPanel from "roamjs-components/components/ConfigPanels/BlockPanel";
 import createTagRegex from "roamjs-components/util/createTagRegex";
+import {
+  FieldPanel,
+  UnionField,
+} from "roamjs-components/components/ConfigPanels/types";
 
 import { completeTask } from "./features/complete-task";
 import { pullTasks } from "./features/pull-tasks";
@@ -46,20 +53,20 @@ createConfigObserver({
         id: "home",
         fields: [
           {
-            type: "text",
             title: "token",
             description:
               "todoist's token. Get in todoist.com/prefs/integrations.",
+            Panel: TextPanel as FieldPanel<UnionField>,
           },
           {
-            type: "text",
             title: "tag",
             description: "tag",
+            Panel: TextPanel as FieldPanel<UnionField>,
           },
           {
-            type: "flag",
             title: "[Not Implemented] show date",
             description: "[Not Implemented] show date",
+            Panel: FlagPanel as FieldPanel<UnionField>,
           },
         ],
       },
@@ -67,14 +74,14 @@ createConfigObserver({
         id: "pull-tasks",
         fields: [
           {
-            type: "flag",
             title: "Hide priority",
             description: "Hide priority like #priority/p1 in block",
+            Panel: FlagPanel as FieldPanel<UnionField>,
           },
           {
-            type: "block",
             title: "filters",
             description: "Todoist's filters",
+            Panel: BlockPanel as FieldPanel<UnionField>,
           },
         ],
       },
@@ -82,14 +89,14 @@ createConfigObserver({
         id: "quick-capture",
         fields: [
           {
-            type: "text",
             title: "filter",
             description: "Todoist's filter",
+            Panel: TextPanel as FieldPanel<UnionField>,
           },
           {
-            type: "text",
             title: "tag",
             description: "Tag for Quick Capture",
+            Panel: TextPanel as FieldPanel<UnionField>,
           },
         ],
       },
