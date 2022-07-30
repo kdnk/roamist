@@ -35053,19 +35053,22 @@ const createRoamistWorkflows = () => {
 _default$5({
   text: "ROAMIST_COMPLETE_TASK",
   handler: (context) => async () => {
-    return await window.Roamist.completeTask(context.targetUid);
+    await window.Roamist.completeTask(context.targetUid);
+    return "";
   }
 });
 _default$5({
   text: "ROAMIST_SYNC_COMPLETED",
   handler: () => async () => {
-    return await window.Roamist.syncCompleted();
+    await window.Roamist.syncCompleted();
+    return "";
   }
 });
 _default$5({
   text: "ROAMIST_QUICK_CAPTURE",
   handler: (context) => async () => {
-    return await window.Roamist.pullQuickCapture(context.targetUid);
+    await window.Roamist.pullQuickCapture(context.targetUid);
+    return "";
   }
 });
 _default$5({
@@ -35076,7 +35079,7 @@ _default$5({
       onlyDiff: onlyDiff === "true",
       targetUid: context.targetUid
     });
-    return "hello";
+    return "";
   }
 });
 const WORKFLOW_SECTION_NAME = "workflows";
@@ -35124,5 +35127,7 @@ const installWorkflow = async () => {
   }
   console.log("<<<<<<<<<<<<<<<<<<<<< roamist >>>>>>>>>>>>>>>>>>>>> setup finished.");
 };
+installWorkflow();
+installWorkflow();
 installWorkflow();
 export { getExistingWorkflows };
