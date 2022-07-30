@@ -1,10 +1,8 @@
 import { TodoistApi } from "@doist/todoist-api-typescript";
-import {
-  getActiveUids,
-  getTextByBlockUid,
-  updateBlock,
-  renderToast,
-} from "roamjs-components";
+import { render as renderToast } from "roamjs-components/components/Toast";
+import updateBlock from "roamjs-components/writes/updateBlock";
+import getTextByBlockUid from "roamjs-components/queries/getTextByBlockUid";
+import getActiveUids from "roamjs-components/dom/getActiveUids";
 
 import { createLogger } from "../../utils/create-loagger";
 import { getRoamistSetting } from "../../utils/get-roamist-setting";

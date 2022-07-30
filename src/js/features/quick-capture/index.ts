@@ -1,11 +1,9 @@
 import { Task, TodoistApi } from "@doist/todoist-api-typescript";
-import {
-  deleteBlock,
-  getActiveUids,
-  getBasicTreeByParentUid,
-  getPageUidByPageTitle,
-  renderToast,
-} from "roamjs-components";
+import { render as renderToast } from "roamjs-components/components/Toast";
+import deleteBlock from "roamjs-components/writes/deleteBlock";
+import getActiveUids from "roamjs-components/dom/getActiveUids";
+import getPageUidByPageTitle from "roamjs-components/queries/getPageUidByPageTitle";
+import getBasicTreeByParentUid from "roamjs-components/queries/getBasicTreeByParentUid";
 
 import { CONFIG } from "../../constants";
 import { convertToRoamDate } from "../../utils/convert-date-to-roam";

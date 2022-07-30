@@ -1,10 +1,8 @@
 import { Project, Task, TodoistApi } from "@doist/todoist-api-typescript";
-import {
-  createBlock,
-  deleteBlock,
-  getActiveUids,
-  renderToast,
-} from "roamjs-components";
+import { render as renderToast } from "roamjs-components/components/Toast";
+import createBlock from "roamjs-components/writes/createBlock";
+import deleteBlock from "roamjs-components/writes/deleteBlock";
+import getActiveUids from "roamjs-components/dom/getActiveUids";
 
 import { createDescriptionBlock } from "../../utils/create-description-block";
 import { createLogger } from "../../utils/create-loagger";

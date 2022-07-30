@@ -1,8 +1,6 @@
 import { Project, Task } from "@doist/todoist-api-typescript";
-import {
-  getPageUidByPageTitle,
-  getBasicTreeByParentUid,
-} from "roamjs-components";
+import getPageUidByPageTitle from "roamjs-components/queries/getPageUidByPageTitle";
+import getBasicTreeByParentUid from "roamjs-components/queries/getBasicTreeByParentUid";
 
 import { CONFIG } from "../constants";
 

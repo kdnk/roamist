@@ -1,8 +1,6 @@
-import {
-  createBlock,
-  getOrderByBlockUid,
-  getParentUidByBlockUid,
-} from "roamjs-components";
+import createBlock from "roamjs-components/writes/createBlock";
+import getOrderByBlockUid from "roamjs-components/queries/getOrderByBlockUid";
+import getParentUidByBlockUid from "roamjs-components/queries/getParentUidByBlockUid";
 
 export const createSiblingBlock = async ({
   fromUid,

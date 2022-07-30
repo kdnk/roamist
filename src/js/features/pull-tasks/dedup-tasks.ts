@@ -1,5 +1,6 @@
 import { Task } from "@doist/todoist-api-typescript";
-import { getCurrentPageUid, getPageTitleByPageUid } from "roamjs-components";
+import getCurrentPageUid from "roamjs-components/dom/getCurrentPageUid";
+import getPageTitleByPageUid from "roamjs-components/queries/getPageTitleByPageUid";
 
 import { createLogger } from "../../utils/create-loagger";
 import { getAllTodoistBlocksFromPageTitle } from "../../utils/get-all-todoist-blocks-from-page-title";
