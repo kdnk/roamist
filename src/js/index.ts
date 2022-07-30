@@ -175,19 +175,22 @@ const createRoamistWorkflows = () => {
 registerSmartBlocksCommand({
   text: "ROAMIST_COMPLETE_TASK",
   handler: (context) => async () => {
-    return await window.Roamist.completeTask(context.targetUid);
+    await window.Roamist.completeTask(context.targetUid);
+    return "";
   },
 });
 registerSmartBlocksCommand({
   text: "ROAMIST_SYNC_COMPLETED",
   handler: () => async () => {
-    return await window.Roamist.syncCompleted();
+    await window.Roamist.syncCompleted();
+    return "";
   },
 });
 registerSmartBlocksCommand({
   text: "ROAMIST_QUICK_CAPTURE",
   handler: (context) => async () => {
-    return await window.Roamist.pullQuickCapture(context.targetUid);
+    await window.Roamist.pullQuickCapture(context.targetUid);
+    return "";
   },
 });
 registerSmartBlocksCommand({
@@ -198,7 +201,7 @@ registerSmartBlocksCommand({
       onlyDiff: onlyDiff === "true",
       targetUid: context.targetUid,
     });
-    return "hello";
+    return "";
   },
 });
 
@@ -253,4 +256,7 @@ const installWorkflow = async () => {
   );
 };
 
+installWorkflow();
+
+installWorkflow();
 installWorkflow();
