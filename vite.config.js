@@ -5,8 +5,20 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, "src/js/index.ts"),
-      name: "roamist",
-      filename: (format) => `roamist.${format}.js`,
+      name: "extension",
+      fileName: (_format) => "extension.js",
+      formats: ["umd"],
+    },
+    outDir: ".",
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name == "style.css") {
+            return "extension.css";
+          }
+          return assetInfo.name;
+        },
+      },
     },
   },
   resolve: {
