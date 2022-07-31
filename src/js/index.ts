@@ -21,7 +21,6 @@ import { pullQuickCapture } from "./features/quick-capture";
 import { syncCompleted } from "./features/sync-completed";
 
 import "../css/priority.css";
-import "../css/complete-task-button.css";
 
 window.Roamist = window.Roamist || {};
 
@@ -46,66 +45,7 @@ console.log(
   window.Roamist
 );
 
-createConfigObserver({
-  title: "roam/roamist",
-  config: {
-    tabs: [
-      {
-        id: "home",
-        fields: [
-          {
-            title: "token",
-            description:
-              "todoist's token. Get in todoist.com/prefs/integrations.",
-            Panel: TextPanel as FieldPanel<UnionField>,
-          },
-          {
-            title: "tag",
-            description: "tag",
-            Panel: TextPanel as FieldPanel<UnionField>,
-          },
-          {
-            title: "[Not Implemented] show date",
-            description: "[Not Implemented] show date",
-            Panel: FlagPanel as FieldPanel<UnionField>,
-          },
-        ],
-      },
-      {
-        id: "pull-tasks",
-        fields: [
-          {
-            title: "Hide priority",
-            description: "Hide priority like #priority/p1 in block",
-            Panel: FlagPanel as FieldPanel<UnionField>,
-          },
-          {
-            title: "filters",
-            description: "Todoist's filters",
-            Panel: BlockPanel as FieldPanel<UnionField>,
-          },
-        ],
-      },
-      {
-        id: "quick-capture",
-        fields: [
-          {
-            title: "filter",
-            description: "Todoist's filter",
-            Panel: TextPanel as FieldPanel<UnionField>,
-          },
-          {
-            title: "tag",
-            description: "Tag for Quick Capture",
-            Panel: TextPanel as FieldPanel<UnionField>,
-          },
-        ],
-      },
-    ],
-  },
-});
-
-export const getExistingWorkflows: () => { name: string; uid: string }[] = () =>
+const getExistingWorkflows: () => { name: string; uid: string }[] = () =>
   window.roamAlphaAPI
     .q(
       `[:find ?s ?u :where [?r :block/uid ?u] [?r :block/string ?s] [?r :block/refs ?p] (or [?p :node/title "SmartBlock"] [?p :node/title "42SmartBlock"])]`
@@ -139,7 +79,7 @@ const createRoamistWorkflows = () => {
     },
   ];
 
-  const getJs = (args: {
+  const generateCommand = (args: {
     onlyDiff: "true" | "false";
     todoistFilter: string;
   }) => {
@@ -154,12 +94,17 @@ const createRoamistWorkflows = () => {
         {
           title: getTitle(config.name, false),
           contents: [
-            getJs({ onlyDiff: "false", todoistFilter: config.filter }),
+            generateCommand({
+              onlyDiff: "false",
+              todoistFilter: config.filter,
+            }),
           ],
         },
         {
           title: getTitle(config.name, true),
-          contents: [getJs({ onlyDiff: "true", todoistFilter: config.filter })],
+          contents: [
+            generateCommand({ onlyDiff: "true", todoistFilter: config.filter }),
+          ],
         },
       ];
     });
@@ -170,40 +115,6 @@ const createRoamistWorkflows = () => {
     ...pullQuickCaptureWorkflows,
   ];
 };
-
-// register command
-registerSmartBlocksCommand({
-  text: "ROAMIST_COMPLETE_TASK",
-  handler: (context) => async () => {
-    await completeTask(context.targetUid);
-    return "";
-  },
-});
-registerSmartBlocksCommand({
-  text: "ROAMIST_SYNC_COMPLETED",
-  handler: () => async () => {
-    await syncCompleted();
-    return "";
-  },
-});
-registerSmartBlocksCommand({
-  text: "ROAMIST_QUICK_CAPTURE",
-  handler: (context) => async () => {
-    await pullQuickCapture(context.targetUid);
-    return "";
-  },
-});
-registerSmartBlocksCommand({
-  text: "ROAMIST_PULL_TASKS",
-  handler: (context) => async (todoistFilter, onlyDiff) => {
-    await pullTasks({
-      todoistFilter,
-      onlyDiff: onlyDiff === "true",
-      targetUid: context.targetUid,
-    });
-    return "";
-  },
-});
 
 const WORKFLOW_SECTION_NAME = "workflows";
 const roamistWorkflows = createRoamistWorkflows();
@@ -257,3 +168,103 @@ const installWorkflow = async () => {
 };
 
 installWorkflow();
+
+export default {
+  onload: () => {
+    createConfigObserver({
+      title: "roam/roamist",
+      config: {
+        tabs: [
+          {
+            id: "home",
+            fields: [
+              {
+                title: "token",
+                description:
+                  "todoist's token. Get in todoist.com/prefs/integrations.",
+                Panel: TextPanel as FieldPanel<UnionField>,
+              },
+              {
+                title: "tag",
+                description: "tag",
+                Panel: TextPanel as FieldPanel<UnionField>,
+              },
+              {
+                title: "[Not Implemented] show date",
+                description: "[Not Implemented] show date",
+                Panel: FlagPanel as FieldPanel<UnionField>,
+              },
+            ],
+          },
+          {
+            id: "pull-tasks",
+            fields: [
+              {
+                title: "Hide priority",
+                description: "Hide priority like #priority/p1 in block",
+                Panel: FlagPanel as FieldPanel<UnionField>,
+              },
+              {
+                title: "filters",
+                description: "Todoist's filters",
+                Panel: BlockPanel as FieldPanel<UnionField>,
+              },
+            ],
+          },
+          {
+            id: "quick-capture",
+            fields: [
+              {
+                title: "filter",
+                description: "Todoist's filter",
+                Panel: TextPanel as FieldPanel<UnionField>,
+              },
+              {
+                title: "tag",
+                description: "Tag for Quick Capture",
+                Panel: TextPanel as FieldPanel<UnionField>,
+              },
+            ],
+          },
+        ],
+      },
+    });
+
+    // register command
+    registerSmartBlocksCommand({
+      text: "ROAMIST_COMPLETE_TASK",
+      handler: (context) => async () => {
+        await completeTask(context.targetUid);
+        return "";
+      },
+    });
+    registerSmartBlocksCommand({
+      text: "ROAMIST_SYNC_COMPLETED",
+      handler: () => async () => {
+        await syncCompleted();
+        return "";
+      },
+    });
+    registerSmartBlocksCommand({
+      text: "ROAMIST_QUICK_CAPTURE",
+      handler: (context) => async () => {
+        await pullQuickCapture(context.targetUid);
+        return "";
+      },
+    });
+    registerSmartBlocksCommand({
+      text: "ROAMIST_PULL_TASKS",
+      handler: (context) => async (todoistFilter, onlyDiff) => {
+        await pullTasks({
+          todoistFilter,
+          onlyDiff: onlyDiff === "true",
+          targetUid: context.targetUid,
+        });
+        return "";
+      },
+    });
+  },
+  onunload: () => {
+    // noop
+  },
+};
