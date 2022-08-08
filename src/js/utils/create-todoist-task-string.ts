@@ -83,7 +83,7 @@ export const createTodoistTaskString = ({
   const tagName = getRoamistSetting("tag");
   taskString = `${taskString} #[[${project.name}]] #${tagName}`;
 
-  return `{{[[TODO]]}} ${taskString}`;
+  return `{{[[TODO]]}} ${taskString} `;
 };
 
 function getPriorityVisibility() {
