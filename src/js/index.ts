@@ -13,6 +13,9 @@ import {
   UnionField,
 } from "roamjs-components/components/ConfigPanels/types";
 import registerSmartBlocksCommand from "roamjs-components/util/registerSmartBlocksCommand";
+import { OnloadArgs } from "roamjs-components/types";
+
+import { TodoistFilterPanel } from "../components/filter-panel";
 
 import { completeTask } from "./features/complete-task";
 import { pullTasks } from "./features/pull-tasks";
@@ -170,7 +173,50 @@ const installWorkflow = async () => {
 installWorkflow();
 
 export default {
-  onload: () => {
+  onload: ({ extensionAPI }: OnloadArgs) => {
+    // eslint-disable-next-line
+    console.log("load roamist...");
+    extensionAPI.settings.panel.create({
+      tabTitle: "Roamist",
+      settings: [
+        {
+          id: "todoist-token",
+          name: "Todoist's token",
+          description:
+            "todoist's token. Get in todoist.com/prefs/integrations.",
+          action: {
+            type: "input",
+            placeholder: "",
+          },
+        },
+        {
+          id: "todoist-filters",
+          name: "Todoist filters",
+          description: "Todoist filters",
+          action: {
+            type: "reactComponent",
+            component: TodoistFilterPanel(extensionAPI),
+          },
+        },
+        {
+          id: "hide-priority",
+          name: "Hide priority",
+          description: "Hide priority like #priority/p1 in block",
+          action: {
+            type: "switch",
+          },
+        },
+        {
+          id: "quick-capture-filter",
+          name: "Todoist's filter for quick capture",
+          description: "See https://todoist.com/help/articles/205248842",
+          action: {
+            type: "input",
+            placeholder: "",
+          },
+        },
+      ],
+    });
     createConfigObserver({
       title: "roam/roamist",
       config: {
@@ -263,6 +309,8 @@ export default {
         return "";
       },
     });
+
+    // new extensionAPI
   },
   onunload: () => {
     // noop
