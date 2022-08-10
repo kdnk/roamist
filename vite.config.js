@@ -1,13 +1,16 @@
-const { defineConfig } = require("vite");
-const { resolve } = require("path");
+import { resolve } from "path";
+
+import { defineConfig } from "vite";
+import env from "vite-plugin-env-compatible";
 
 export default defineConfig({
+  plugins: [env()],
   build: {
     lib: {
-      entry: resolve(__dirname, "src/js/index.ts"),
+      entry: resolve(__dirname, "src/js/index.tsx"),
       name: "extension",
       fileName: (_format) => "extension.js",
-      formats: ["umd"],
+      formats: ["es"],
     },
     outDir: ".",
     rollupOptions: {
