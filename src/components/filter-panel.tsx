@@ -1,4 +1,4 @@
-import type TReact from "react";
+import React from "react";
 import type { OnloadArgs } from "roamjs-components/types";
 
 export const getTodoistFilters = (extensionAPI: OnloadArgs["extensionAPI"]) => {
@@ -7,8 +7,6 @@ export const getTodoistFilters = (extensionAPI: OnloadArgs["extensionAPI"]) => {
     | string;
   return typeof value === "string" ? [value] : value;
 };
-
-const React = window.React as typeof TReact;
 
 type Props = {
   extensionAPI: OnloadArgs["extensionAPI"];
