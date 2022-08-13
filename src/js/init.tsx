@@ -165,7 +165,8 @@ export const onload = (extensionAPI: OnloadArgs["extensionAPI"]) => {
       {
         id: "todoist-filters",
         name: "Todoist filters",
-        description: "Todoist filters",
+        description:
+          "Todoist filters. See https://todoist.com/help/articles/205248842.",
         action: {
           type: "reactComponent",
           component: () => (
