@@ -16,7 +16,7 @@ import registerSmartBlocksCommand from "roamjs-components/util/registerSmartBloc
 import createBlock from "roamjs-components/writes/createBlock";
 import deleteBlock from "roamjs-components/writes/deleteBlock";
 
-import { TodoistFilterPanel } from "../components/filter-panel";
+import { TodoistFilterPanel } from "../components/todoist-filter-panel";
 
 import { completeTask } from "./features/complete-task";
 import { pullTasks } from "./features/pull-tasks";
