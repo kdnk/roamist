@@ -1,10 +1,19 @@
 import { resolve } from "path";
 
 import { defineConfig } from "vite";
-import env from "vite-plugin-env-compatible";
+import EnvironmentPlugin from "vite-plugin-environment";
+import { viteExternalsPlugin } from "vite-plugin-externals";
 
 export default defineConfig({
-  plugins: [env()],
+  define: {
+    "process.env": process.env,
+  },
+  plugins: [
+    viteExternalsPlugin({
+      react: "React",
+      "react-dom": "ReactDOM",
+    }),
+  ],
   build: {
     lib: {
       entry: resolve(__dirname, "src/js/index.tsx"),
