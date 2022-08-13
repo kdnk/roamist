@@ -89,6 +89,13 @@ const createRoamistWorkflows = (extensionAPI: OnloadArgs["extensionAPI"]) => {
 };
 
 export const onload = (extensionAPI: OnloadArgs["extensionAPI"]) => {
+  createConfigObserver({
+    title: "roam/roamist",
+    config: {
+      tabs: [],
+    },
+  });
+
   const WORKFLOW_SECTION_NAME = "workflows";
   const roamistWorkflows = createRoamistWorkflows(extensionAPI);
   const existingWorkflows = getExistingWorkflows();
@@ -187,12 +194,6 @@ export const onload = (extensionAPI: OnloadArgs["extensionAPI"]) => {
         },
       },
     ],
-  });
-  createConfigObserver({
-    title: "roam/roamist",
-    config: {
-      tabs: [],
-    },
   });
 
   // register command
