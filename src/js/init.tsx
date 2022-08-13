@@ -20,7 +20,7 @@ import { TodoistFilterPanel } from "../components/todoist-filter-panel";
 
 import { completeTask } from "./features/complete-task";
 import { pullTasks } from "./features/pull-tasks";
-import { getPullTasksConfig } from "./features/pull-tasks/get-pull-tasks-config";
+import { getTodoistFilterConfigs } from "./features/pull-tasks/get-todoist-filter-configs";
 import { pullQuickCapture } from "./features/quick-capture";
 import { syncCompleted } from "./features/sync-completed";
 
@@ -38,7 +38,7 @@ const getExistingWorkflows: () => { name: string; uid: string }[] = () =>
     }));
 
 type RoamistWorkflow = { title: string; contents: string[] };
-const createRoamistWorkflows = () => {
+const createRoamistWorkflows = (extensionAPI: OnloadArgs["extensionAPI"]) => {
   const completeTaskWorkflows: RoamistWorkflow[] = [
     {
       title: "Roamist - complete task",
@@ -66,7 +66,7 @@ const createRoamistWorkflows = () => {
   };
   const getTitle = (name: string, diff: boolean) =>
     `Roamist - pull ${name}${diff ? " (only diff)" : ""}`;
-  const configs = getPullTasksConfig("filters");
+  const configs = getTodoistFilterConfigs(extensionAPI);
   const pullTasksWorkflows: { title: string; contents: string[] }[] =
     configs.flatMap((config) => {
       return [
@@ -97,7 +97,7 @@ const createRoamistWorkflows = () => {
 
 export const onload = (extensionAPI: OnloadArgs["extensionAPI"]) => {
   const WORKFLOW_SECTION_NAME = "workflows";
-  const roamistWorkflows = createRoamistWorkflows();
+  const roamistWorkflows = createRoamistWorkflows(extensionAPI);
   const existingWorkflows = getExistingWorkflows();
   const installWorkflow = async () => {
     let configWorkflowUid = getBlockUidByTextOnPage({
@@ -163,7 +163,7 @@ export const onload = (extensionAPI: OnloadArgs["extensionAPI"]) => {
         },
       },
       {
-        id: "todoist-filters",
+        id: "todoist-filter-configs",
         name: "Todoist filters",
         description:
           "Todoist filters. See https://todoist.com/help/articles/205248842.",
@@ -187,7 +187,7 @@ export const onload = (extensionAPI: OnloadArgs["extensionAPI"]) => {
       {
         id: "quick-capture-filter",
         name: "Todoist's filter for quick capture",
-        description: "See https://todoist.com/help/articles/205248842",
+        description: "See https://todoist.com/help/articles/205248842.",
         action: {
           type: "input",
           placeholder: "",

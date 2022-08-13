@@ -2,17 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Button, InputGroup } from "@blueprintjs/core";
 import type { OnloadArgs } from "roamjs-components/types";
 
-export const getTodoistFilterConfigs = (
-  extensionAPI: OnloadArgs["extensionAPI"]
-) => {
-  const value = extensionAPI.settings.get("todoist-filters") as {
-    name: string;
-    filter: string;
-  }[];
-  // eslint-disable-next-line
-  console.log("[todoist-filter-panel.tsx:10] value: ", value);
-  return value || [];
-};
+import { getTodoistFilterConfigs } from "../js/features/pull-tasks/get-todoist-filter-configs";
 
 type Props = {
   extensionAPI: OnloadArgs["extensionAPI"];
@@ -96,6 +86,7 @@ export const TodoistFilterPanel: React.FC<Props> = (props) => {
         return (
           <div key={index} className="flex items-center justify-between">
             <span
+              title={`${p.name}: ${p.filter}`}
               style={{
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
