@@ -1,12 +1,5 @@
 import React from "react";
 import { createConfigObserver } from "roamjs-components/components/ConfigPage";
-import BlockPanel from "roamjs-components/components/ConfigPanels/BlockPanel";
-import FlagPanel from "roamjs-components/components/ConfigPanels/FlagPanel";
-import TextPanel from "roamjs-components/components/ConfigPanels/TextPanel";
-import {
-  FieldPanel,
-  UnionField,
-} from "roamjs-components/components/ConfigPanels/types";
 import getBlockUidByTextOnPage from "roamjs-components/queries/getBlockUidByTextOnPage";
 import getPageUidByPageTitle from "roamjs-components/queries/getPageUidByPageTitle";
 import getShallowTreeByParentUid from "roamjs-components/queries/getShallowTreeByParentUid";
@@ -198,59 +191,7 @@ export const onload = (extensionAPI: OnloadArgs["extensionAPI"]) => {
   createConfigObserver({
     title: "roam/roamist",
     config: {
-      tabs: [
-        {
-          id: "home",
-          fields: [
-            {
-              title: "token",
-              description:
-                "todoist's token. Get in todoist.com/prefs/integrations.",
-              Panel: TextPanel as FieldPanel<UnionField>,
-            },
-            {
-              title: "tag",
-              description: "tag",
-              Panel: TextPanel as FieldPanel<UnionField>,
-            },
-            {
-              title: "[Not Implemented] show date",
-              description: "[Not Implemented] show date",
-              Panel: FlagPanel as FieldPanel<UnionField>,
-            },
-          ],
-        },
-        {
-          id: "pull-tasks",
-          fields: [
-            {
-              title: "Hide priority",
-              description: "Hide priority like #priority/p1 in block",
-              Panel: FlagPanel as FieldPanel<UnionField>,
-            },
-            {
-              title: "filters",
-              description: "Todoist's filters",
-              Panel: BlockPanel as FieldPanel<UnionField>,
-            },
-          ],
-        },
-        {
-          id: "quick-capture",
-          fields: [
-            {
-              title: "filter",
-              description: "Todoist's filter",
-              Panel: TextPanel as FieldPanel<UnionField>,
-            },
-            {
-              title: "tag",
-              description: "Tag for Quick Capture",
-              Panel: TextPanel as FieldPanel<UnionField>,
-            },
-          ],
-        },
-      ],
+      tabs: [],
     },
   });
 
@@ -258,21 +199,21 @@ export const onload = (extensionAPI: OnloadArgs["extensionAPI"]) => {
   registerSmartBlocksCommand({
     text: "ROAMIST_COMPLETE_TASK",
     handler: (context) => async () => {
-      await completeTask(context.targetUid);
+      await completeTask({ extensionAPI, targetUid: context.targetUid });
       return "";
     },
   });
   registerSmartBlocksCommand({
     text: "ROAMIST_SYNC_COMPLETED",
     handler: () => async () => {
-      await syncCompleted();
+      await syncCompleted({ extensionAPI });
       return "";
     },
   });
   registerSmartBlocksCommand({
     text: "ROAMIST_QUICK_CAPTURE",
     handler: (context) => async () => {
-      await pullQuickCapture(context.targetUid);
+      await pullQuickCapture({ extensionAPI, targetUid: context.targetUid });
       return "";
     },
   });
@@ -280,6 +221,7 @@ export const onload = (extensionAPI: OnloadArgs["extensionAPI"]) => {
     text: "ROAMIST_PULL_TASKS",
     handler: (context) => async (todoistFilter, onlyDiff) => {
       await pullTasks({
+        extensionAPI,
         todoistFilter,
         onlyDiff: onlyDiff === "true",
         targetUid: context.targetUid,
