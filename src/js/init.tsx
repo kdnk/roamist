@@ -179,7 +179,7 @@ export const onload = (extensionAPI: OnloadArgs["extensionAPI"]) => {
       {
         id: "hide-priority",
         name: "Hide priority",
-        description: "Hide priority like #priority/p1 in block",
+        description: "Hide priority like `#priority/p1` in pulled blocks.",
         action: {
           type: "switch",
         },
