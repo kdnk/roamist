@@ -1,5 +1,6 @@
 import { Project, Task, TodoistApi } from "@doist/todoist-api-typescript";
 import { render as renderToast } from "roamjs-components/components/Toast";
+import { OnloadArgs } from "roamjs-components/types";
 import createBlock from "roamjs-components/writes/createBlock";
 import deleteBlock from "roamjs-components/writes/deleteBlock";
 
@@ -7,29 +8,27 @@ import { createDescriptionBlock } from "../../utils/create-description-block";
 import { createLogger } from "../../utils/create-loagger";
 import { createTodoistTaskString } from "../../utils/create-todoist-task-string";
 import { createSiblingBlock } from "../../utils/createSiblingBlock";
-import { getRoamistSetting } from "../../utils/get-roamist-setting";
+import { getTodoistToken } from "../../utils/get-todoist-token";
 
 import { dedupTaskList } from "./dedup-tasks";
-
-const token = getRoamistSetting("token");
-const api = new TodoistApi(token);
 
 const logger = createLogger("pull-tasks");
 let projects: Project[] | undefined = undefined;
 
-api.getProjects().then((res) => {
-  projects = res;
-});
-
 export const pullTasks = async ({
+  extensionAPI,
   todoistFilter,
   onlyDiff,
   targetUid,
 }: {
+  extensionAPI: OnloadArgs["extensionAPI"];
   todoistFilter: string;
   onlyDiff: boolean;
   targetUid: string;
 }) => {
+  const token = getTodoistToken(extensionAPI);
+  const api = new TodoistApi(token);
+
   if (projects === undefined) {
     projects = await api.getProjects();
   }

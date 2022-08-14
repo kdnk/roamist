@@ -1,13 +1,12 @@
 {
   "name": "roamist",
+  "target": "es2015",
   "version": "0.0.1",
   "description": "",
   "main": "./src/js/index.ts",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "watch": "vite build --watch",
-    "preview": "vite preview",
+    "build": "tsc && webpack build",
+    "watch": "webpack watch",
     "eslint": "eslint './src'",
     "tsc": "./node_modules/.bin/tsc --noEmit",
     "test": "jest",
@@ -25,24 +24,29 @@
   "homepage": "https://github.com/kdnk/roamist#readme",
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.7",
-    "@babel/preset-env": "^7.18.2",
+    "@babel/core": "^7.18.10",
+    "@babel/preset-env": "^7.18.10",
+    "@babel/preset-react": "^7.18.6",
     "@types/jest": "^27.4.1",
+    "@types/node": "^18.6.5",
+    "@types/webpack": "^5.28.0",
     "@typescript-eslint/eslint-plugin": "^5.24.0",
     "@typescript-eslint/parser": "^5.19.0",
     "babel-jest": "^27.5.1",
+    "babel-loader": "^8.2.5",
     "eslint": "^8.16.0",
     "eslint-plugin-import": "^2.25.4",
     "jest": "^27.5.1",
     "prettier": "^2.6.0",
     "ts-jest": "^27.1.4",
+    "ts-loader": "^9.3.1",
+    "ts-node": "^10.9.1",
     "typescript": "^4.6.2",
-    "vite": "^2.8.6"
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
   },
   "dependencies": {
-    "@blueprintjs/core": "3.50.4",
     "@doist/todoist-api-typescript": "^1.5.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "roamjs-components": "^0.70.18"
   }
 }

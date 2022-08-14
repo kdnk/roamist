@@ -3,22 +3,30 @@ import { render as renderToast } from "roamjs-components/components/Toast";
 import deleteBlock from "roamjs-components/writes/deleteBlock";
 import getPageUidByPageTitle from "roamjs-components/queries/getPageUidByPageTitle";
 import getBasicTreeByParentUid from "roamjs-components/queries/getBasicTreeByParentUid";
+import { OnloadArgs } from "roamjs-components/types";
 
 import { CONFIG } from "../../constants";
 import { convertToRoamDate } from "../../utils/convert-date-to-roam";
 import { createDescriptionBlock } from "../../utils/create-description-block";
 import { createLogger } from "../../utils/create-loagger";
 import { createSiblingBlock } from "../../utils/createSiblingBlock";
-import { getRoamistSetting } from "../../utils/get-roamist-setting";
+import { getTodoistToken } from "../../utils/get-todoist-token";
 
-const token = getRoamistSetting("token");
-const api = new TodoistApi(token);
 const tagName = getTag();
 
 const logger = createLogger("quick-capture");
 
-export const pullQuickCapture = async (targetUid: string) => {
+export const pullQuickCapture = async ({
+  extensionAPI,
+  targetUid,
+}: {
+  extensionAPI: OnloadArgs["extensionAPI"];
+  targetUid: string;
+}) => {
   try {
+    const token = getTodoistToken(extensionAPI);
+    const api = new TodoistApi(token);
+
     console.log("[index.ts:15] tagName: ", tagName);
     const filter = getFilter();
     if (!filter) {

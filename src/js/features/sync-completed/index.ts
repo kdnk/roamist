@@ -1,19 +1,25 @@
 import { TodoistApi } from "@doist/todoist-api-typescript";
 import updateBlock from "roamjs-components/writes/updateBlock";
 import { render as renderToast } from "roamjs-components/components/Toast";
+import { OnloadArgs } from "roamjs-components/types";
 
 import { createLogger } from "../../utils/create-loagger";
-import { getRoamistSetting } from "../../utils/get-roamist-setting";
+import { getTodoistToken } from "../../utils/get-todoist-token";
 
 import { getCompletedBlockUIds } from "./get-completed-block-uids";
 import { getTodoBlocksWithTodoistId } from "./get-todo-blocks-with-todoist-id";
 
-const token = getRoamistSetting("token");
-const api = new TodoistApi(token);
 const logger = createLogger("sync-completed");
 
-export const syncCompleted = async () => {
+export const syncCompleted = async ({
+  extensionAPI,
+}: {
+  extensionAPI: OnloadArgs["extensionAPI"];
+}) => {
   try {
+    const token = getTodoistToken(extensionAPI);
+    const api = new TodoistApi(token);
+
     const tasks = await api.getTasks();
     const activeTodoistIds = tasks.map((task) => task.id);
     const todoistBlocks = await getTodoBlocksWithTodoistId();
