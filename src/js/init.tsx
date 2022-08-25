@@ -88,148 +88,149 @@ const createRoamistWorkflows = (extensionAPI: OnloadArgs["extensionAPI"]) => {
   ];
 };
 
-export const onload = (extensionAPI: OnloadArgs["extensionAPI"]) => {
+export const onload = async (extensionAPI: OnloadArgs["extensionAPI"]) => {
   createConfigObserver({
     title: "roam/roamist",
     config: {
       tabs: [],
     },
-  });
-
-  const WORKFLOW_SECTION_NAME = "workflows";
-  const roamistWorkflows = createRoamistWorkflows(extensionAPI);
-  const existingWorkflows = getExistingWorkflows();
-  const installWorkflow = async () => {
-    let configWorkflowUid = getBlockUidByTextOnPage({
-      text: WORKFLOW_SECTION_NAME,
-      title: "roam/roamist",
-    });
-    if (!configWorkflowUid) {
-      const pageUid = getPageUidByPageTitle("roam/roamist");
-      configWorkflowUid = await createBlock({
-        node: {
-          text: WORKFLOW_SECTION_NAME,
-        },
-        parentUid: pageUid,
+  }).then(() => {
+    const WORKFLOW_SECTION_NAME = "workflows";
+    const roamistWorkflows = createRoamistWorkflows(extensionAPI);
+    const existingWorkflows = getExistingWorkflows();
+    const installWorkflow = async () => {
+      let configWorkflowUid = getBlockUidByTextOnPage({
+        text: WORKFLOW_SECTION_NAME,
+        title: "roam/roamist",
       });
-    }
-
-    for (const workflow of roamistWorkflows) {
-      let workflowTitleUid = existingWorkflows.find((wf) => {
-        return wf.name === workflow.title;
-      })?.uid;
-      if (!workflowTitleUid) {
-        workflowTitleUid = await createBlock({
+      if (!configWorkflowUid) {
+        const pageUid = getPageUidByPageTitle("roam/roamist");
+        configWorkflowUid = await createBlock({
           node: {
-            text: `#SmartBlock ${workflow.title}`,
+            text: WORKFLOW_SECTION_NAME,
           },
-          parentUid: configWorkflowUid,
+          parentUid: pageUid,
         });
       }
-      await Promise.all(
-        getShallowTreeByParentUid(workflowTitleUid).map(({ uid: childUid }) => {
-          return deleteBlock(childUid);
-        })
+
+      for (const workflow of roamistWorkflows) {
+        let workflowTitleUid = existingWorkflows.find((wf) => {
+          return wf.name === workflow.title;
+        })?.uid;
+        if (!workflowTitleUid) {
+          workflowTitleUid = await createBlock({
+            node: {
+              text: `#SmartBlock ${workflow.title}`,
+            },
+            parentUid: configWorkflowUid,
+          });
+        }
+        await Promise.all(
+          getShallowTreeByParentUid(workflowTitleUid).map(
+            ({ uid: childUid }) => {
+              return deleteBlock(childUid);
+            }
+          )
+        );
+        for (const [index, content] of workflow.contents.entries()) {
+          await createBlock({
+            parentUid: workflowTitleUid,
+            node: {
+              text: content,
+            },
+            order: index,
+          });
+        }
+      }
+
+      console.log(
+        "<<<<<<<<<<<<<<<<<<<<< roamist >>>>>>>>>>>>>>>>>>>>> setup finished."
       );
-      for (const [index, content] of workflow.contents.entries()) {
-        await createBlock({
-          parentUid: workflowTitleUid,
-          node: {
-            text: content,
+    };
+
+    installWorkflow();
+    // eslint-disable-next-line
+    console.log("load roamist...");
+    extensionAPI.settings.panel.create({
+      tabTitle: "Roamist",
+      settings: [
+        {
+          id: "todoist-token",
+          name: "Todoist's token",
+          description:
+            "todoist's token. Get in todoist.com/prefs/integrations.",
+          action: {
+            type: "input",
+            placeholder: "",
           },
-          order: index,
+        },
+        {
+          id: "todoist-filter-configs",
+          name: "Todoist filters",
+          description:
+            "Todoist filters. See https://todoist.com/help/articles/205248842.",
+          action: {
+            type: "reactComponent",
+            component: () => (
+              <TodoistFilterPanel
+                extensionAPI={extensionAPI}
+              ></TodoistFilterPanel>
+            ),
+          },
+        },
+        {
+          id: "hide-priority",
+          name: "Hide priority",
+          description: "Hide priority like `#priority/p1` in pulled blocks.",
+          action: {
+            type: "switch",
+          },
+        },
+        {
+          id: "quick-capture-filter",
+          name: "Todoist's filter for quick capture",
+          description: "See https://todoist.com/help/articles/205248842.",
+          action: {
+            type: "input",
+            placeholder: "",
+          },
+        },
+      ],
+    });
+
+    // register command
+    registerSmartBlocksCommand({
+      text: "ROAMIST_COMPLETE_TASK",
+      handler: (context) => async () => {
+        await completeTask({ extensionAPI, targetUid: context.targetUid });
+        return "";
+      },
+    });
+    registerSmartBlocksCommand({
+      text: "ROAMIST_SYNC_COMPLETED",
+      handler: () => async () => {
+        await syncCompleted({ extensionAPI });
+        return "";
+      },
+    });
+    registerSmartBlocksCommand({
+      text: "ROAMIST_QUICK_CAPTURE",
+      handler: (context) => async () => {
+        await pullQuickCapture({ extensionAPI, targetUid: context.targetUid });
+        return "";
+      },
+    });
+    registerSmartBlocksCommand({
+      text: "ROAMIST_PULL_TASKS",
+      handler: (context) => async (todoistFilter, onlyDiff) => {
+        await pullTasks({
+          extensionAPI,
+          todoistFilter,
+          onlyDiff: onlyDiff === "true",
+          targetUid: context.targetUid,
         });
-      }
-    }
-
-    console.log(
-      "<<<<<<<<<<<<<<<<<<<<< roamist >>>>>>>>>>>>>>>>>>>>> setup finished."
-    );
-  };
-
-  installWorkflow();
-  // eslint-disable-next-line
-  console.log("load roamist...");
-  extensionAPI.settings.panel.create({
-    tabTitle: "Roamist",
-    settings: [
-      {
-        id: "todoist-token",
-        name: "Todoist's token",
-        description: "todoist's token. Get in todoist.com/prefs/integrations.",
-        action: {
-          type: "input",
-          placeholder: "",
-        },
+        return "";
       },
-      {
-        id: "todoist-filter-configs",
-        name: "Todoist filters",
-        description:
-          "Todoist filters. See https://todoist.com/help/articles/205248842.",
-        action: {
-          type: "reactComponent",
-          component: () => (
-            <TodoistFilterPanel
-              extensionAPI={extensionAPI}
-            ></TodoistFilterPanel>
-          ),
-        },
-      },
-      {
-        id: "hide-priority",
-        name: "Hide priority",
-        description: "Hide priority like `#priority/p1` in pulled blocks.",
-        action: {
-          type: "switch",
-        },
-      },
-      {
-        id: "quick-capture-filter",
-        name: "Todoist's filter for quick capture",
-        description: "See https://todoist.com/help/articles/205248842.",
-        action: {
-          type: "input",
-          placeholder: "",
-        },
-      },
-    ],
+    });
   });
-
-  // register command
-  registerSmartBlocksCommand({
-    text: "ROAMIST_COMPLETE_TASK",
-    handler: (context) => async () => {
-      await completeTask({ extensionAPI, targetUid: context.targetUid });
-      return "";
-    },
-  });
-  registerSmartBlocksCommand({
-    text: "ROAMIST_SYNC_COMPLETED",
-    handler: () => async () => {
-      await syncCompleted({ extensionAPI });
-      return "";
-    },
-  });
-  registerSmartBlocksCommand({
-    text: "ROAMIST_QUICK_CAPTURE",
-    handler: (context) => async () => {
-      await pullQuickCapture({ extensionAPI, targetUid: context.targetUid });
-      return "";
-    },
-  });
-  registerSmartBlocksCommand({
-    text: "ROAMIST_PULL_TASKS",
-    handler: (context) => async (todoistFilter, onlyDiff) => {
-      await pullTasks({
-        extensionAPI,
-        todoistFilter,
-        onlyDiff: onlyDiff === "true",
-        targetUid: context.targetUid,
-      });
-      return "";
-    },
-  });
-
-  // new extensionAPI
 };
