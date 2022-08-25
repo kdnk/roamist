@@ -15,7 +15,7 @@ export const getRoamistSetting = (key: Key) => {
 
   if (!settingValue) {
     if (key === "tag") {
-      return window.Roamist.TODOIST_TAG_NAME || DEFAULT_TAG_NAME;
+      return DEFAULT_TAG_NAME;
     }
   }
   return settingValue;

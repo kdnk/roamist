@@ -6,7 +6,6 @@ import getBasicTreeByParentUid from "roamjs-components/queries/getBasicTreeByPar
 import { OnloadArgs } from "roamjs-components/types";
 
 import { CONFIG } from "../../constants";
-import { convertToRoamDate } from "../../utils/convert-date-to-roam";
 import { createDescriptionBlock } from "../../utils/create-description-block";
 import { createLogger } from "../../utils/create-loagger";
 import { createSiblingBlock } from "../../utils/createSiblingBlock";
@@ -104,7 +103,10 @@ function getTag() {
 }
 
 function createTaskString(task: Task) {
-  const date = convertToRoamDate(task.created.split("T")[0]);
+  const date = window.roamAlphaAPI.util.dateToPageTitle(
+    new Date(task.created.split("T")[0])
+  );
+
   let taskString = task.content;
   if (date) {
     taskString += ` created_at: [[${date}]]`;

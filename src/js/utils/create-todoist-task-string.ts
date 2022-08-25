@@ -4,7 +4,6 @@ import getBasicTreeByParentUid from "roamjs-components/queries/getBasicTreeByPar
 
 import { CONFIG } from "../constants";
 
-import { convertToRoamDate } from "./convert-date-to-roam";
 import { getRoamistSetting } from "./get-roamist-setting";
 import { getTodoistIdFromUrl } from "./get-todoist-id-from-url";
 
@@ -76,7 +75,9 @@ export const createTodoistTaskString = ({
 
   // due date
   if (task.due) {
-    taskString = `${taskString} [[${convertToRoamDate(task.due.date)}]]`;
+    taskString = `${taskString} [[${window.roamAlphaAPI.util.dateToPageTitle(
+      new Date(task.due.date)
+    )}]]`;
   }
 
   // project tag
