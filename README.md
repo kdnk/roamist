@@ -11,19 +11,22 @@ https://user-images.githubusercontent.com/15260226/150548599-69e6f82a-15e8-43fc-
 
 ## Table of Contents
 
-* [Table of Contents](#table-of-contents)
-* [Motivation](#motivation)
-* [Prerequires](#prerequires)
-* [Setup](#setup)
-  * [Load Roamist](#load-roamist)
-  * [Configuration](#configuration)
-* [Workflows](#workflows)
-  * [pull-tasks](#pull-tasks)
-  * [sync-completed](#sync-completed)
-  * [complete-task](#complete-task)
-* [`roam/css` for priority](#`roam/css`-for-priority)
-  * [quick-capture](#quick-capture)
-* [Inspired](#inspired)
+- [Table of Contents](#table-of-contents)
+- [Motivation](#motivation)
+- [Prerequires](#prerequires)
+- [Setup](#setup)
+  - [1. Install Roamist](#1.-install-roamist)
+  - [2. Configure ROamist](#2.-configure-roamist)
+  - [3. Reload roam Research & see `[[roam/roamist]]`](#3.-reload-roam-research-&-see-`[[roam/roamist]]`)
+  - [4. Run `Roamist - pull ...` smartblocks](#4.-run-`roamist---pull-...`-smartblocks)
+  - [5. Place a button on the `[[Roamist]]` page.](#5.-place-a-button-on-the-`[[roamist]]`-page.)
+- [Workflows](#workflows)
+  - [pull-tasks](#pull-tasks)
+  - [sync-completed](#sync-completed)
+  - [complete-task](#complete-task)
+  - [quick-capture](#quick-capture)
+- [`roam/css` for priority](#`roam/css`-for-priority)
+- [Inspired](#inspired)
 
 ## Motivation
 
@@ -44,97 +47,45 @@ Roamist is one way to make this possible. With this integration, you can copy ta
 
 ## Setup
 
-### 1. Load Roamist
+### 1. Install Roamist
 
-- Create a block with `{roam/js]}}` and place the following code as a child block.
-  - If you are not familiar with `{{[[roam/js]]}}`, please refer to https://roamresearch.com/#/app/help/page/nBCwjGuI7.
+- Install Roamist through roam-depot.
+- You can see `[[roam/roamist]]` is created.
 
-```javascript
-const ID = "roamist";
-const existing = document.getElementById(ID);
-if (!existing) {
-  const script = document.createElement("script");
-  script.src = "https://kdnk.github.io/roamist/roamist.umd.js";
-  script.id = ID;
-  script.defer = true;
-  script.type = "text/javascript";
-  document.getElementsByTagName("head")[0].appendChild(script);
-}
-```
+### 2. Configure ROamist
 
-### 2. Reload and nagivate to [[roamm/roamist]].
+- Fill `Todoist's token`, and `Todoist filters`.
+  - `Todoist's token`
+    - You can get your token via todoist.com/prefs/integrations.
+  - `Todoist filters`
+    - left:
+      - Name of your filter.
+        - ex. `Today's work`
+    - right:
+      - Todoist filter. https://todoist.com/help/articles/205248842.
+        - ex. `(today | overdue) & #Work`
 
-- Reloading automatically creates [[roam/roamist]].
+### 3. Reload roam Research & see `[[roam/roamist]]`
 
-### 3. Set up a Todoist's token on the `[[roam/roamist]]` page.
-
-You can get it on https://todoist.com/prefs/integrations.
-Plese refer to https://github.com/kdnk/roamist#prerequires as well.
-
-![CleanShot 2022-03-10 at 10 28 51@2x](https://user-images.githubusercontent.com/15260226/157569379-3f05e315-aee3-448b-b9c4-fa3b257c1d55.png)
-
-
-### 4. Set up a Todoist filter on the `[[roam/roamist]]` page.
-
-On the `Pull Tasks` tab in `[[roam/roamist]]`, you can set the Todoist filters you want to use.  
-Roamist will import tasks from Todoist based on these filters.  
-
-Follow the format below.  
-
-```
-- filters
-  - Any name you like to give it
-    - filter query of Todoist
-```
-
-<details>
-
-<summary>FYI: My config looks like below.</summary>
-
-<img width="766" alt="CleanShot 2022-03-10 at 10 33 03@2x" src="https://user-images.githubusercontent.com/15260226/157569686-07745f36-bc9e-4e6a-9feb-4976ea52a3a0.png">
-
- ```
-  -  filters
-    - work
-        - #🔨Work & today & !@waiting
-    - daily
-        - (!#🔨Work & !#Inbox & !#Quick Capture & !#🧘Routine & !#🦒Personal) & today
-  ```
-
-</details>
-
-The first layer should literally be `filters`.  
-The second layer is a name of the filter. Use whatever you like.  
-The third layer is a query of Todoist filter. If you are not familiar with it, please refer to https://todoist.com/help/articles/introduction-to-filters.  
-
-Once you have set up your filters, reload again.   
-Some smartblocks will be automatically added to the block called `workflows` in `[[roam/roamist]]`.  
-
-For example, if you reload with the following settings, you can use the smartblocks `Roamist - pull today` and `Roamist - pull today (only diff)`.  
-
-```
-- filters
-  - today
-    - today
-```
-
-`Roamist - pull today (only diff)` is designed to ignore blocks that already exist on the page where smartblock is executed.  
-This is useful if you only want to bring tasks that are newly added to Todoist into Roam.  
+- You can see some blocks are added automatically if you set `Todoist filters` correctlly.
+  - Please don't modify blocks of this page. That makes Roamist broken.
+- `Roamist - pull today (only diff)` is designed to ignore blocks that already exist on the page where smartblock is executed.
+  - This is useful if you only want to bring tasks that are newly added to Todoist into Roam.
 
 You can edit, add or remove filters at any time.  
-Roamist will do its best to automatically reflect them, but if you have problems, first try removing the `workflows` block on the `[[roam/roamist]]` page and then reload Roam.  
+Roamist will do its best to automatically reflect them, but if you have problems, first try removing the `workflows` block on the `[[roam/roamist]]` page and then reload Roam.
 
-### 5. Run `Roamist - pull ...` smartblocks
+### 4. Run `Roamist - pull ...` smartblocks
 
-Run smartblocks on any page you like.  
-If you have set it up properly so far, you should be able to run smartblocks with a name like `Roamist - pull ...`.  
-If there are no tasks in Todoist, nothing will be imported, so make sure you have tasks in Todoist.  
+- Run smartblocks on any page you like.
+  - If you have set it up properly so far, you should be able to run smartblocks with a name like `Roamist - pull ...`.
+  - If there are no tasks in Todoist, nothing will be imported, so make sure you have tasks in Todoist.
 
-### 6. Place a button on the `[[Roamist]]` page.
+### 5. Place a button on the `[[Roamist]]` page.
 
 Have you been able to import tasks from Todoist?  
 The block you have imported will be labeled `#Roamist`. Let's navigate to this page.  
-In the first block on `[[Roamist]]` page, enter a block like this.  
+In the first block on `[[Roamist]]` page, enter a block like this.
 
 ```
 - `{{Sync todoist completed:42SmartBlock:Roamist - sync completed:button=true,42RemoveButton=false}}`
@@ -147,7 +98,7 @@ There is no need to change each TODO to DONE on Roam.
 
 > :warning: **This integration recognizes the Todoist id using a tag like `Todoist/1234567890`.**  
 > **You must NOT remove this tag.**  
-> **If you do, this integration won't work as intended.**
+> **If you do, Roamist won't work as intended.**
 
 ### pull-tasks
 
@@ -171,19 +122,17 @@ There is no need to change each TODO to DONE on Roam.
 
 ### quick-capture
 
-![CleanShot 2022-02-12 at 17 47 01](https://user-images.githubusercontent.com/15260226/153704393-56d07cb1-4942-49f6-a07c-e36c6dafdcee.png)
-
 ## `roam/css` for priority
 
 - I recommend you set css for todoist's priority.
   - ref. https://roamresearch.com/#/app/help/page/RA1UXmzp0
 
-```css
+````css
 - #priority/p1 #priority/p2 #priority/p3 #priority/p4
     - ```css
     @import url('https://kdnk.github.io/roamist/style.css');
     ```
-```
+````
 
 ## Inspired
 
