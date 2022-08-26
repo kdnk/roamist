@@ -47,6 +47,8 @@ Roamist is one way to make this possible. With this integration, you can copy ta
 
 ## Setup
 
+<img width="1000" alt="CleanShot 2022-08-26 at 16 28 55@2x" src="https://user-images.githubusercontent.com/15260226/186848218-fe46eeae-937f-4f3d-b6f7-b5ed9fea6555.png">
+
 ### 1. Install Roamist
 
 - Install Roamist through roam-depot.
