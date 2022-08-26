@@ -42,7 +42,7 @@ Roamist is one way to make this possible. With this integration, you can copy ta
 - Todoist’s api token
   - See: https://developer.todoist.com/rest/v1/#javascript-sdk
   - You can get your token on https://todoist.com/prefs/integrations.
-- smartBlocks
+- SmartBlocks (You can install it through roam-depot)
   - https://roamjs.com/extensions/smartblocks
 
 ## Setup
@@ -121,6 +121,11 @@ There is no need to change each TODO to DONE on Roam.
   - After running this workflow, `{{[[TODO]]}}` will turn into `{{[[DONE]]}}` automatically.
 
 ### quick-capture
+
+- This workflow pulls Todoist's tasks.
+  - `Todoist's filter for quick Capture` is used.
+  - Unlike pull-tasks, this workflow marks Todoist's tasks as completed.
+  - ex. If you set like `#Quick Caputure`, whole tasks in `Quick Capture` product of todoist will be copied, and original tasks are marked as completed product of todoist will be copied, and original tasks are marked as completed
 
 ## `roam/css` for priority
 
