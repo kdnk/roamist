@@ -100,6 +100,16 @@ export const installWorkflows = async (
     });
   }
 
+  for (const workflow of existingWorkflows) {
+    const isValid =
+      roamistWorkflows.find((wf) => {
+        return wf.title === workflow.name;
+      }) !== undefined;
+    if (!isValid) {
+      await deleteBlock(workflow.uid);
+    }
+  }
+
   for (const workflow of roamistWorkflows) {
     let workflowTitleUid = existingWorkflows.find((wf) => {
       return wf.name === workflow.title;
