@@ -44,7 +44,7 @@ export const syncCompleted = async ({
     logger(e);
     renderToast({
       id: "roamist-toast-complete-task",
-      content: "Failed: sync-completed",
+      content: `Failed: sync-completed. Error: ${e}`,
       timeout: 1000,
       intent: "warning",
     });

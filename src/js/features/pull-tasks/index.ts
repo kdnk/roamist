@@ -108,7 +108,7 @@ export const pullTasks = async ({
     logger("failed.");
     renderToast({
       id: "roamist-toast-complete-task",
-      content: "Failed: pull-tasks",
+      content: `Failed: pull-tasks. Error: ${e}`,
       timeout: 1000,
       intent: "warning",
     });

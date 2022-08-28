@@ -69,7 +69,7 @@ export const pullQuickCapture = async ({
     logger(e);
     renderToast({
       id: "roamist-toast-complete-task",
-      content: "Failed: quick-capture",
+      content: `Failed: quick-capture. Error: ${e}`,
       timeout: 1000,
       intent: "warning",
     });
