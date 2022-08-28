@@ -11,22 +11,22 @@ https://user-images.githubusercontent.com/15260226/150548599-69e6f82a-15e8-43fc-
 
 ## Table of Contents
 
-- [Table of Contents](#table-of-contents)
-- [Motivation](#motivation)
-- [Prerequires](#prerequires)
-- [Setup](#setup)
-  - [1. Install Roamist](#1.-install-roamist)
-  - [2. Configure ROamist](#2.-configure-roamist)
-  - [3. See `[[roam/roamist]]`](#3.-see-`[[roam/roamist]]`)
-  - [4. Run `Roamist - pull ...` smartblocks](#4.-run-`roamist---pull-...`-smartblocks)
-  - [5. Place a button on the `[[Roamist]]` page.](#5.-place-a-button-on-the-`[[roamist]]`-page.)
-- [Workflows](#workflows)
-  - [pull-tasks](#pull-tasks)
-  - [sync-completed](#sync-completed)
-  - [complete-task](#complete-task)
-  - [quick-capture](#quick-capture)
-- [`roam/css` for priority](#`roam/css`-for-priority)
-- [Inspired](#inspired)
+1. [Table of Contents](#table-of-contents)
+2. [Motivation](#motivation)
+3. [Prerequires](#prerequires)
+4. [Setup](#setup)
+   - [1. Install Roamist](#1.-install-roamist)
+   - [2. Configure Roamist](#2.-configure-roamist)
+   - [3. See `[[roam/roamist]]`](#3.-see-`[[roam/roamist]]`)
+   - [4. Run `Roamist - pull ...` smartblocks](#4.-run-`roamist---pull-...`-smartblocks)
+   - [5. Place a button on the `[[Roamist]]` page.](#5.-place-a-button-on-the-`[[roamist]]`-page.)
+5. [Workflows](#workflows)
+   - [pull-tasks](#pull-tasks)
+   - [sync-completed](#sync-completed)
+   - [complete-task](#complete-task)
+   - [quick-capture](#quick-capture)
+6. [`roam/css` for priority](#`roam/css`-for-priority)
+7. [Inspired](#inspired)
 
 ## Motivation
 
@@ -54,7 +54,7 @@ Roamist is one way to make this possible. With this integration, you can copy ta
 - Install Roamist through roam-depot.
 - You can see `[[roam/roamist]]` is created.
 
-### 2. Configure ROamist
+### 2. Configure Roamist
 
 - Fill `Todoist's token`, and `Todoist filters`.
   - `Todoist's token`
