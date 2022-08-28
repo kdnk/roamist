@@ -3,6 +3,7 @@ import { Button, InputGroup } from "@blueprintjs/core";
 import type { OnloadArgs } from "roamjs-components/types";
 
 import { getTodoistFilterConfigs } from "../js/features/pull-tasks/get-todoist-filter-configs";
+import { installWorkflows } from "../js/install-workflows";
 
 type Props = {
   extensionAPI: OnloadArgs["extensionAPI"];
@@ -39,6 +40,10 @@ export const TodoistFilterPanel: React.FC<Props> = (props) => {
     filterRef.current.style.minWidth = "100%";
     filterRef.current.style.maxWidth = "100%";
   }, [filterRef]);
+
+  useEffect(() => {
+    installWorkflows(props.extensionAPI);
+  }, [filterConfigs]);
 
   return (
     <div
