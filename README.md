@@ -17,7 +17,7 @@ https://user-images.githubusercontent.com/15260226/150548599-69e6f82a-15e8-43fc-
 - [Setup](#setup)
   - [1. Install Roamist](#1.-install-roamist)
   - [2. Configure ROamist](#2.-configure-roamist)
-  - [3. Reload roam Research & see `[[roam/roamist]]`](#3.-reload-roam-research-&-see-`[[roam/roamist]]`)
+  - [3. See `[[roam/roamist]]`](#3.-see-`[[roam/roamist]]`)
   - [4. Run `Roamist - pull ...` smartblocks](#4.-run-`roamist---pull-...`-smartblocks)
   - [5. Place a button on the `[[Roamist]]` page.](#5.-place-a-button-on-the-`[[roamist]]`-page.)
 - [Workflows](#workflows)
@@ -67,7 +67,7 @@ Roamist is one way to make this possible. With this integration, you can copy ta
       - Todoist filter. https://todoist.com/help/articles/205248842.
         - ex. `(today | overdue) & #Work`
 
-### 3. Reload roam Research & see `[[roam/roamist]]`
+### 3. See `[[roam/roamist]]`
 
 - You can see some blocks are added automatically if you set `Todoist filters` correctlly.
   - Please don't modify blocks of this page. That makes Roamist broken.
