@@ -26,13 +26,12 @@ export const pullTasks = async ({
   onlyDiff: boolean;
   targetUid: string;
 }) => {
-  const token = getTodoistToken(extensionAPI);
-  const api = new TodoistApi(token);
-
-  if (projects === undefined) {
-    projects = await api.getProjects();
-  }
   try {
+    const token = getTodoistToken(extensionAPI);
+    const api = new TodoistApi(token);
+    if (projects === undefined) {
+      projects = await api.getProjects();
+    }
     const tasks = await api.getTasks({ filter: todoistFilter });
     let taskList = tasks.filter((task: Task) => !task.parentId);
     if (onlyDiff) {
@@ -109,7 +108,6 @@ export const pullTasks = async ({
     renderToast({
       id: "roamist-toast-complete-task",
       content: `Failed: pull-tasks. Error: ${e}`,
-      timeout: 1000,
       intent: "warning",
     });
 

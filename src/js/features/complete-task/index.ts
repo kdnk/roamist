@@ -40,7 +40,6 @@ export const completeTask = async ({
     renderToast({
       id: "roamist-toast-complete-task",
       content: `Failed: complete-task. Error: ${e}`,
-      timeout: 1000,
       intent: "warning",
     });
     throw e;
