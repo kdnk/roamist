@@ -127,7 +127,7 @@ There is no need to change each TODO to DONE on Roam.
 - This workflow pulls Todoist's tasks.
   - `Todoist's filter for quick Capture` is used.
   - Unlike pull-tasks, this workflow marks Todoist's tasks as completed.
-  - ex. If you set like `#Quick Caputure`, whole tasks in `Quick Capture` product of todoist will be copied, and original tasks are marked as completed product of todoist will be copied, and original tasks are marked as completed
+  - ex. If you set like `#Quick Caputure`, whole tasks in `Quick Capture` product of todoist will be copied, and original tasks are marked as completed.
 
 ## `roam/css` for priority
 
