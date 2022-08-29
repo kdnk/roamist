@@ -1,4 +1,4 @@
-import { Task, TodoistApi } from "@doist/todoist-api-typescript";
+import { Task } from "@doist/todoist-api-typescript";
 import { render as renderToast } from "roamjs-components/components/Toast";
 import deleteBlock from "roamjs-components/writes/deleteBlock";
 import getPageUidByPageTitle from "roamjs-components/queries/getPageUidByPageTitle";
@@ -9,7 +9,7 @@ import { CONFIG } from "../../constants";
 import { createDescriptionBlock } from "../../utils/create-description-block";
 import { createLogger } from "../../utils/create-loagger";
 import { createSiblingBlock } from "../../utils/createSiblingBlock";
-import { getTodoistToken } from "../../utils/get-todoist-token";
+import { getTodoistApi } from "../../todoist-api";
 
 const tagName = getTag();
 
@@ -23,8 +23,7 @@ export const pullQuickCapture = async ({
   targetUid: string;
 }) => {
   try {
-    const token = getTodoistToken(extensionAPI);
-    const api = new TodoistApi(token);
+    const api = getTodoistApi(extensionAPI);
 
     console.log("[index.ts:15] tagName: ", tagName);
     const filter = getFilter();

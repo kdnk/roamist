@@ -1,14 +1,14 @@
-import { Project, Task, TodoistApi } from "@doist/todoist-api-typescript";
+import { Project, Task } from "@doist/todoist-api-typescript";
 import { render as renderToast } from "roamjs-components/components/Toast";
 import { OnloadArgs } from "roamjs-components/types";
 import createBlock from "roamjs-components/writes/createBlock";
 import deleteBlock from "roamjs-components/writes/deleteBlock";
 
+import { getTodoistApi } from "../../todoist-api";
 import { createDescriptionBlock } from "../../utils/create-description-block";
 import { createLogger } from "../../utils/create-loagger";
 import { createTodoistTaskString } from "../../utils/create-todoist-task-string";
 import { createSiblingBlock } from "../../utils/createSiblingBlock";
-import { getTodoistToken } from "../../utils/get-todoist-token";
 
 import { dedupTaskList } from "./dedup-tasks";
 
@@ -27,8 +27,8 @@ export const pullTasks = async ({
   targetUid: string;
 }) => {
   try {
-    const token = getTodoistToken(extensionAPI);
-    const api = new TodoistApi(token);
+    const api = getTodoistApi(extensionAPI);
+
     if (projects === undefined) {
       projects = await api.getProjects();
     }
