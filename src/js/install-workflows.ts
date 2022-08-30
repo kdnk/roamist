@@ -144,7 +144,7 @@ export const installWorkflows = async (
     }
 
     console.log(
-      "<<<<<<<<<<<<<<<<<<<<< roamist >>>>>>>>>>>>>>>>>>>>> setup finished."
+      "<<<<<<<<<<<<<<<<<<<<< roamist >>>>>>>>>>>>>>>>>>>>> workflow installation has been finished."
     );
   }
 };
