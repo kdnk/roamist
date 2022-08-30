@@ -1,17 +1,12 @@
 import { Task } from "@doist/todoist-api-typescript";
 import { render as renderToast } from "roamjs-components/components/Toast";
 import deleteBlock from "roamjs-components/writes/deleteBlock";
-import getPageUidByPageTitle from "roamjs-components/queries/getPageUidByPageTitle";
-import getBasicTreeByParentUid from "roamjs-components/queries/getBasicTreeByParentUid";
 import { OnloadArgs } from "roamjs-components/types";
 
-import { CONFIG } from "../../constants";
 import { createDescriptionBlock } from "../../utils/create-description-block";
 import { createLogger } from "../../utils/create-loagger";
 import { createSiblingBlock } from "../../utils/createSiblingBlock";
 import { getTodoistApi } from "../../todoist-api";
-
-const tagName = getTag();
 
 const logger = createLogger("quick-capture");
 
@@ -25,11 +20,9 @@ export const pullQuickCapture = async ({
   try {
     const api = getTodoistApi(extensionAPI);
 
-    console.log("[index.ts:15] tagName: ", tagName);
-    const filter = getFilter();
+    const filter = getFilter(extensionAPI);
     if (!filter) {
-      logger("no filter");
-      return;
+      throw new Error("Filter for quick capture hasn't been set.");
     }
     const tasks = await api.getTasks({ filter });
 
@@ -68,36 +61,14 @@ export const pullQuickCapture = async ({
     logger(e);
     renderToast({
       id: "roamist-toast-complete-task",
-      content: `Failed: quick-capture. Error: ${e}`,
+      content: `Failed: quick-capture. ${e}`,
       intent: "warning",
     });
   }
 };
 
-function getFilter() {
-  const pageUid = getPageUidByPageTitle(CONFIG);
-  const config = getBasicTreeByParentUid(pageUid);
-  const filter = config
-    .find((node) => {
-      return node.text === "quick-capture";
-    })
-    ?.children.find((node) => {
-      return node.text === "filter";
-    })?.children[0]?.text;
-  return filter;
-}
-
-function getTag() {
-  const pageUid = getPageUidByPageTitle(CONFIG);
-  const config = getBasicTreeByParentUid(pageUid);
-  const tag = config
-    .find((node) => {
-      return node.text === "quick-capture";
-    })
-    ?.children.find((node) => {
-      return node.text === "tag";
-    })?.children[0]?.text;
-  return tag;
+function getFilter(extensionAPI: OnloadArgs["extensionAPI"]) {
+  return (extensionAPI.settings.get("quick-capture-filter") || "") as string;
 }
 
 function createTaskString(task: Task) {
@@ -107,10 +78,7 @@ function createTaskString(task: Task) {
 
   let taskString = task.content;
   if (date) {
-    taskString += ` created_at: [[${date}]]`;
-  }
-  if (tagName) {
-    taskString += ` #[[tagName]]`;
+    taskString += ` captured_at: [[${date}]]`;
   }
   taskString += ` #[[Quick Capture]]`;
   return taskString;
