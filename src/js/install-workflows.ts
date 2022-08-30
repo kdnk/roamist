@@ -114,6 +114,9 @@ export const installWorkflows = async (
       }
       workflowNameSet.add(workflow.name);
     }
+    if (workflow.name.includes("#SmartBlock Roamist - pull")) {
+      await deleteBlock(workflow.uid);
+    }
   }
 
   for (const workflow of roamistWorkflows) {
