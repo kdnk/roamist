@@ -100,6 +100,7 @@ export const installWorkflows = async (
     });
   }
 
+  const workflowNameSet = new Set<string>();
   for (const workflow of existingWorkflows) {
     const isValid =
       roamistWorkflows.find((wf) => {
@@ -107,6 +108,11 @@ export const installWorkflows = async (
       }) !== undefined;
     if (!isValid) {
       await deleteBlock(workflow.uid);
+    } else {
+      if (workflowNameSet.has(workflow.name)) {
+        await deleteBlock(workflow.uid);
+      }
+      workflowNameSet.add(workflow.name);
     }
   }
 
