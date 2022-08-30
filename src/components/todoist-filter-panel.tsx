@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { Button, InputGroup } from "@blueprintjs/core";
 import type { OnloadArgs } from "roamjs-components/types";
 
@@ -41,6 +41,14 @@ export const TodoistFilterPanel: React.FC<Props> = (props) => {
     filterRef.current.style.maxWidth = "100%";
   }, [filterRef]);
 
+  const filterNames = useMemo(() => {
+    return filterConfigs.map((config) => config.name);
+  }, [filterConfigs]);
+
+  const isNewName = useMemo(() => {
+    return !filterNames.includes(filterName);
+  }, [filterNames, filterName]);
+
   useEffect(() => {
     installWorkflows(props.extensionAPI);
   }, [filterConfigs]);
@@ -71,7 +79,7 @@ export const TodoistFilterPanel: React.FC<Props> = (props) => {
         <Button
           icon={"plus"}
           minimal
-          disabled={!filterName || !filter}
+          disabled={!filterName || !filter || !isNewName}
           onClick={() => {
             const newFilterConfigs = [
               ...filterConfigs,
