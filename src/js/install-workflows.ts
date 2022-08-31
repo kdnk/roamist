@@ -81,73 +81,82 @@ const createRoamistWorkflows = (extensionAPI: OnloadArgs["extensionAPI"]) => {
 };
 
 const WORKFLOW_SECTION_NAME = "workflows";
+let installing = false;
 export const installWorkflows = async (
   extensionAPI: OnloadArgs["extensionAPI"]
 ) => {
-  const roamistWorkflows = createRoamistWorkflows(extensionAPI);
-  const existingWorkflows = getExistingWorkflows();
-  let configWorkflowUid = getBlockUidByTextOnPage({
-    text: WORKFLOW_SECTION_NAME,
-    title: "roam/roamist",
-  });
-  if (!configWorkflowUid) {
-    const pageUid = getPageUidByPageTitle("roam/roamist");
-    configWorkflowUid = await createBlock({
-      node: {
-        text: WORKFLOW_SECTION_NAME,
-      },
-      parentUid: pageUid,
-    });
+  if (installing) {
+    return;
   }
+  try {
+    installing = true;
+    const roamistWorkflows = createRoamistWorkflows(extensionAPI);
+    const existingWorkflows = getExistingWorkflows();
+    let configWorkflowUid = getBlockUidByTextOnPage({
+      text: WORKFLOW_SECTION_NAME,
+      title: "roam/roamist",
+    });
+    if (!configWorkflowUid) {
+      const pageUid = getPageUidByPageTitle("roam/roamist");
+      configWorkflowUid = await createBlock({
+        node: {
+          text: WORKFLOW_SECTION_NAME,
+        },
+        parentUid: pageUid,
+      });
+    }
 
-  const workflowNameSet = new Set<string>();
-  for (const workflow of existingWorkflows) {
-    const isValid =
-      roamistWorkflows.find((wf) => {
-        return wf.title === workflow.name;
-      }) !== undefined;
-    if (!isValid) {
-      await deleteBlock(workflow.uid);
-    } else {
-      if (workflowNameSet.has(workflow.name)) {
+    const workflowNameSet = new Set<string>();
+    for (const workflow of existingWorkflows) {
+      const isValid =
+        roamistWorkflows.find((wf) => {
+          return wf.title === workflow.name;
+        }) !== undefined;
+      if (!isValid) {
+        await deleteBlock(workflow.uid);
+      } else {
+        if (workflowNameSet.has(workflow.name)) {
+          await deleteBlock(workflow.uid);
+        }
+        workflowNameSet.add(workflow.name);
+      }
+      if (workflow.name.includes("#SmartBlock Roamist - pull")) {
         await deleteBlock(workflow.uid);
       }
-      workflowNameSet.add(workflow.name);
-    }
-    if (workflow.name.includes("#SmartBlock Roamist - pull")) {
-      await deleteBlock(workflow.uid);
-    }
-  }
-
-  for (const workflow of roamistWorkflows) {
-    let workflowTitleUid = existingWorkflows.find((wf) => {
-      return wf.name === workflow.title;
-    })?.uid;
-    if (!workflowTitleUid) {
-      workflowTitleUid = await createBlock({
-        node: {
-          text: `#SmartBlock ${workflow.title}`,
-        },
-        parentUid: configWorkflowUid,
-      });
-    }
-    await Promise.all(
-      getShallowTreeByParentUid(workflowTitleUid).map(({ uid: childUid }) => {
-        return deleteBlock(childUid);
-      })
-    );
-    for (const [index, content] of workflow.contents.entries()) {
-      await createBlock({
-        parentUid: workflowTitleUid,
-        node: {
-          text: content,
-        },
-        order: index,
-      });
     }
 
-    console.log(
-      "<<<<<<<<<<<<<<<<<<<<< roamist >>>>>>>>>>>>>>>>>>>>> workflow installation has been finished."
-    );
+    for (const workflow of roamistWorkflows) {
+      let workflowTitleUid = existingWorkflows.find((wf) => {
+        return wf.name === workflow.title;
+      })?.uid;
+      if (!workflowTitleUid) {
+        workflowTitleUid = await createBlock({
+          node: {
+            text: `#SmartBlock ${workflow.title}`,
+          },
+          parentUid: configWorkflowUid,
+        });
+      }
+      await Promise.all(
+        getShallowTreeByParentUid(workflowTitleUid).map(({ uid: childUid }) => {
+          return deleteBlock(childUid);
+        })
+      );
+      for (const [index, content] of workflow.contents.entries()) {
+        await createBlock({
+          parentUid: workflowTitleUid,
+          node: {
+            text: content,
+          },
+          order: index,
+        });
+      }
+
+      console.log(
+        "<<<<<<<<<<<<<<<<<<<<< roamist >>>>>>>>>>>>>>>>>>>>> workflow installation has been finished."
+      );
+    }
+  } finally {
+    installing = false;
   }
 };
