@@ -105,11 +105,6 @@ export const installWorkflows = async (
     installing = true;
     const roamistWorkflows = createRoamistWorkflows(extensionAPI);
     const existingWorkflows = getExistingWorkflows();
-    // eslint-disable-next-line
-    console.log(
-      "[install-workflows.ts:95] existingWorkflows: ",
-      existingWorkflows
-    );
     let configWorkflowUid = getBlockUidByTextOnPage({
       text: WORKFLOW_SECTION_NAME,
       title: "roam/roamist",
