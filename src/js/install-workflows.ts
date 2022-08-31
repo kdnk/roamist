@@ -10,18 +10,31 @@ import { getTodoistFilterConfigs } from "./features/pull-tasks/get-todoist-filte
 
 type RoamistWorkflow = { title: string; contents: string[] };
 
-const getExistingWorkflows: () => { name: string; uid: string }[] = () =>
-  window.roamAlphaAPI
+const getExistingWorkflows: () => { name: string; uid: string }[] = () => {
+  const configPageName = "roam/roamist";
+  return window.roamAlphaAPI
     .q(
-      `[:find ?s ?u :where [?r :block/uid ?u] [?r :block/string ?s] [?r :block/refs ?p] (or [?p :node/title "SmartBlock"] [?p :node/title "42SmartBlock"])]`
+      `[:find ?text ?uid
+        :where
+          [?workflow :block/uid ?uid]
+          [?workflow :block/string ?text]
+          [?workflow :block/refs ?tag]
+          [?tag :node/title "SmartBlock"]
+          [?configPage :node/title "${configPageName}"]
+          [?workflow :block/page ?configPage]
+      ]`
     )
-    .map(([text, uid]: string[]) => ({
-      uid,
-      name: text
-        .replace(createTagRegex("SmartBlock"), "")
-        .replace(createTagRegex("42SmartBlock"), "")
-        .trim(),
-    }));
+    .map((block: string[]) => {
+      const [text, uid] = block;
+      return {
+        uid,
+        name: text
+          .replace(createTagRegex("SmartBlock"), "")
+          .replace(createTagRegex("42SmartBlock"), "")
+          .trim(),
+      };
+    });
+};
 
 const createRoamistWorkflows = (extensionAPI: OnloadArgs["extensionAPI"]) => {
   const completeTaskWorkflows: RoamistWorkflow[] = [
@@ -92,6 +105,11 @@ export const installWorkflows = async (
     installing = true;
     const roamistWorkflows = createRoamistWorkflows(extensionAPI);
     const existingWorkflows = getExistingWorkflows();
+    // eslint-disable-next-line
+    console.log(
+      "[install-workflows.ts:95] existingWorkflows: ",
+      existingWorkflows
+    );
     let configWorkflowUid = getBlockUidByTextOnPage({
       text: WORKFLOW_SECTION_NAME,
       title: "roam/roamist",
