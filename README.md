@@ -114,7 +114,7 @@ There is no need to change each TODO to DONE on Roam.
 
 - This workflow will sync completion status from Todoist to Roam Research.
 - I recommend you use this workflow as a button in `[[Roamist]]` as follows.
-  - `{{Sync todoist completed:42SmartBlock:Roamist - sync completed:button=true,42RemoveButton=false}}`
+  - `{{Sync todoist completed:SmartBlock:Roamist - sync completed:RemoveButton=false}}`
   - ![CleanShot 2022-01-22 at 00 00 59](https://user-images.githubusercontent.com/15260226/150549391-3d993f6d-2edd-4e8f-bc8b-e7440a4e2236.png)
 
 ### complete-task
