@@ -33,7 +33,7 @@ const createRoamistWorkflows = (extensionAPI: OnloadArgs["extensionAPI"]) => {
   const syncCompletedWorkflows: RoamistWorkflow[] = [
     {
       title: "Roamist - sync completed",
-      contents: ["<%ROAMIST_SYNC_COMPLETED%>"],
+      contents: ["<%NOBLOCKOUTPUT%><%ROAMIST_SYNC_COMPLETED%>"],
     },
   ];
   const pullQuickCaptureWorkflows: RoamistWorkflow[] = [
