@@ -54,7 +54,7 @@ export const pullTasks = async ({
 
       taskBlockUid = await createSiblingBlock({
         fromUid: taskBlockUid,
-        text: createTodoistTaskString({ task, project }),
+        text: createTodoistTaskString({ extensionAPI, task, project }),
       });
       if (taskIndex === 0) {
         await deleteBlock(targetUid);
@@ -80,6 +80,7 @@ export const pullTasks = async ({
           order: subtaskIndex + (task.description ? 1 : 0),
           node: {
             text: createTodoistTaskString({
+              extensionAPI,
               task: subtask,
               project,
             }),

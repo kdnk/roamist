@@ -1,18 +1,15 @@
 import { Project, Task } from "@doist/todoist-api-typescript";
-import getPageUidByPageTitle from "roamjs-components/queries/getPageUidByPageTitle";
-import getBasicTreeByParentUid from "roamjs-components/queries/getBasicTreeByParentUid";
-
-import { CONFIG } from "../constants";
+import { OnloadArgs } from "roamjs-components/types";
 
 import { getRoamistSetting } from "./get-roamist-setting";
 import { getTodoistIdFromUrl } from "./get-todoist-id-from-url";
 
-const hidePriority = getPriorityVisibility();
-
 export const createTodoistTaskString = ({
+  extensionAPI,
   task,
   project,
 }: {
+  extensionAPI: OnloadArgs["extensionAPI"];
   task: Task;
   project: Project;
 }) => {
@@ -63,6 +60,7 @@ export const createTodoistTaskString = ({
   } else if (task.priority == 1) {
     priority = "p4";
   }
+  const hidePriority = extensionAPI.settings.get("hide-priority");
   if (!hidePriority) {
     taskString = `#priority/${priority} ${taskString}`;
   }
@@ -86,16 +84,3 @@ export const createTodoistTaskString = ({
 
   return `{{[[TODO]]}} ${taskString} `;
 };
-
-function getPriorityVisibility() {
-  const pageUid = getPageUidByPageTitle(CONFIG);
-  const config = getBasicTreeByParentUid(pageUid);
-  const hidePriority = !!config
-    .find((node) => {
-      return node.text === "pull-tasks";
-    })
-    ?.children.some((node) => {
-      return node.text === "Hide priority";
-    });
-  return hidePriority;
-}
