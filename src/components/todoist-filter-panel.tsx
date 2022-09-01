@@ -16,6 +16,7 @@ export const TodoistFilterPanel: React.FC<Props> = (props) => {
   const [filterName, setFilterName] = useState("");
   const filterNameRef = useRef<HTMLInputElement>(null);
   const filterRef = useRef<HTMLInputElement>(null);
+  const [installing, setInstalling] = useState(false);
 
   useEffect(() => {
     if (!filterNameRef?.current) {
@@ -50,7 +51,17 @@ export const TodoistFilterPanel: React.FC<Props> = (props) => {
   }, [filterNames, filterName]);
 
   useEffect(() => {
-    installWorkflows(props.extensionAPI);
+    const run = async () => {
+      if (installing) {
+        return;
+      }
+      setInstalling(true);
+      await installWorkflows(props.extensionAPI);
+      setInstalling(false);
+    };
+    run();
+    // eslint-disable-next-line
+    console.log("[todoist-filter-panel.tsx:53] kicked installWorkflows");
   }, [filterConfigs]);
 
   return (
@@ -79,7 +90,7 @@ export const TodoistFilterPanel: React.FC<Props> = (props) => {
         <Button
           icon={"plus"}
           minimal
-          disabled={!filterName || !filter || !isNewName}
+          disabled={!filterName || !filter || !isNewName || installing}
           onClick={() => {
             const newFilterConfigs = [
               ...filterConfigs,
@@ -110,6 +121,7 @@ export const TodoistFilterPanel: React.FC<Props> = (props) => {
             </span>
             <Button
               icon={"trash"}
+              disabled={installing}
               minimal
               onClick={() => {
                 const newFilters = filterConfigs.filter(

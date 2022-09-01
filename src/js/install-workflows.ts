@@ -67,78 +67,68 @@ const createRoamistWorkflows = (extensionAPI: OnloadArgs["extensionAPI"]) => {
   const pullTasksWorkflows: RoamistWorkflow[] = configs.flatMap((config) => {
     return [
       {
-        title: getTitle(config.name, false),
-        content: generateCommand({
-          onlyDiff: "false",
-          todoistFilter: config.filter,
-        }),
-      },
-      {
         title: getTitle(config.name, true),
         content: generateCommand({
           onlyDiff: "true",
           todoistFilter: config.filter,
         }),
       },
+      {
+        title: getTitle(config.name, false),
+        content: generateCommand({
+          onlyDiff: "false",
+          todoistFilter: config.filter,
+        }),
+      },
     ];
   });
   return [
+    ...pullTasksWorkflows,
     ...completeTaskWorkflows,
     ...syncCompletedWorkflows,
     ...pullQuickCaptureWorkflows,
-    ...pullTasksWorkflows,
   ];
 };
 
 const WORKFLOW_SECTION_NAME = "workflows";
-let installing = false;
 export const installWorkflows = async (
   extensionAPI: OnloadArgs["extensionAPI"]
 ) => {
-  if (installing) {
-    return;
-  }
-  try {
-    installing = true;
-    const roamistWorkflows = createRoamistWorkflows(extensionAPI);
-    const existingWorkflows = getExistingWorkflows();
-    let configWorkflowUid = getBlockUidByTextOnPage({
-      text: WORKFLOW_SECTION_NAME,
-      title: CONFIG_PAGE,
+  const roamistWorkflows = createRoamistWorkflows(extensionAPI);
+  const existingWorkflows = getExistingWorkflows();
+  let configWorkflowUid = getBlockUidByTextOnPage({
+    text: WORKFLOW_SECTION_NAME,
+    title: CONFIG_PAGE,
+  });
+  if (!configWorkflowUid) {
+    const pageUid = getPageUidByPageTitle(CONFIG_PAGE);
+    configWorkflowUid = await createBlock({
+      node: {
+        text: WORKFLOW_SECTION_NAME,
+      },
+      parentUid: pageUid,
     });
-    if (!configWorkflowUid) {
-      const pageUid = getPageUidByPageTitle(CONFIG_PAGE);
-      configWorkflowUid = await createBlock({
-        node: {
-          text: WORKFLOW_SECTION_NAME,
-        },
-        parentUid: pageUid,
-      });
-    }
-
-    for (const workflow of existingWorkflows) {
-      await deleteBlock(workflow.uid);
-    }
-
-    for (const workflow of roamistWorkflows) {
-      const workflowTitleUid = await createBlock({
-        node: {
-          text: `#SmartBlock ${workflow.title}`,
-        },
-        parentUid: configWorkflowUid,
-      });
-      await createBlock({
-        parentUid: workflowTitleUid,
-        node: {
-          text: workflow.content,
-        },
-      });
-
-      console.log(
-        "<<<<<<<<<<<<<<<<<<<<< roamist >>>>>>>>>>>>>>>>>>>>> workflow installation has been finished."
-      );
-    }
-  } finally {
-    installing = false;
   }
+
+  for (const workflow of existingWorkflows) {
+    await deleteBlock(workflow.uid);
+  }
+
+  for (const workflow of roamistWorkflows) {
+    const workflowTitleUid = await createBlock({
+      node: {
+        text: `#SmartBlock ${workflow.title}`,
+      },
+      parentUid: configWorkflowUid,
+    });
+    await createBlock({
+      parentUid: workflowTitleUid,
+      node: {
+        text: workflow.content,
+      },
+    });
+  }
+  console.log(
+    "<<<<<<<<<<<<<<<<<<<<< roamist >>>>>>>>>>>>>>>>>>>>> workflow installation has been finished."
+  );
 };

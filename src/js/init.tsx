@@ -19,8 +19,6 @@ export const onload = async (extensionAPI: OnloadArgs["extensionAPI"]) => {
       tabs: [],
     },
   }).then(() => {
-    installWorkflows(extensionAPI);
-
     // eslint-disable-next-line
     console.log("load roamist...");
     extensionAPI.settings.panel.create({
@@ -104,5 +102,9 @@ export const onload = async (extensionAPI: OnloadArgs["extensionAPI"]) => {
         return "";
       },
     });
+
+    // eslint-disable-next-line
+    console.log("[init.tsx:107] kicked installWorkflows");
+    installWorkflows(extensionAPI);
   });
 };
