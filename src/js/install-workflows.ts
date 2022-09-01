@@ -5,12 +5,12 @@ import createTagRegex from "roamjs-components/util/createTagRegex";
 import createBlock from "roamjs-components/writes/createBlock";
 import deleteBlock from "roamjs-components/writes/deleteBlock";
 
+import { CONFIG_PAGE } from "./constants";
 import { getTodoistFilterConfigs } from "./features/pull-tasks/get-todoist-filter-configs";
 
 type RoamistWorkflow = { title: string; content: string };
 
 const getExistingWorkflows: () => { name: string; uid: string }[] = () => {
-  const configPageName = "roam/roamist";
   return window.roamAlphaAPI
     .q(
       `[:find ?text ?uid
@@ -19,7 +19,7 @@ const getExistingWorkflows: () => { name: string; uid: string }[] = () => {
           [?workflow :block/string ?text]
           [?workflow :block/refs ?tag]
           [?tag :node/title "SmartBlock"]
-          [?configPage :node/title "${configPageName}"]
+          [?configPage :node/title "${CONFIG_PAGE}"]
           [?workflow :block/page ?configPage]
       ]`
     )
@@ -104,10 +104,10 @@ export const installWorkflows = async (
     const existingWorkflows = getExistingWorkflows();
     let configWorkflowUid = getBlockUidByTextOnPage({
       text: WORKFLOW_SECTION_NAME,
-      title: "roam/roamist",
+      title: CONFIG_PAGE,
     });
     if (!configWorkflowUid) {
-      const pageUid = getPageUidByPageTitle("roam/roamist");
+      const pageUid = getPageUidByPageTitle(CONFIG_PAGE);
       configWorkflowUid = await createBlock({
         node: {
           text: WORKFLOW_SECTION_NAME,

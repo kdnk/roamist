@@ -1,10 +1,8 @@
 /* eslint-disable no-useless-escape */
+import { TAG_NAME } from "../constants";
 import { Block } from "../type";
 
-import { getRoamistSetting } from "./get-roamist-setting";
-
 export const getAllTodoistBlocksFromPageTitle = async (pageTitle: string) => {
-  const tagName = getRoamistSetting("tag");
   const rule =
     "[[(ancestor ?b ?a)[?a :block/children ?b]][(ancestor ?b ?a)[?parent :block/children ?b ](ancestor ?parent ?a) ]]";
 
@@ -14,8 +12,8 @@ export const getAllTodoistBlocksFromPageTitle = async (pageTitle: string) => {
                                   [?page :node/title ?page_title]
                                   [?block :block/string ?contents]
                                   [(or
-                                      [(clojure.string/includes? ?contents "#${tagName}")]
-                                      [(clojure.string/includes? ?contents "#\[\[${tagName}")]
+                                      [(clojure.string/includes? ?contents "#${TAG_NAME}")]
+                                      [(clojure.string/includes? ?contents "#\[\[${TAG_NAME}")]
                                   )]
                                   (ancestor ?block ?page)]`;
 

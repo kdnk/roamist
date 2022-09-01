@@ -5,6 +5,7 @@ import registerSmartBlocksCommand from "roamjs-components/util/registerSmartBloc
 
 import { TodoistFilterPanel } from "../components/todoist-filter-panel";
 
+import { CONFIG_PAGE } from "./constants";
 import { completeTask } from "./features/complete-task";
 import { pullTasks } from "./features/pull-tasks";
 import { pullQuickCapture } from "./features/quick-capture";
@@ -13,7 +14,7 @@ import { installWorkflows } from "./install-workflows";
 
 export const onload = async (extensionAPI: OnloadArgs["extensionAPI"]) => {
   createConfigObserver({
-    title: "roam/roamist",
+    title: CONFIG_PAGE,
     config: {
       tabs: [],
     },

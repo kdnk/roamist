@@ -1,11 +1,10 @@
+import { TAG_NAME } from "../../constants";
 import { Block } from "../../type";
-import { getRoamistSetting } from "../../utils/get-roamist-setting";
 
 export const getTodoBlocksReferringToRoamist = async () => {
-  const title = getRoamistSetting("tag");
   const blocks = await window.roamAlphaAPI.q(`
         [:find (pull ?refs [:block/string :block/uid {:block/children ...}])
-          :where [?refs :block/refs ?title][?refs :block/refs ?todoTitle][?todoTitle :node/title "TODO"][?title :node/title "${title}"]]`);
+          :where [?refs :block/refs ?title][?refs :block/refs ?todoTitle][?todoTitle :node/title "TODO"][?title :node/title "${TAG_NAME}"]]`);
   return blocks as Block[][];
 };
 

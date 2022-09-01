@@ -1,7 +1,8 @@
 import { Project, Task } from "@doist/todoist-api-typescript";
 import { OnloadArgs } from "roamjs-components/types";
 
-import { getRoamistSetting } from "./get-roamist-setting";
+import { TAG_NAME } from "../constants";
+
 import { getTodoistIdFromUrl } from "./get-todoist-id-from-url";
 
 export const createTodoistTaskString = ({
@@ -79,8 +80,7 @@ export const createTodoistTaskString = ({
   }
 
   // project tag
-  const tagName = getRoamistSetting("tag");
-  taskString = `${taskString} #[[${project.name}]] #${tagName}`;
+  taskString = `${taskString} #[[${project.name}]] #${TAG_NAME}`;
 
   return `{{[[TODO]]}} ${taskString} `;
 };
