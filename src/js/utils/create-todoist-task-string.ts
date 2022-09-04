@@ -73,14 +73,20 @@ export const createTodoistTaskString = ({
   }
 
   // due date
-  if (task.due) {
+  const hideDue = extensionAPI.settings.get("hide-due");
+  if (task.due && !hideDue) {
     taskString = `${taskString} [[${window.roamAlphaAPI.util.dateToPageTitle(
       new Date(task.due.date)
     )}]]`;
   }
 
   // project tag
-  taskString = `${taskString} #[[${project.name}]] #${TAG_NAME}`;
+  const hideProject = extensionAPI.settings.get("hide-project");
+  if (!hideProject) {
+    taskString = `${taskString} #[[${project.name}]]`;
+  }
+
+  taskString = `${taskString} #${TAG_NAME} `;
 
   return `{{[[TODO]]}} ${taskString} `;
 };
