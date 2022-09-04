@@ -73,6 +73,14 @@ export const onload = async (extensionAPI: OnloadArgs["extensionAPI"]) => {
           },
         },
         {
+          id: "hide-description",
+          name: "Hide desciption",
+          description: "Hide description",
+          action: {
+            type: "switch",
+          },
+        },
+        {
           id: "quick-capture-filter",
           name: "Todoist's filter for quick capture",
           description: "See https://todoist.com/help/articles/205248842.",

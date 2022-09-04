@@ -61,7 +61,8 @@ export const pullTasks = async ({
       }
 
       // add description
-      if (task.description) {
+      const hideDesc = extensionAPI.settings.get("hide-description");
+      if (task.description && !hideDesc) {
         await createDescriptionBlock({
           description: task.description,
           taskBlockUid,
@@ -88,7 +89,8 @@ export const pullTasks = async ({
         });
 
         // add description
-        if (subtask.description) {
+        const hideDesc = extensionAPI.settings.get("hide-description");
+        if (subtask.description && !hideDesc) {
           await createDescriptionBlock({
             description: subtask.description,
             taskBlockUid: subTaskBlockUid,

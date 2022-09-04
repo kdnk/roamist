@@ -36,14 +36,15 @@ export const pullQuickCapture = async ({
         await deleteBlock(targetUid);
       }
       // add description
-      if (task.description) {
+
+      const hideDesc = extensionAPI.settings.get("hide-description");
+      if (task.description && !hideDesc) {
         await createDescriptionBlock({
           description: task.description,
           taskBlockUid,
         });
       }
     }
-
     await Promise.all(
       tasks.map((task) => {
         return api.closeTask(task.id);
