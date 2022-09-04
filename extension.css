@@ -1,7 +1,9 @@
 span.rm-page-ref[data-tag^="priority"]
 {
-  padding: 3px 5px 3px 5px;
+  padding: 2px 6px 2px 6px;
   display:inline-block;
+  border-radius: 4px;
+  border-color: transparent;
 }
 
 span.rm-page-ref[data-tag$="/p1"]::before {
@@ -29,5 +31,45 @@ span.rm-page-ref[data-tag$="/p4"]::before {
   content: '⚪️ ';
 }
 span.rm-page-ref[data-tag$="/p4"] {
+  background-color: rgb(244,244,244);
+}
+
+
+span[data-link-title^="priority"] > .rm-page-ref {
+  padding: 2px 6px 2px 6px;
+  display:inline-block;
+  border-radius: 4px;
+  border-color: transparent;
+}
+
+span[data-link-title^="priority"] > .rm-page-ref:hover {
+  border-color: transparent;
+}
+
+span[data-link-title$="/p1"] > span.rm-page-ref::before {
+  content: '🔴 ';
+}
+span[data-link-title$="/p1"] > span.rm-page-ref {
+  background-color: rgb(252,231,235);
+}
+
+span[data-link-title$="/p2"] > span.rm-page-ref::before {
+  content: '🟠 ';
+}
+span[data-link-title$="/p2"] > span.rm-page-ref {
+  background-color: rgb(250,224,175);
+}
+
+span[data-link-title$="/p3"] > span.rm-page-ref::before {
+  content: '🔵 ';
+}
+span[data-link-title$="/p3"] > span.rm-page-ref {
+  background-color: rgb(199,230,240);
+}
+
+span[data-link-title$="/p4"] > span.rm-page-ref::before {
+  content: '⚪️ ';
+}
+span[data-link-title$="/p4"] > span.rm-page-ref {
   background-color: rgb(244,244,244);
 }
