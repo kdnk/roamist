@@ -1,9 +1,12 @@
-span.rm-page-ref[data-tag^="priority"]
-{
+span.rm-page-ref[data-tag^="priority"] {
   padding: 2px 6px 2px 6px;
   display:inline-block;
   border-radius: 4px;
-  border-color: transparent;
+  border: 1px solid;
+}
+
+span.rm-page-ref[data-tag^="priority"]:hover {
+  opacity: 0.8;
 }
 
 span.rm-page-ref[data-tag$="/p1"]::before {
@@ -34,16 +37,20 @@ span.rm-page-ref[data-tag$="/p4"] {
   background-color: rgb(244,244,244);
 }
 
-
 span[data-link-title^="priority"] > .rm-page-ref {
   padding: 2px 6px 2px 6px;
   display:inline-block;
   border-radius: 4px;
-  border-color: transparent;
+  border: 1px solid;
 }
 
 span[data-link-title^="priority"] > .rm-page-ref:hover {
-  border-color: transparent;
+  opacity: 0.8;
+}
+
+
+span[data-link-title^="priority"] > .rm-page-ref:hover {
+  border: 1px solid;
 }
 
 span[data-link-title$="/p1"] > span.rm-page-ref::before {
