@@ -63,7 +63,7 @@ export const createTodoistTaskString = ({
   }
   const hidePriority = extensionAPI.settings.get("hide-priority");
   if (!hidePriority) {
-    taskString = `#priority/${priority} ${taskString}`;
+    taskString = `[[priority/${priority}]] ${taskString}`;
   }
 
   // add id
