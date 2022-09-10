@@ -22,10 +22,7 @@ export const TodoistFilterPanel: React.FC<Props> = (props) => {
     if (!filterNameRef?.current) {
       return;
     }
-    // filterNameRef.current.className = "rm-extensions-settings";
-    if (!filterNameRef.current.style) {
-      console.log(filterNameRef);
-    }
+    filterNameRef.current.className = "rm-extensions-settings";
     filterNameRef.current.style.minWidth = "100%";
     filterNameRef.current.style.maxWidth = "100%";
   }, [filterNameRef]);
@@ -34,10 +31,7 @@ export const TodoistFilterPanel: React.FC<Props> = (props) => {
     if (!filterRef?.current) {
       return;
     }
-    // filterRef.current.className = "rm-extensions-settings";
-    if (!filterRef.current.style) {
-      console.log(filterRef);
-    }
+    filterRef.current.className = "rm-extensions-settings";
     filterRef.current.style.minWidth = "100%";
     filterRef.current.style.maxWidth = "100%";
   }, [filterRef]);
@@ -60,8 +54,6 @@ export const TodoistFilterPanel: React.FC<Props> = (props) => {
       setInstalling(false);
     };
     run();
-    // eslint-disable-next-line
-    console.log("[todoist-filter-panel.tsx:53] kicked installWorkflows");
   }, [filterConfigs]);
 
   return (

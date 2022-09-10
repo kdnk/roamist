@@ -12,15 +12,13 @@ import { pullQuickCapture } from "./features/quick-capture";
 import { syncCompleted } from "./features/sync-completed";
 import { installWorkflows } from "./install-workflows";
 
-export const onload = async (extensionAPI: OnloadArgs["extensionAPI"]) => {
+export const onload = (extensionAPI: OnloadArgs["extensionAPI"]) => {
   createConfigObserver({
     title: CONFIG_PAGE,
     config: {
       tabs: [],
     },
   }).then(() => {
-    // eslint-disable-next-line
-    console.log("load roamist...");
     extensionAPI.settings.panel.create({
       tabTitle: "Roamist",
       settings: [
@@ -127,8 +125,6 @@ export const onload = async (extensionAPI: OnloadArgs["extensionAPI"]) => {
       },
     });
 
-    // eslint-disable-next-line
-    console.log("[init.tsx:107] kicked installWorkflows");
     installWorkflows(extensionAPI);
   });
 };
