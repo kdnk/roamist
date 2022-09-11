@@ -7,4 +7,3 @@ declare var Roamist: any;
  */
 declare var RTI: any;
 declare var TODOIST_TOKEN: any;
-declare var roamAlphaAPI: any;
