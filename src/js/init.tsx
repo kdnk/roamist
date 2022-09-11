@@ -106,7 +106,7 @@ export const onload = (extensionAPI: OnloadArgs["extensionAPI"]) => {
       },
     });
     registerSmartBlocksCommand({
-      text: "ROAMIST_SYNC_COMPLETED_THE_DAY",
+      text: "ROAMIST_SYNC_COMPLETED_DNP",
       handler: () => async () => {
         await syncCompleted({ extensionAPI, onlyToday: true });
         return "";

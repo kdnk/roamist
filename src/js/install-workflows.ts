@@ -48,10 +48,10 @@ const createRoamistWorkflows = (extensionAPI: OnloadArgs["extensionAPI"]) => {
       content: "<%NOBLOCKOUTPUT%><%ROAMIST_SYNC_COMPLETED%>",
     },
   ];
-  const syncCompletedDayWorkflows: RoamistWorkflow[] = [
+  const syncCompletedDnpWorkflows: RoamistWorkflow[] = [
     {
-      title: "Roamist - sync completed (only one day)",
-      content: "<%NOBLOCKOUTPUT%><%ROAMIST_SYNC_COMPLETED_DAY%>",
+      title: "Roamist - sync completed (DNP)",
+      content: "<%NOBLOCKOUTPUT%><%ROAMIST_SYNC_COMPLETED_DNP%>",
     },
   ];
   const pullQuickCaptureWorkflows: RoamistWorkflow[] = [
@@ -91,7 +91,7 @@ const createRoamistWorkflows = (extensionAPI: OnloadArgs["extensionAPI"]) => {
   return [
     ...pullTasksWorkflows,
     ...completeTaskWorkflows,
-    ...syncCompletedDayWorkflows,
+    ...syncCompletedDnpWorkflows,
     ...syncCompletedWorkflows,
     ...pullQuickCaptureWorkflows,
   ];
