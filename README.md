@@ -123,7 +123,7 @@ There is no need to change each TODO to DONE on Roam.
 - It's supposed to be used in DNP.
 - It might be useful if you have recurring tasks.
 - I would recommend you put the following button in your daily template.
-  - `Tasks {{Sync todoist DNP completed:SmartBlock:Roamist - sync completed (DNP):RemoveButton=false}}`
+  - `{{Sync todoist DNP completed:SmartBlock:Roamist - sync completed (DNP):RemoveButton=false}}`
 
 ### complete-task
 
