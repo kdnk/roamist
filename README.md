@@ -117,13 +117,13 @@ There is no need to change each TODO to DONE on Roam.
   - `{{Sync todoist completed:SmartBlock:Roamist - sync completed:RemoveButton=false}}`
   - ![CleanShot 2022-01-22 at 00 00 59](https://user-images.githubusercontent.com/15260226/150549391-3d993f6d-2edd-4e8f-bc8b-e7440a4e2236.png)
 
-### sync-completed-day
+### sync-completed-dnp
 
 - This is almost the same one as `sync-completed`, but it only works for a single day.
 - It's supposed to be used in DNP.
 - It might be useful if you have recurring tasks.
 - I would recommend you put the following button in your daily template.
-  - `Tasks {{Sync todoist completed:SmartBlock:Roamist - sync completed (only one day):RemoveButton=false}}`
+  - `Tasks {{Sync todoist DNP completed:SmartBlock:Roamist - sync completed (DNP):RemoveButton=false}}`
 
 ### complete-task
 
