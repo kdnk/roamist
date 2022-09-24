@@ -5,6 +5,9 @@ export const getTodoBlocksWithTodoistId = async (roamTodoBlocks: Block[][]) => {
   return roamTodoBlocks
     .map((item) => {
       const block = item[0];
+      if (!block) {
+        return;
+      }
       const { string } = block;
       const todoistId = getTodoistIdFromBlock(string);
 
@@ -14,6 +17,6 @@ export const getTodoBlocksWithTodoistId = async (roamTodoBlocks: Block[][]) => {
       };
     })
     .filter((block) => {
-      return !!block.todoistId;
+      return !!block?.todoistId;
     });
 };

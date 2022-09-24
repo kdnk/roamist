@@ -49,6 +49,13 @@ export const syncCompleted = async ({
     );
 
     for (const block of completedBlocks) {
+      if (
+        block === undefined ||
+        block.string === undefined ||
+        block.uid === undefined
+      ) {
+        return;
+      }
       const newContent = block.string.replace("{{[[TODO]]}}", "{{[[DONE]]}}");
       await updateBlock({ text: newContent, uid: block.uid });
     }

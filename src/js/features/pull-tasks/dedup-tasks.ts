@@ -18,6 +18,9 @@ export async function dedupTaskList(taskList: Task[]) {
   );
   const existingTodoistIds = existingBlocks.map((item) => {
     const block = item[0];
+    if (block === undefined) {
+      return;
+    }
     const todoistId = getTodoistIdFromBlock(block.string);
     return todoistId;
   });

@@ -9,8 +9,8 @@ export const getTodoistIdFromBlock = (text: string) => {
       logger(`TodoistId is not found.`);
       return "";
     }
-    const todoistId = matched[0].replace("Todoist/", "");
-    return todoistId;
+    const todoistId = matched[0]?.replace("Todoist/", "");
+    return todoistId ?? "";
   } catch (e) {
     console.warn(e);
     return "";

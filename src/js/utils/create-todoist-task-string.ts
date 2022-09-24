@@ -21,6 +21,13 @@ export const createTodoistTaskString = ({
     } else {
       // isUrl
       const [matchedString, title, urlString] = matchedLink;
+      if (
+        matchedString === undefined ||
+        urlString === undefined ||
+        title === undefined
+      ) {
+        return;
+      }
       const getDiff = (diffMe: string, diffBy: string) =>
         diffMe.split(diffBy).join("");
       const diff = getDiff(content, matchedString);
@@ -32,6 +39,9 @@ export const createTodoistTaskString = ({
         let newTitle = title;
         let tagString = "";
         matchedTags.forEach(([origin, content]) => {
+          if (origin === undefined) {
+            return;
+          }
           newTitle = newTitle.replace(origin, "");
           tagString = `${tagString} #[[${content}]]`;
         });

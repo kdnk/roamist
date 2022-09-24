@@ -26,11 +26,12 @@ const getExistingWorkflows: () => { name: string; uid: string }[] = () => {
     .map((block: string[]) => {
       const [text, uid] = block;
       return {
-        uid,
-        name: text
-          .replace(createTagRegex("SmartBlock"), "")
-          .replace(createTagRegex("42SmartBlock"), "")
-          .trim(),
+        uid: uid ?? "",
+        name:
+          text
+            ?.replace(createTagRegex("SmartBlock"), "")
+            .replace(createTagRegex("42SmartBlock"), "")
+            .trim() ?? "",
       };
     });
 };
