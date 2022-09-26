@@ -17,10 +17,7 @@ export const completeTaskCheckbox = (
     for (const mutation of mutations) {
       mutation.addedNodes.forEach(async (node) => {
         try {
-          console.log("[index.ts:18] node: ", node);
           const input = node.childNodes[0]?.childNodes[0]?.childNodes[0];
-          // eslint-disable-next-line
-          console.log("[index.ts:20] input: ", input);
           if (!input || !(input instanceof HTMLInputElement)) {
             return;
           }
@@ -28,23 +25,15 @@ export const completeTaskCheckbox = (
             return;
           }
           const span = node;
-          // eslint-disable-next-line
-          console.log("[index.ts:27] span: ", span);
           if (!(span instanceof HTMLSpanElement)) {
             return;
           }
           const text = span.innerHTML;
-          // eslint-disable-next-line
-          console.log("[index.ts:35] text: ", text);
           const todoistId = getTodoistIdFromBlock(text);
-          // eslint-disable-next-line
-          console.log("[index.ts:35] todoistId: ", todoistId);
           if (!todoistId) {
             return;
           }
           const api = getTodoistApi(extensionAPI);
-          // eslint-disable-next-line
-          console.log("[index.ts:42] api: ", api);
           const todoistTask = await api.getTask(Number(todoistId));
           if (todoistTask.due?.recurring) {
             const dueDate = new Date(todoistTask.due?.date);
