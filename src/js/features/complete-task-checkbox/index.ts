@@ -8,7 +8,6 @@ export let observer: MutationObserver | undefined = undefined;
 export const completeTaskCheckbox = (
   extensionAPI: OnloadArgs["extensionAPI"]
 ) => {
-  // const targetNode = document.querySelector(".roam-article");
   const targetNode = document.getElementsByClassName("roam-main")[0];
   if (!targetNode) {
     throw new Error("targetNode doesn't exist.");
