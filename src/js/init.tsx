@@ -87,6 +87,14 @@ export const onload = (extensionAPI: OnloadArgs["extensionAPI"]) => {
             placeholder: "",
           },
         },
+        {
+          id: "disable-checkbox-sync",
+          name: "Disable checkbox sync feature",
+          description: "Diable sync checkbox feature between roam and todoist",
+          action: {
+            type: "switch",
+          },
+        },
       ],
     });
 

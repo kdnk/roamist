@@ -70,6 +70,9 @@ export const completeTaskCheckbox = (
     observer = new MutationObserver(callback);
   }
   const observe = () => {
+    if (extensionAPI.settings.get("disable-checkbox-sync")) {
+      return;
+    }
     observer?.observe(targetNode, {
       subtree: true,
       childList: true,
