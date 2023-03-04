@@ -46,7 +46,7 @@
     "webpack-cli": "^4.10.0"
   },
   "dependencies": {
-    "@doist/todoist-api-typescript": "^1.5.0",
+    "@doist/todoist-api-typescript": "^2.1.2",
     "roamjs-components": "^0.70.18"
   }
 }

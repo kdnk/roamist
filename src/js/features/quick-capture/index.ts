@@ -74,7 +74,7 @@ function getFilter(extensionAPI: OnloadArgs["extensionAPI"]) {
 
 function createTaskString(task: Task) {
   const date = window.roamAlphaAPI.util.dateToPageTitle(
-    new Date(task.created.split("T")[0] as string)
+    new Date(task.createdAt.split("T")[0] as string)
   );
 
   let taskString = task.content;

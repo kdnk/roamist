@@ -20,7 +20,7 @@ export const completeTask = async ({
     const api = getTodoistApi(extensionAPI);
 
     const { todoistId, text, blockUid } = getBlockInfo(targetUid);
-    await api.closeTask(Number(todoistId));
+    await api.closeTask(todoistId);
 
     const newContent = text.replace("{{[[TODO]]}}", "{{[[DONE]]}}");
     await updateBlock({ text: newContent, uid: blockUid });

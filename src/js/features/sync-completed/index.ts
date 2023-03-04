@@ -41,7 +41,7 @@ export const syncCompleted = async ({
     const activeTodoistIds = tasks.map((task) => task.id);
     const roamTodoBlocks = onlyToday
       ? await getTodoBlocksUnderCurrentPage()
-      : await getTodoBlocksReferringToRoamist();
+      : getTodoBlocksReferringToRoamist();
     const todoistBlocks = await getTodoBlocksWithTodoistId(roamTodoBlocks);
     const completedBlocks = getCompletedBlockUIds(
       activeTodoistIds,

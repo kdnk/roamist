@@ -33,8 +33,8 @@ export const completeTaskCheckbox = (
             return;
           }
           const api = getTodoistApi(extensionAPI);
-          const todoistTask = await api.getTask(Number(todoistId));
-          if (todoistTask.due?.recurring) {
+          const todoistTask = await api.getTask(todoistId);
+          if (todoistTask.due?.isRecurring) {
             const dueDate = new Date(todoistTask.due?.date);
             const today = new Date();
             if (today < dueDate) {
